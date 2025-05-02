@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/admin"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <!-- Top Greeting Section -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginBottom="16dp">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <GridLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="86dp">
+
+                    <Button
+                        android:layout_marginTop="15dp"
+                        android:layout_width="35dp"
+                        android:layout_height="28dp"
+                        android:layout_row="0"
+                        android:layout_column="0"
+                        android:background="@drawable/sidemenu"
+                        android:onClick="onMenuClick"
+                        android:textStyle="bold" />
+
+
+                    <TextView
+                        android:id="@+id/name"
+                        android:layout_width="39dp"
+                        android:layout_height="wrap_content"
+                        android:layout_row="1"
+                        android:layout_column="0"
+                        android:text="Hi, "
+                        android:textColor="#444444"
+                        android:textSize="20dp"
+                        android:textStyle="bold"
+                        android:layout_marginLeft="20dp"/>
+
+                    <TextView
+                        android:id="@+id/textView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_row="1"
+                        android:layout_column="3"
+                        android:text="December 12, 1923"
+                        android:textColor="#444444"
+                        android:textSize="14sp" />
+
+                </GridLayout>
+
+
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- Search Bar -->
+
+        <!-- Services Grid -->
+        <GridLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:columnCount="2"
+            android:useDefaultMargins="true"
+            android:layout_marginBottom="24dp">
+
+            <!-- Grooming -->
+            <LinearLayout
+
+                android:layout_width="9dp"
+                android:layout_height="120dp"
+                android:layout_columnWeight="1"
+                android:background="@drawable/border"
+                android:orientation="vertical"
+                android:padding="12dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:onClick="onServiceManageClick">
+
+                <ImageView
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:src="@drawable/user"
+                    android:layout_gravity="left"
+                    android:layout_marginTop="10dp"/>
+
+            </LinearLayout>
+
+            <!-- Boarding -->
+
+            <!-- Dog Walking -->
+
+            <!-- Pet Training -->
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="113dp"
+                android:layout_columnWeight="1"
+                android:background="@drawable/border"
+
+                android:orientation="vertical"
+                android:padding="12dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:onClick="onInventoryClick">
+
+                <ImageView
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_marginTop="10dp"
+                    android:src="@drawable/calendar"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="8dp"
+                    android:text="Total Products"
+                    android:layout_marginTop="10dp"/>
+            </LinearLayout>
+        </GridLayout>
+
+        <!-- Upcoming Appointments Section Title -->
+        <GridLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <GridLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/appointmentsView4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_row="1"
+                android:layout_column="0"
+                android:padding="16dp"
+                android:scrollbars="vertical" />
+        </GridLayout>
+    </LinearLayout>
+
+</FrameLayout>

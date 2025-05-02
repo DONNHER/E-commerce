@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:background="@drawable/blue"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/Date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Appointment: "
+        android:textColor="@color/white"/>
+    <TextView
+        android:id="@+id/Time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Time: "
+        android:textColor="@color/white"/>
+    <TextView
+        android:id="@+id/cost"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Total cost: "
+        android:textColor="@color/white"
+        android:layout_marginTop="20dp"/>
+    <TextView
+        android:id="@+id/type"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Animal Type: Dog"
+        android:textColor="@color/white"/>
+    <TextView
+        android:id="@+id/r"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Requested by: "
+        android:textColor="@color/white"/>
+    <TextView
+        android:id="@+id/service"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Service: "
+        android:textColor="@color/white"/>
+    <GridLayout
+        android:layout_marginTop="10dp"
+        android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+        <Button
+            android:id="@+id/cancel"
+            android:layout_width="77dp"
+            android:layout_height="31dp"
+            android:background="@drawable/red"
+            android:text="Cancel"
+            android:textSize="10dp"
+            android:layout_marginEnd="10dp">
+
+        </Button>
+
+        <Button
+            android:id="@+id/confirm"
+            android:layout_width="73dp"
+            android:layout_height="30dp"
+            android:background="@drawable/green"
+            android:text="Confirm"
+            android:textSize="10dp">
+        </Button>
+    </GridLayout>
+</LinearLayout>

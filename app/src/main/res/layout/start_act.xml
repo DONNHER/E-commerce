@@ -1,0 +1,127 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@android:color/white">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="402dp"
+        android:layout_gravity="center_horizontal|top"
+        android:contentDescription="@string/getstartedimage"
+        android:src="@drawable/image_gs" />
+
+    <ImageView
+        android:layout_width="62dp"
+        android:layout_height="71dp"
+        android:layout_marginTop="383dp"
+        android:layout_marginStart="165dp"
+        android:src="@drawable/image_curve"
+        android:contentDescription="@string/division" />
+
+    <ImageView
+        android:layout_width="35dp"
+        android:layout_height="10dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="390dp"
+        android:layout_marginStart="178dp"
+        android:src="@drawable/line"
+        android:contentDescription="@string/line" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#2BB673"
+        android:gravity="center|top"
+        android:orientation="vertical"
+        android:padding="30dp"
+        android:layout_marginTop="403dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="@string/your_favorite_meals"
+            android:textSize="18sp" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/delivery_to"
+                android:textSize="18sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/your_doorstep"
+                android:textColor="#000000"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:text="@string/discover_delicious_meals_fast_delivery_and_nexclusive_all_in_one_app"
+            android:textAlignment="center"
+            android:textSize="14sp" />
+    </LinearLayout>
+
+    <FrameLayout
+        android:id="@+id/swipe_frame"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:background="@drawable/border"
+        android:layout_gravity="bottom|center"
+        android:clipChildren="false"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="30dp">
+
+        <!-- Swipe text -->
+        <TextView
+            android:id="@+id/swipe_text"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="@string/swipe_to_confirm"
+            android:textColor="#000"
+            android:textStyle="bold"
+            android:textSize="16sp" />
+
+        <!-- Thumb to swipe -->
+        <ImageView
+            android:id="@+id/swipe_thumb"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start|center_vertical"
+            android:background="@drawable/circle"
+            android:contentDescription="TODO"
+            android:src="@drawable/head_arrow"
+            android:layout_marginStart="10dp" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end|center_vertical"
+            android:contentDescription="TODO"
+            android:src="@drawable/head_arrow"
+            android:layout_marginEnd="25dp"
+            />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end|center_vertical"
+            android:contentDescription="TODO"
+            android:src="@drawable/head_arrow"
+            android:layout_marginEnd="10dp" />
+    </FrameLayout>
+</RelativeLayout>

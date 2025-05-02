@@ -1,33 +1,113 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/container"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingTop="?attr/actionBarSize">
+    >
 
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/nav_view"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="0dp"
-        android:layout_marginEnd="0dp"
-        android:background="?android:attr/windowBackground"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:menu="@menu/bottom_nav_menu" />
-
-    <fragment
-        android:id="@+id/nav_host_fragment_activity_main"
-        android:name="androidx.navigation.fragment.NavHostFragment"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:defaultNavHost="true"
-        app:layout_constraintBottom_toTopOf="@id/nav_view"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:navGraph="@navigation/mobile_navigation" />
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <!-- Search Bar -->
+
+
+        <!-- Services Grid -->
+
+        <GridLayout
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginBottom="24dp"
+            android:columnCount="5"
+            android:padding="0dp"
+            android:useDefaultMargins="false">
+            <TextView
+                android:layout_width="51dp"
+                android:layout_height="25dp"
+                android:layout_row="0"
+                android:layout_column="2"
+                android:background="@color/white"
+                android:gravity="center"
+                android:onClick="onLogClick"
+                android:text="@string/login"
+                android:textColor="@color/black"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="76dp"
+                android:layout_height="25dp"
+                android:layout_row="0"
+                android:layout_column="3"
+                android:background="@color/white"
+                android:gravity="center"
+                android:onClick="onResClick"
+                android:text="@string/register"
+                android:textColor="@color/black"
+                android:textStyle="bold" />
+
+            <Button
+                android:layout_width="47dp"
+                android:layout_height="25dp"
+                android:layout_row="0"
+                android:layout_column="4"
+                android:background="@drawable/sidemenu"
+                android:onClick="onMenuClick2"
+                android:textStyle="bold" />
+
+        </GridLayout>
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_marginBottom="24dp"
+            android:autofillHints=""
+            android:background="@drawable/edit_background"
+            android:drawableStart="@android:drawable/ic_menu_search"
+            android:drawablePadding="8dp"
+            android:hint="@string/search"
+            android:paddingStart="40dp"
+            android:textColorHint="#888888"
+            tools:ignore="RtlSymmetry"
+            android:singleLine="true"/>
+
+        <!-- Search Bar -->
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/appointmentsView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_row="1"
+            android:layout_column="0"
+            android:padding="16dp"
+            android:layout_marginTop="20dp"
+            android:scrollbars="vertical"/>
+
+        <GridLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/appointmentsView5"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_row="1"
+                android:layout_column="0"
+                android:padding="16dp"
+                android:scrollbars="vertical"/>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/appointments23"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_row="1"
+                android:layout_column="0"
+                android:padding="16dp"
+                android:scrollbars="vertical"/>
+        </GridLayout>
+
+
+
+    </LinearLayout>
+
+</FrameLayout>

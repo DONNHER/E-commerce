@@ -1,0 +1,208 @@
+<!-- UI Layout XML -->
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="335dp"
+    android:layout_height="match_parent"
+    android:background="@android:color/transparent"
+    android:layout_gravity="center">
+
+<LinearLayout
+    android:textAlignment="center"
+    android:id="@+id/fragment_container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@drawable/dialog_background"
+    >
+
+    <TextView
+        android:id="@+id/serviceName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:text="Name"
+        android:textColor="@color/black"
+        android:textSize="16sp" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+
+        <TextView
+            android:id="@+id/serviceDescription"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:text="Description"
+            android:textColor="@color/black"
+            android:textSize="10sp" />
+
+
+    </LinearLayout>
+
+    <GridLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/num_sign"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left"
+            android:layout_margin="0dp"
+            android:padding="0dp"
+            android:paddingTop="8dp"
+            android:text="₱"
+            android:textSize="13dp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/price9"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="left"
+            android:layout_margin="0dp"
+            android:layout_marginLeft="10dp"
+            android:padding="0dp"
+            android:paddingTop="8dp"
+            android:text="0.0"
+            android:textSize="13dp"
+            android:textStyle="bold" />
+    </GridLayout>
+    <EditText
+        android:id="@+id/namePatient"
+        android:autofillHints=""
+        android:hint=""
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="12dp"
+        android:background="@drawable/edit_background"
+        android:singleLine="true"/>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:weightSum="3"
+        android:background="@drawable/border">
+
+        <EditText
+            android:id="@+id/editTextMonth"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:hint="MM"
+            android:inputType="number"
+            android:maxLength="2"
+            android:textSize="10dp"/>
+
+        <EditText
+            android:id="@+id/editTextDay"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:hint="DD"
+            android:inputType="number"
+            android:maxLength="2" />
+
+        <EditText
+            android:id="@+id/editTextYear"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:hint="YYYY"
+            android:inputType="number"
+            android:maxLength="4" />
+
+        <ImageView
+            android:id="@+id/imageViewCalendar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:contentDescription="Calendar icon"
+            android:padding="8dp"
+            android:src="@android:drawable/ic_menu_my_calendar"
+            android:background="@drawable/border"/>
+
+    </LinearLayout>
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Morning Slots (8:00 AM - 12:00 PM)"
+        android:textColor="@color/black"
+        android:layout_marginTop="16dp"
+        android:paddingStart="16dp" />
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Evening Slots (1:00 PM - 4:00 PM)"
+        android:textColor="@color/black"
+        android:layout_marginTop="10dp"
+        android:paddingStart="16dp" />
+
+    <LinearLayout
+        android:id="@+id/eveSlots"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="8dp"
+        android:layout_marginTop="5dp"
+        android:layout_gravity="center">
+
+<!--        &lt;!&ndash; Time slot buttons go here &ndash;&gt;-->
+<!--        <androidx.recyclerview.widget.RecyclerView-->
+<!--            android:id="@+id/recycleView2"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:scrollbars="horizontal"-->
+<!--            />-->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="Click to select Time"
+                android:background="@drawable/edit_background"
+                android:padding="10dp"
+                android:textSize="16sp" />
+
+            <ImageView
+                android:id="@+id/imageViewTime"
+                android:layout_width="50dp"
+                android:layout_height="match_parent"
+                android:contentDescription="Select Time"
+                android:padding="8dp"
+                android:src="@drawable/settings" />
+        </LinearLayout>
+
+        <!--        <Button-->
+<!--            android:id="@+id/itemBtn2"-->
+<!--            android:layout_width="60dp"-->
+<!--            android:layout_height="30dp"-->
+<!--            android:text="Item">-->
+<!--        </Button>-->
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/scheduleButton"
+        android:layout_width="wrap_content"
+        android:layout_height="49dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="20dp"
+        android:backgroundTint="@color/black"
+        android:text="SUMBIT"
+        android:textColor="@color/white" />
+</LinearLayout>
+</ScrollView>

@@ -1,0 +1,123 @@
+<!-- res/layout/activity_signup.xml -->
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="335dp"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="24dp">
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/manager_login"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:layout_gravity="center"
+            android:layout_marginBottom="16dp" />
+
+        <EditText
+            android:id="@+id/username"
+            android:autofillHints=""
+            android:hint="@string/username"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="12dp"
+            android:background="@drawable/border"
+            android:singleLine="true" />
+
+        <!--            android:drawableStart="@drawable/ic_user" -->
+
+        <EditText
+            android:id="@+id/pass"
+            android:autofillHints=""
+            android:hint="@string/passw"
+            android:inputType="textPassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="12dp"
+            android:layout_marginTop="12dp"
+            android:background="@drawable/border"
+            android:singleLine="true" />
+
+        <!--            android:drawableStart="@drawable/ic_lock" -->
+        <!--            android:drawableStart="@drawable/edittext_background" -->
+
+        <CheckBox
+            android:id="@+id/showPasswordCheckBox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/show_password"
+            android:padding="5dp"/>
+        <!--            android:drawableStart="@drawable/ic_lock" -->
+        <!--            android:drawableStart="@drawable/edittext_background" -->
+
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="22dp"
+            android:layout_marginBottom="0dp"
+            android:text="@string/i_accept_privacy_policy_amp_term_of_use" />
+
+        <Button
+            android:id="@+id/btnLogin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/log"
+            android:backgroundTint="#5A2F17"
+            android:textColor="@android:color/white"
+            android:layout_marginTop="16dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/or"
+            android:gravity="center"
+            android:layout_marginTop="12dp" />
+
+        <Button
+            android:text="@string/sign_up_with_google"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp" />
+        <!--            android:drawableStart="@drawable/ic_google" -->
+
+
+        <Button
+            android:text="@string/sign_up_with_facebook"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp" />
+        <!--            android:drawableStart="@drawable/ic_apple" -->
+
+        <GridLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center">
+
+            <TextView
+                android:layout_width="191dp"
+                android:layout_height="wrap_content"
+                android:layout_row="0"
+                android:layout_column="0"
+                android:layout_gravity="center"
+                android:layout_marginTop="16dp"
+                android:text="@string/already_have_an_account"
+                android:layout_marginStart="20dp"/>
+            <TextView
+                android:id="@+id/bot_signUp"
+                android:layout_width="84dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="16dp"
+                android:focusable="true"
+                android:text="@string/sign_up"
+                android:clickable="true"
+                android:textColor="@android:color/holo_blue_dark"
+                />
+        </GridLayout>
+    </LinearLayout>
+</ScrollView>
