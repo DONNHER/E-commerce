@@ -19,6 +19,7 @@ public class settingAct extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
 //
 //        if (!isSessionActive()) {
 //            // Redirect to Login if session is not found
@@ -40,6 +41,26 @@ public class settingAct extends AppCompatActivity {
 //            Intent intent = new Intent(settingAct.this, userAct.class);
 //            startActivity(intent);
 //        });
+        ImageView home = findViewById(R.id.home);
+        home.setOnClickListener(view -> {
+            Intent homepage = new Intent(this,UserDashboardAct.class);
+            startActivity(homepage);
+        });
+        ImageView menu = findViewById(R.id.menu);
+        menu.setOnClickListener(view -> {
+            Intent menupage = new Intent(this,productsAct.class);
+            startActivity(menupage);
+        });
+//        ImageView history = findViewById(R.id.history);
+//        menu.setOnClickListener(view -> {
+//            Intent menupage = new Intent(this,productsAct.class);
+//            startActivity(menupage);
+//        });
+        ImageView profile = findViewById(R.id.profile);
+        profile.setOnClickListener(view -> {
+            Intent profilepage = new Intent(this, settingAct.class);
+            startActivity(profilepage);
+        });
     }
 
     private void initializeServices() {

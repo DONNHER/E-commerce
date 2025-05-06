@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentActivity;
@@ -40,7 +41,6 @@ public class product_adapt  extends   RecyclerView.Adapter<product_adapt.ViewHol
         Item item = items.get(position);
         holder.price.setText(""+ item.getPrice());
         holder.name.setText(item.getName());
-//        holder.slots.setText(item.getQuantity()+" units");
         Glide.with(holder.pic.getContext())
                 .load(item.getImage())
                 .into(holder.pic);
@@ -48,6 +48,7 @@ public class product_adapt  extends   RecyclerView.Adapter<product_adapt.ViewHol
             product_management dialogFragment = new product_management();
             dialogFragment.show(fragmentActivity.getSupportFragmentManager(), "AppointmentDialog");
         });
+        holder.favorite.setOnClickListener(v -> Toast.makeText(fragmentActivity,"Added Successfuly",Toast.LENGTH_SHORT).show());
     }
 
     @Override
@@ -59,12 +60,12 @@ public class product_adapt  extends   RecyclerView.Adapter<product_adapt.ViewHol
         public TextView price;
         public ImageView pic;
         public TextView name;
-        public ImageView slots;
+        public ImageView favorite;
         public ViewHolder(@NonNull View itemView){
             super(itemView);
             price = itemView.findViewById(R.id.price);
             name = itemView.findViewById(R.id.name);
-            slots = itemView.findViewById(R.id.slot);
+            favorite = itemView.findViewById(R.id.favorite);
         }
     }
 }

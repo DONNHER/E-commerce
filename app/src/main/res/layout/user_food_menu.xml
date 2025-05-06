@@ -21,7 +21,7 @@
 
         <!-- Avatar -->
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="start"
             android:layout_marginTop="20dp"
@@ -102,6 +102,7 @@
 
 
         <ImageView
+            android:id="@+id/home"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_marginStart="40dp"
@@ -111,6 +112,7 @@
 
 
         <ImageView
+            android:id="@+id/menu"
             android:layout_width="38dp"
             android:layout_height="42dp"
             android:layout_row="0"
@@ -122,6 +124,7 @@
 
 
         <ImageView
+            android:id="@+id/history"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_gravity="end"
@@ -130,6 +133,7 @@
         </ImageView>
 
         <ImageView
+            android:id="@+id/profile"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_marginStart="20dp"

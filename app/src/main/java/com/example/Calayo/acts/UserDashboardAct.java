@@ -1,6 +1,7 @@
 package com.example.Calayo.acts;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import androidx.recyclerview.widget.*;
 import android.widget.*;
@@ -8,6 +9,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.view.View;
 import com.example.Calayo.R;
 import com.example.Calayo.adapters.order_adaptor;
+import com.example.Calayo.adapters.product_adapt;
+import com.example.Calayo.entities.Item;
 import com.example.Calayo.entities.Order;
 import com.example.Calayo.fragments.userMenu;
 import com.google.firebase.auth.FirebaseAuth;
@@ -22,8 +25,10 @@ import java.util.Map;
 public class UserDashboardAct extends AppCompatActivity {
     private  RecyclerView appointmentsView ;
     private order_adaptor Adapt;
+    private product_adapt productAdapt;
     private Button btn1, btn2;
-    private final ArrayList<Order> orders = new ArrayList<>();
+    private  ArrayList<Order> orders = new ArrayList<>();
+    private  ArrayList<Item> items = new ArrayList<>();
     private RecyclerView recyclerView;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private final FirebaseAuth myAuth= FirebaseAuth.getInstance();
@@ -32,17 +37,35 @@ public class UserDashboardAct extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.user_d_board);
-        recyclerView = findViewById(R.id.appointmentsView);
+        recyclerView = findViewById(R.id.Products_Recycler);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        Adapt = new order_adaptor();
-        appointmentsView.setLayoutManager(new LinearLayoutManager(this));
-        appointmentsView.setAdapter(Adapt);
-        TextView name = findViewById(R.id.name);
-        name.setText("Hi, " + myAuth.getCurrentUser().getDisplayName());
-        btn2.setOnClickListener(v ->filter("Pending"));
-        btn1.setOnClickListener(v ->filter("Confirmed"));
-        filter("Pending");
-        appointments();
+        productAdapt = new product_adapt(items,this);
+//        appointmentsView.setLayoutManager(new LinearLayoutManager(this));
+//        appointmentsView.setAdapter(Adapt);
+//        btn2.setOnClickListener(v ->filter("Pending"));
+//        btn1.setOnClickListener(v ->filter("Confirmed"));
+//        filter("Pending");
+//        appointments();
+        ImageView home = findViewById(R.id.home);
+        home.setOnClickListener(view -> {
+            Intent homepage = new Intent(this,UserDashboardAct.class);
+            startActivity(homepage);
+        });
+        ImageView menu = findViewById(R.id.menu);
+        menu.setOnClickListener(view -> {
+            Intent menupage = new Intent(this,productsAct.class);
+            startActivity(menupage);
+        });
+//        ImageView history = findViewById(R.id.history);
+//        menu.setOnClickListener(view -> {
+//            Intent menupage = new Intent(this,productsAct.class);
+//            startActivity(menupage);
+//        });
+        ImageView profile = findViewById(R.id.profile);
+        profile.setOnClickListener(view -> {
+            Intent profilepage = new Intent(this, settingAct.class);
+            startActivity(profilepage);
+        });
     }
 
     private void appointments(){
@@ -52,6 +75,7 @@ public class UserDashboardAct extends AppCompatActivity {
                 Order order = documentSnapshot.toObject(Order.class);
                 orders.add(order);
             }
+            filter("Confirmed");
             filter("Confirmed");
         });
     }

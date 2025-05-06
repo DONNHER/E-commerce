@@ -26,7 +26,9 @@
                 android:id="@+id/btnBack"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-                android:background="@drawable/undo" />
+                android:background="@drawable/undo"
+                android:onClick="back"
+                />
 
             <ImageView
                 android:layout_width="50dp"
@@ -238,6 +240,7 @@
 
 
         <ImageView
+            android:id="@+id/home"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_marginStart="40dp"
@@ -247,6 +250,7 @@
 
 
         <ImageView
+            android:id="@+id/menu"
             android:layout_width="38dp"
             android:layout_height="42dp"
             android:layout_row="0"
@@ -257,6 +261,7 @@
         </ImageView>
 
         <ImageView
+            android:id="@+id/history"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_gravity="end"
@@ -266,6 +271,7 @@
         </ImageView>
 
         <ImageView
+            android:id="@+id/profile"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_marginStart="20dp"

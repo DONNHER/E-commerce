@@ -1,8 +1,10 @@
 package com.example.Calayo.acts;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -29,13 +31,33 @@ public class productsAct extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.products);
+        setContentView(R.layout.user_food_menu);
         recyclerView = findViewById(R.id.Products_Recycler);
         list = new ArrayList<>();
         Adaptor = new product_adapt(list,this);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(Adaptor);
         loadServices();
+        ImageView home = findViewById(R.id.home);
+        home.setOnClickListener(view -> {
+            Intent homepage = new Intent(this,UserDashboardAct.class);
+            startActivity(homepage);
+        });
+        ImageView menu = findViewById(R.id.menu);
+        menu.setOnClickListener(view -> {
+            Intent menupage = new Intent(this,productsAct.class);
+            startActivity(menupage);
+        });
+//        ImageView history = findViewById(R.id.history);
+//        menu.setOnClickListener(view -> {
+//            Intent menupage = new Intent(this,productsAct.class);
+//            startActivity(menupage);
+//        });
+        ImageView profile = findViewById(R.id.profile);
+        profile.setOnClickListener(view -> {
+            Intent profilepage = new Intent(this, settingAct.class);
+            startActivity(profilepage);
+        });
     }
 
     @Override
