@@ -70,4 +70,5 @@
     <string name="log_in"><u>Resend Code</u></string>
     <string name="otp_verification">Create Your Food Delivery</string>
     <string name="hurry_offer_end_soon">Get 40% off\nYour First Order!</string>
+    <string name="cook"><![CDATA[Cook & steam up]]></string>
 </resources>

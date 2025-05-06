@@ -1,96 +1,99 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="@drawable/border"
-    android:clickable="true"
-    android:focusable="true"
-    android:orientation="vertical"
-    android:padding="12dp" >
-
-    <GridLayout
+<GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:columnCount="2">
+        android:layout_height="200dp"
+        android:orientation="horizontal"
+        android:background="@drawable/pizza1"
+        android:padding="12dp"
+        android:layout_margin="15dp">
 
-        <ImageView
-            android:id="@+id/image2"
-            android:layout_width="150dp"
-            android:layout_height="160dp" />
+        <GridLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-        <LinearLayout
-            android:layout_width="236dp"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/service_name1"
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="15dp"
-                android:layout_marginLeft="70dp"
-                android:text="Name"
-                android:textSize="18dp"
-                android:textStyle="bold"/>
+                android:layout_gravity="center"
+                android:background="@drawable/edit_background"
+                android:padding="0dp">
 
-            <GridLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
-
-                <TextView
-                    android:id="@+id/num_sign"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="left"
-                    android:layout_margin="0dp"
-                    android:padding="0dp"
-                    android:paddingTop="8dp"
-                    android:text="₱"
-                    android:textSize="13dp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/price2"
-                    android:layout_width="match_parent"
+                <ImageView
+                    android:layout_width="20dp"
                     android:layout_height="match_parent"
-                    android:layout_gravity="left"
-                    android:layout_margin="0dp"
-                    android:layout_marginLeft="10dp"
-                    android:padding="0dp"
-                    android:paddingTop="8dp"
-                    android:text="0.0"
-                    android:textSize="13dp"
-                    android:textStyle="bold" />
-            </GridLayout>
+                    android:layout_gravity="center"
 
-            <GridLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+                    android:paddingLeft="5dp"
+                    android:src="@drawable/p" />
 
                 <TextView
+                    android:id="@+id/price"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="left"
-                    android:layout_margin="0dp"
-                    android:padding="0dp"
-                    android:paddingTop="8dp"
-                    android:text="Available:"
-                    android:textSize="13dp"
-                    android:textStyle="bold" />
+                    android:layout_gravity="end"
+                    android:background="@drawable/edit_background"
+                    android:text="200"
+                    android:textColor="@color/black"
+                    android:paddingEnd="5dp"
+                    android:paddingTop="0dp"
+                    android:paddingStart="0dp"
+                    android:paddingBottom="0dp"/>
+            </LinearLayout>
+
+            <ImageView
+                android:id="@+id/slot"
+                android:layout_width="30dp"
+                android:layout_height="28dp"
+                android:layout_gravity="center|end"
+                android:background="@drawable/fav"
+                android:text="See All"
+                android:textColor="@color/black"
+                android:src="@drawable/fa"
+                />
+
+        </GridLayout>
+
+        <GridLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_column="0"
+            android:layout_gravity="bottom"
+            android:background="@drawable/edit_background">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="@drawable/edit_background"
+                android:padding="0dp">
+
 
                 <TextView
-                    android:id="@+id/quantity"
-                    android:layout_width="match_parent"
+                    android:id="@+id/name"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="left"
-                    android:layout_margin="0dp"
-                    android:layout_marginLeft="10dp"
-                    android:padding="0dp"
-                    android:paddingTop="8dp"
-                    android:text="0.0"
-                    android:textSize="13dp"
-                    android:textStyle="bold" />
+                    android:layout_gravity="end"
+                    android:background="@drawable/edit_background"
+                    android:text="Pizza"
+                    android:textStyle="bold"
+                    android:textColor="@color/black"
+                    android:paddingEnd="5dp"
+                    android:paddingTop="0dp"
+                    android:paddingStart="10dp"
+                    android:textSize="18dp"
+                    android:paddingBottom="0dp"/>
+            </LinearLayout>
 
-            </GridLayout>
-        </LinearLayout>
-    </GridLayout>
-</LinearLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:background="@drawable/green"
+                android:text="Add to Cart"
+                android:textColor="@color/black"
+                android:src="@drawable/fa"
+                android:padding= "6dp"
+                />
+
+        </GridLayout>
+
+</GridLayout>

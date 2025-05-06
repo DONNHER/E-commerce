@@ -3,7 +3,6 @@ package com.example.Calayo.acts;
 import com.example.Calayo.entities.Order;
 import com.example.Calayo.fragments.userLoginAct;
 import com.example.Calayo.fragments.userRegisterAct;
-import com.example.Calayo.acts.splash;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -29,7 +28,7 @@ public class main_act extends AppCompatActivity {
     private Button btn1, btn2;
     private final ArrayList<Order> orders = new ArrayList<>();
     private RecyclerView recyclerView;
-    private FirebaseFirestore db = FirebaseFirestore.getInstance();
+//    private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private final FirebaseAuth myAuth= FirebaseAuth.getInstance();
 
     @Override
@@ -37,24 +36,16 @@ public class main_act extends AppCompatActivity {
         super.onStart();
         FirebaseUser user = myAuth.getCurrentUser();
         if(user != null){
-            String uid = user.getUid();
-            db.collection("users").document(uid).get().addOnSuccessListener(documentSnapshot -> {
-                if(documentSnapshot.exists()) {
-                    if("user".equals(documentSnapshot.getString("role"))){
+//            String uid = user.getUid();
+//            db.collection("users").document(uid).get().addOnSuccessListener(documentSnapshot -> {
+//                if(documentSnapshot.exists()) {
+//                    if("user".equals(documentSnapshot.getString("role"))){
                         Intent intent = new Intent(this, UserDashboardAct.class); // Replace with actual target
                         startActivity(intent);
                         finish();
-                    } else if ("manager".equals(documentSnapshot.getString("role"))) {
-                        Intent intent = new Intent(this, ManagerDashB.class); // Replace with actual target
-                        startActivity(intent);
-                        finish();
-                    } else if ("admin".equals(documentSnapshot.getString("role"))) {
-                        Intent intent = new Intent(this, AdminDashB.class); // Replace with actual target
-                        startActivity(intent);
-                        finish();
-                    }
-                }
-            });
+//                    }
+//                }
+//            });
         }
         else{
             Intent intent = new Intent(this, splash.class);
