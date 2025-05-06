@@ -1,148 +1,244 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fillViewport="true"
-    android:background="@color/white">
+    android:padding="16dp"
+    >
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="16dp">
+    <!-- Header -->
+<!--    <LinearLayout-->
+<!--        android:id="@+id/headerLayout"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:orientation="horizontal"-->
+<!--        android:gravity="center_vertical">-->
 
-        <!-- Profile Section (Top) -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:gravity="center_horizontal"
-            android:paddingBottom="16dp">
+<!--        <TextView-->
+<!--            android:id="@+id/timeText"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="12:21"-->
+<!--            android:textSize="16sp"-->
+<!--            android:layout_marginEnd="8dp"/>-->
 
-            <ImageView
-                android:id="@+id/back_button"
-                android:layout_width="33dp"
-                android:layout_height="30dp"
-                android:layout_gravity="start"
-                android:contentDescription="@string/back_button"
-                android:onClick="back"
-                android:src="@drawable/sidemenu">
+<!--        <ImageView-->
+<!--            android:id="@+id/signalIcon"-->
+<!--            android:layout_width="24dp"-->
+<!--            android:layout_height="24dp"-->
+<!--            android:src="@drawable/ic_signal"/>-->
 
-            </ImageView>
+<!--        <ImageView-->
+<!--            android:id="@+id/batteryIcon"-->
+<!--            android:layout_width="24dp"-->
+<!--            android:layout_height="24dp"-->
+<!--            android:src="@drawable/ic_battery"/>-->
+<!--    </LinearLayout>-->
 
-            <!-- Profile Image -->
-            <TextView
-                android:id="@+id/profile_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:text="User"
-                android:textSize="18sp"
-                android:textStyle="bold" />
+<!--    &lt;!&ndash; Welcome Message & Profile &ndash;&gt;-->
+<!--    <LinearLayout-->
+<!--        android:id="@+id/welcomeLayout"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:orientation="horizontal"-->
+<!--        android:gravity="center_vertical"-->
+<!--        app:layout_constraintTop_toBottomOf="@id/headerLayout">-->
 
+<!--        <TextView-->
+<!--            android:id="@+id/welcomeText"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="Welcome"-->
+<!--            android:textSize="22sp"-->
+<!--            android:textStyle="bold"/>-->
 
-            <!-- Name -->
+<!--        <ImageView-->
+<!--            android:id="@+id/profileIcon"-->
+<!--            android:layout_width="40dp"-->
+<!--            android:layout_height="40dp"-->
+<!--            android:src="@drawable/ic_profile"-->
+<!--            android:layout_marginStart="8dp"/>-->
+<!--    </LinearLayout>-->
 
-            <!-- Email -->
-            <TextView
-                android:id="@+id/profile_email"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Username"
-                android:textSize="14sp"
-                android:textColor="@android:color/darker_gray"
-                android:layout_marginBottom="12dp"/>
+<!--    &lt;!&ndash; Navigation Tabs &ndash;&gt;-->
+<!--    <LinearLayout-->
+<!--        android:id="@+id/navigationTabs"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:orientation="horizontal"-->
+<!--        app:layout_constraintTop_toBottomOf="@id/welcomeLayout">-->
 
-        </LinearLayout>
+<!--        <Button-->
+<!--            android:id="@+id/myRecipesTab"-->
+<!--            android:layout_width="0dp"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_weight="1"-->
+<!--            android:text="My Recipes"/>-->
 
-        <!-- Settings Section -->
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Settings"
-            android:textSize="18dp"
-            android:textStyle="bold"
-            android:paddingTop="12dp"
-            android:paddingBottom="12dp"
-            style=""/>
+<!--        <Button-->
+<!--            android:id="@+id/myProfileTab"-->
+<!--            android:layout_width="0dp"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_weight="1"-->
+<!--            android:text="My Profile"/>-->
+<!--    </LinearLayout>-->
 
-        <!-- Account Section -->
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Account"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            android:textColor="@android:color/darker_gray"
-            android:paddingBottom="4dp"/>
+<!--    &lt;!&ndash; Favorites Section &ndash;&gt;-->
+<!--    <TextView-->
+<!--        android:id="@+id/favoritesTitle"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:text="My Favorites"-->
+<!--        android:textSize="20sp"-->
+<!--        android:textStyle="bold"-->
+<!--        app:layout_constraintTop_toBottomOf="@id/navigationTabs"/>-->
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="12dp">
+<!--    <LinearLayout-->
+<!--        android:id="@+id/favoritesList"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:orientation="horizontal"-->
+<!--        app:layout_constraintTop_toBottomOf="@id/favoritesTitle">-->
 
-            <TextView
-                android:id="@+id/security"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/security"
-                android:textSize="14sp"
-                android:padding="10dp"/>
+<!--        <ImageView-->
+<!--            android:id="@+id/recipe1"-->
+<!--            android:layout_width="80dp"-->
+<!--            android:layout_height="80dp"-->
+<!--            android:src="@drawable/ic_recipe1"/>-->
 
+<!--        <ImageView-->
+<!--            android:id="@+id/recipe2"-->
+<!--            android:layout_width="80dp"-->
+<!--            android:layout_height="80dp"-->
+<!--            android:src="@drawable/ic_recipe2"/>-->
 
-            <TextView
-                android:id="@+id/privacy"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Privacy"
-                android:textSize="14sp"
-                android:padding="10dp"/>
-        </LinearLayout>
+<!--        <ImageView-->
+<!--            android:id="@+id/recipe3"-->
+<!--            android:layout_width="80dp"-->
+<!--            android:layout_height="80dp"-->
+<!--            android:src="@drawable/ic_recipe3"/>-->
 
-        <!-- Support & About -->
+<!--        <ImageView-->
+<!--            android:id="@+id/recipe4"-->
+<!--            android:layout_width="80dp"-->
+<!--            android:layout_height="80dp"-->
+<!--            android:src="@drawable/ic_recipe4"/>-->
+<!--    </LinearLayout>-->
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="12dp"/>
+<!--    &lt;!&ndash; Notebook Section &ndash;&gt;-->
+<!--    <TextView-->
+<!--        android:id="@+id/notebookTitle"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:text="Now Notebook"-->
+<!--        android:textSize="20sp"-->
+<!--        android:textStyle="bold"-->
+<!--        app:layout_constraintTop_toBottomOf="@id/favoritesList"/>-->
 
-        <!-- Actions -->
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/actions"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            android:textColor="@android:color/darker_gray"
-            android:paddingTop="12dp"
-            android:paddingBottom="4dp"/>
+<!--    <Button-->
+<!--        android:id="@+id/addNotebook"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:text="+"-->
+<!--        android:textSize="20sp"-->
+<!--        app:layout_constraintTop_toBottomOf="@id/notebookTitle"/>-->
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:padding="12dp">
+<!--    &lt;!&ndash; Account Management &ndash;&gt;-->
+<!--    <LinearLayout-->
+<!--        android:id="@+id/accountManagement"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:orientation="vertical"-->
+<!--        app:layout_constraintTop_toBottomOf="@id/addNotebook">-->
 
-            <!-- Edit Profile Button -->
-            <Button
-                android:id="@+id/btn_edit_profile"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Edit Profile"
-                android:layout_marginBottom="12dp"
-                android:background="@drawable/border"
-                android:layout_marginLeft="50dp"/>
-            <Button
-                android:id="@+id/logout"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/log_out"
-                android:onClick="logoutClick"
-                android:background="@drawable/border"
-                android:layout_marginLeft="50dp"/>
-        </LinearLayout>
+<!--        <Button-->
+<!--            android:id="@+id/editProfile"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="Edit Profile"/>-->
 
-    </LinearLayout>
-</ScrollView>
+<!--        <Button-->
+<!--            android:id="@+id/changePassword"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="Change Your Password"/>-->
+
+<!--        <Button-->
+<!--            android:id="@+id/securityPrivacy"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="Security and Privacy"/>-->
+
+<!--        <Button-->
+<!--            android:id="@+id/changeEmail"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="Change Email"/>-->
+<!--    </LinearLayout>-->
+
+<!--    &lt;!&ndash; Notifications &ndash;&gt;-->
+<!--    <LinearLayout-->
+<!--        android:id="@+id/notificationsSection"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:orientation="horizontal"-->
+<!--        android:gravity="center_vertical"-->
+<!--        app:layout_constraintTop_toBottomOf="@id/accountManagement">-->
+
+<!--        <TextView-->
+<!--            android:id="@+id/pushNotificationsText"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="Push Notifications"-->
+<!--            android:textSize="18sp"-->
+<!--            android:layout_marginEnd="8dp"/>-->
+
+<!--        <Switch-->
+<!--            android:id="@+id/pushNotificationSwitch"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:checked="true"/>-->
+<!--    </LinearLayout>-->
+
+<!--    &lt;!&ndash; Bottom Navigation Bar &ndash;&gt;-->
+<!--    <LinearLayout-->
+<!--        android:id="@+id/bottomNav"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:orientation="horizontal"-->
+<!--        android:gravity="center_horizontal"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent">-->
+
+<!--        <ImageView-->
+<!--            android:id="@+id/homeIcon"-->
+<!--            android:layout_width="40dp"-->
+<!--            android:layout_height="40dp"-->
+<!--            android:src="@drawable/ic_home"/>-->
+
+<!--        <ImageView-->
+<!--            android:id="@+id/searchIcon"-->
+<!--            android:layout_width="40dp"-->
+<!--            android:layout_height="40dp"-->
+<!--            android:src="@drawable/ic_search"/>-->
+
+<!--        <ImageView-->
+<!--            android:id="@+id/recipesIcon"-->
+<!--            android:layout_width="40dp"-->
+<!--            android:layout_height="40dp"-->
+<!--            android:src="@drawable/ic_recipes"/>-->
+
+<!--        <ImageView-->
+<!--            android:id="@+id/notificationsIcon"-->
+<!--            android:layout_width="40dp"-->
+<!--            android:layout_height="40dp"-->
+<!--            android:src="@drawable/ic_notifications"/>-->
+
+<!--        <ImageView-->
+<!--            android:id="@+id/profileIcon"-->
+<!--            android:layout_width="40dp"-->
+<!--            android:layout_height="40dp"-->
+<!--            android:src="@drawable/ic_profile"/>-->
+<!--    </LinearLayout>-->
+
+</androidx.constraintlayout.widget.ConstraintLayout>

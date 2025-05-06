@@ -15,7 +15,7 @@
         android:layout_width="62dp"
         android:layout_height="71dp"
         android:layout_marginTop="383dp"
-        android:layout_marginStart="165dp"
+        android:layout_marginStart="145dp"
         android:src="@drawable/image_curve"
         android:contentDescription="@string/division" />
 
@@ -24,7 +24,7 @@
         android:layout_height="10dp"
         android:layout_gravity="center"
         android:layout_marginTop="390dp"
-        android:layout_marginStart="178dp"
+        android:layout_marginStart="158dp"
         android:src="@drawable/line"
         android:contentDescription="@string/line" />
 

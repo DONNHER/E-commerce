@@ -12,6 +12,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.Calayo.R;
+import com.example.Calayo.fragments.userLoginAct;
 
 public class start_act extends AppCompatActivity {
 
@@ -45,11 +46,11 @@ public class start_act extends AppCompatActivity {
 
                     if (newX >= maxX - 10 && !isConfirmed) {
                         isConfirmed = true;
-                        Intent intent = new Intent(this, main_act.class);
+                        Intent intent = new Intent(this, userLoginAct.class);
                         startActivity(intent);
                         finish();
                         Toast.makeText(this, "Confirmed!", Toast.LENGTH_SHORT).show();
-                        view.performClick();  // Important for accessibility warning
+                        view.performClick();
                     }
                     return true;
 

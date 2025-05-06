@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#E6F4F1"
+    android:padding="16dp">
+
+    <!-- Back Arrow and Title Row -->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/back_arrow"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_alignParentStart="true"
+            android:src="@drawable/undo" />
+
+        <TextView
+            android:id="@+id/food_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Food of Choice"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:layout_centerInParent="true" />
+    </RelativeLayout>
+
+    <!-- Progress Bar -->
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="match_parent"
+        android:layout_height="4dp"
+        android:layout_marginTop="16dp"
+        android:progress="30"
+        android:progressTint="#2DBE8B"
+        android:backgroundTint="#CCCCCC" />
+
+    <!-- Scrollable Grid -->
+
+    <!-- Continue Button -->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:fillViewport="true">
+
+        <GridLayout
+            android:id="@+id/food_grid"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
+            android:alignmentMode="alignMargins"
+            android:columnCount="3"
+            android:rowCount="5"
+            android:useDefaultMargins="true">
+
+            <!-- Example Bubble Buttons -->
+            <Button
+                android:background="@drawable/border"
+                android:text="Burger" />
+
+            <Button
+                android:background="@drawable/green"
+                android:text="Salad" />
+
+            <Button
+                android:background="@drawable/border"
+                android:text="Hotdog" />
+
+            <Button
+                android:background="@drawable/border"
+                android:text="Beef" />
+
+            <Button
+                android:background="@drawable/green"
+                android:text="Pizza" />
+
+            <Button
+                android:background="@drawable/border"
+                android:text="Sushi" />
+
+            <Button
+                android:background="@drawable/green"
+                android:text="Chicken" />
+
+            <!-- Add more as needed -->
+
+        </GridLayout>
+    </ScrollView>
+
+    <Button
+        android:id="@+id/button_continue"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:text="Continue"
+        android:layout_marginTop="12dp"
+        android:layout_marginBottom="12dp"
+        android:background="@drawable/green"/>
+</LinearLayout>

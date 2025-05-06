@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp"
+    >
+
+<!--    &lt;!&ndash; Delivery Fee Notice &ndash;&gt;-->
+<!--    <TextView-->
+<!--        android:id="@+id/deliveryFeeNotice"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:text="₱0 Delivery fee over ₱30"-->
+<!--        android:textSize="18sp"-->
+<!--        android:textStyle="bold"-->
+<!--        app:layout_constraintTop_toTopOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"/>-->
+
+<!--    &lt;!&ndash; Green Check Icon &ndash;&gt;-->
+<!--    <ImageView-->
+<!--        android:id="@+id/checkIcon"-->
+<!--        android:layout_width="40dp"-->
+<!--        android:layout_height="40dp"-->
+<!--        android:src="@drawable/ic_check"-->
+<!--        app:layout_constraintTop_toBottomOf="@id/deliveryFeeNotice"-->
+<!--        app:layout_constraintStart_toStartOf="parent"/>-->
+
+<!--    &lt;!&ndash; Item List &ndash;&gt;-->
+<!--    <LinearLayout-->
+<!--        android:id="@+id/itemList"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:orientation="vertical"-->
+<!--        app:layout_constraintTop_toBottomOf="@id/checkIcon"-->
+<!--        app:layout_constraintStart_toStartOf="parent">-->
+
+<!--        <TextView-->
+<!--            android:id="@+id/item1"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="Item 1: ₱175"-->
+<!--            android:textSize="16sp"/>-->
+
+<!--        <TextView-->
+<!--            android:id="@+id/item2"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="Item 2: ₱25"-->
+<!--            android:textSize="16sp"/>-->
+
+<!--        <TextView-->
+<!--            android:id="@+id/item3"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="Item 3: ₱25"-->
+<!--            android:textSize="16sp"/>-->
+
+<!--        <TextView-->
+<!--            android:id="@+id/item4"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="Item 4: ₱225"-->
+<!--            android:textSize="16sp"/>-->
+<!--    </LinearLayout>-->
+
+<!--    &lt;!&ndash; Notes Input &ndash;&gt;-->
+<!--    <EditText-->
+<!--        android:id="@+id/notesInput"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:hint="Write notes here..."-->
+<!--        android:textSize="16sp"-->
+<!--        android:padding="8dp"-->
+<!--        app:layout_constraintTop_toBottomOf="@id/itemList"-->
+<!--        app:layout_constraintStart_toStartOf="parent"/>-->
+
+<!--    &lt;!&ndash; Checkout Button &ndash;&gt;-->
+<!--    <Button-->
+<!--        android:id="@+id/checkoutButton"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:text="Checkout"-->
+<!--        android:textSize="18sp"-->
+<!--        android:background="@color/green"-->
+<!--        android:textColor="@android:color/white"-->
+<!--        app:layout_constraintTop_toBottomOf="@id/notesInput"-->
+<!--        app:layout_constraintStart_toStartOf="parent"/>-->
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,120 +1,169 @@
-<!-- res/layout/activity_signup.xml -->
+<?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="335dp"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools">
+    android:background="#E6F4F1"> <!-- Green background -->
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="24dp">
+        android:padding="24dp"
+        android:gravity="center_horizontal">
 
+        <!-- Back Arrow -->
+        <ImageView
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/undo"
+            android:layout_gravity="start"
+            android:contentDescription="Back" />
 
+        <!-- Social Login Title -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Welcome Back"
+            android:text="Log in with"
             android:textSize="18sp"
-            android:textStyle="bold"
-            android:layout_gravity="center"
+            android:textColor="#000"
+            android:layout_marginTop="32dp"
             android:layout_marginBottom="16dp" />
 
+        <!-- Social Buttons -->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center">
+
+            <ImageView
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:src="@drawable/fb"
+                android:layout_marginEnd="16dp"
+                android:contentDescription="Login with Facebook" />
+
+            <ImageView
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:src="@drawable/google"
+                android:contentDescription="Login with Google" />
+        </LinearLayout>
+
+        <!-- Log In Title -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Log In"
+            android:textStyle="bold"
+            android:textSize="22sp"
+            android:layout_marginTop="32dp" />
+
+        <!-- Email Input -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Email"
+            android:textSize="16sp"
+            android:layout_gravity="start"
+            android:textColor="@color/black"/>
+
         <EditText
-            android:id="@+id/username"
+            android:id="@+id/email"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
             android:autofillHints=""
-            android:hint="@string/username"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="12dp"
             android:background="@drawable/edit_background"
-            android:singleLine="true"/>
-
-        <!--            android:drawableStart="@drawable/ic_user" -->
-
-        <EditText
-            android:id="@+id/pass"
-            android:hint="Password"
-            android:inputType="textPassword"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:inputType="textEmailAddress"
             android:padding="12dp"
-            android:layout_marginTop="12dp"
-            android:background="@drawable/edit_background"
-            android:singleLine="true" />
-
-        <!--            android:drawableStart="@drawable/ic_lock" -->
-        <!--            android:drawableStart="@drawable/edittext_background" -->
-
-        <CheckBox
-            android:id="@+id/showPasswordCheckBox"
+            android:singleLine="true"
+            />
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Show Password"
-            android:padding="5dp"/>
-        <!--            android:drawableStart="@drawable/ic_lock" -->
-        <!--            android:drawableStart="@drawable/edittext_background" -->
+            android:text="Password"
+            android:textSize="16sp"
+            android:layout_gravity="start"
+            android:textColor="@color/black"
+            android:layout_marginTop="10dp"/>
 
-        <CheckBox
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:layout_marginTop="10dp">
+
+
+            <EditText
+                android:id="@+id/password"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/edit_background"
+                android:padding="16dp"
+                android:inputType="textPassword" />
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="16dp"
+                android:src="@drawable/eye_open"
+                android:contentDescription="Toggle Password" />
+        </RelativeLayout>
+
+
+
+        <!-- Forgot Password -->
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="22dp"
-            android:layout_marginBottom="0dp"
-            android:text="I accept Privacy Policy &amp; Term of Use" />
+            android:text="Forgot Password?"
+            android:textSize="14sp"
+            android:layout_gravity="end"
+            android:layout_marginTop="8dp"
+            android:textColor="#000000" />
 
+        <!-- Login Button -->
         <Button
             android:id="@+id/btnLogin"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Login"
-            android:backgroundTint="#5A2F17"
-            android:textColor="@android:color/white"
-            android:layout_marginTop="16dp" />
+            android:layout_height="56dp"
+            android:text="Log In"
+            android:layout_marginTop="32dp"
+            android:background="@drawable/green"
+            android:textColor="#000000" />
 
+        <!-- Sign Up Text -->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            >
         <TextView
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="- OR -"
-            android:gravity="center"
-            android:layout_marginTop="12dp" />
+            android:text="Don’t have an account? "
+            android:textSize="14sp"
+            android:layout_marginTop="24dp"
+            android:textColor="#000000"
+            android:gravity="center">
 
-        <Button
-            android:text="Sign Up with Google"
-            android:layout_width="match_parent"
+
+        </TextView>
+        <TextView
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp" />
-        <!--            android:drawableStart="@drawable/ic_google" -->
+            android:text=" Sign Up"
+            android:textStyle="bold"
+            android:textSize="16sp"
+            android:layout_marginTop="24dp"
+            android:textColor="@android:color/black"
+            android:onClick="register"
+            android:clickable="true"
+            android:focusable="true"/>
 
-
-        <Button
-            android:text="Sign Up with Facebook"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp" />
-        <!--            android:drawableStart="@drawable/ic_apple" -->
-
-        <GridLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center">
-
-            <TextView
-                android:layout_width="191dp"
-                android:layout_height="wrap_content"
-                android:layout_row="0"
-                android:layout_column="0"
-                android:layout_gravity="center"
-                android:layout_marginTop="16dp"
-                android:text="         Already have an account?"/>
-
-            <TextView
-                android:layout_width="84dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="16dp"
-                android:text=" Sign up"
-                android:onClick="onResClick" />
-
-        </GridLayout>
-    </LinearLayout>
+        </LinearLayout>
+        </LinearLayout>
 </ScrollView>

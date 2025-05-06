@@ -3,6 +3,7 @@ package com.example.Calayo.acts;
 import com.example.Calayo.entities.Order;
 import com.example.Calayo.fragments.userLoginAct;
 import com.example.Calayo.fragments.userRegisterAct;
+import com.example.Calayo.acts.splash;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -21,7 +22,6 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
-//import com.example.uni.management.SessionManager;
 
 public class main_act extends AppCompatActivity {
 //    private RecyclerView appointmentsView ;
@@ -36,7 +36,7 @@ public class main_act extends AppCompatActivity {
     public void onStart(){
         super.onStart();
         FirebaseUser user = myAuth.getCurrentUser();
-        if(user!= null){
+        if(user != null){
             String uid = user.getUid();
             db.collection("users").document(uid).get().addOnSuccessListener(documentSnapshot -> {
                 if(documentSnapshot.exists()) {
@@ -56,14 +56,18 @@ public class main_act extends AppCompatActivity {
                 }
             });
         }
+        else{
+            Intent intent = new Intent(this, splash.class);
+            startActivity(intent);
+        }
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        recyclerView = findViewById(R.id.appointmentsView);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+//        recyclerView = findViewById(R.id.appointmentsView);
+//        recyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
     public void onMenuClick2(View view) {
         Intent intent = new Intent(view.getContext(), settingAct.class);
@@ -71,14 +75,13 @@ public class main_act extends AppCompatActivity {
 
     }
     public void onLogClick(View view) {
-        userLoginAct dialogFragment = new userLoginAct();
-        dialogFragment.show(getSupportFragmentManager(), "LogInDialog");
-        finish();
+        Intent intent = new Intent(view.getContext(), userLoginAct.class);
+        view.getContext().startActivity(intent);
     }
     public void onResClick(View view) {
         userRegisterAct dialogFragment = new userRegisterAct();
-        dialogFragment.show(getSupportFragmentManager(), "RegisterDialog");
-        finish();
+        Intent intent = new Intent(view.getContext(), userLoginAct.class);
+        view.getContext().startActivity(intent);
     }
 
 }

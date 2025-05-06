@@ -34,7 +34,6 @@ public class UserDashboardAct extends AppCompatActivity {
         setContentView(R.layout.user_d_board);
         recyclerView = findViewById(R.id.appointmentsView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        appointmentsView = findViewById(R.id.appointments23);
         Adapt = new order_adaptor();
         appointmentsView.setLayoutManager(new LinearLayoutManager(this));
         appointmentsView.setAdapter(Adapt);

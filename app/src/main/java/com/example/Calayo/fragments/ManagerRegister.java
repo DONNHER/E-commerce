@@ -55,7 +55,7 @@ public class ManagerRegister extends DialogFragment {
                                 db.collection("users").document(user.getUid()).set(data);
                                 Toast.makeText(getContext(), "Successfully Registered.", Toast.LENGTH_SHORT).show();
                                 dismiss();
-                                new userLoginAct().show(getParentFragmentManager(), "LogInDialog");
+//                                new userLoginAct().show(getParentFragmentManager(), "LogInDialog");
                             } else {
                                 Exception e = task.getException();
                                 if (e instanceof FirebaseNetworkException) {

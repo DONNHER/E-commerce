@@ -66,4 +66,8 @@
     <string name="discover_delicious_meals_fast_delivery_and_nexclusive_all_in_one_app">Discover delicious meals, fast delivery, and \nexclusive—all in one app.</string>
     <string name="swipe_to_confirm">Swipe to Confirm</string>
     <string name="Calayo">Calayo</string>
+    <string name="already_have_an">Verify your Gmail to secure your\naccount. Check your inbox for the code.</string>
+    <string name="log_in"><u>Resend Code</u></string>
+    <string name="otp_verification">Create Your Food Delivery</string>
+    <string name="hurry_offer_end_soon">Get 40% off\nYour First Order!</string>
 </resources>

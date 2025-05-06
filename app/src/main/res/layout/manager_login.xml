@@ -31,20 +31,20 @@
 
         <!--            android:drawableStart="@drawable/ic_user" -->
 
-        <EditText
-            android:id="@+id/pass"
-            android:autofillHints=""
-            android:hint="@string/passw"
-            android:inputType="textPassword"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="12dp"
-            android:layout_marginTop="12dp"
-            android:background="@drawable/border"
-            android:singleLine="true" />
-
         <!--            android:drawableStart="@drawable/ic_lock" -->
         <!--            android:drawableStart="@drawable/edittext_background" -->
+
+        <EditText
+            android:id="@+id/pass"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:autofillHints=""
+            android:background="@drawable/border"
+            android:hint="@string/passw"
+            android:inputType="textPassword"
+            android:padding="12dp"
+            android:singleLine="true" />
 
         <CheckBox
             android:id="@+id/showPasswordCheckBox"

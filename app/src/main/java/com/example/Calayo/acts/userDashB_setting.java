@@ -29,16 +29,16 @@ public class userDashB_setting extends AppCompatActivity {
 
         // Load Main UI for the logged-in user
         setContentView(R.layout.setting_act);
-        Button btnGetStarted = findViewById(R.id.btn_edit_profile);
+        Button btnGetStarted ;
 
-        // Set the action for the "Get Started" button
-        btnGetStarted.setOnClickListener(v -> {
-            // Action to perform when "Get Started" is clicked
-            // Redirect to Login or next activity, for example
-            Intent intent = new Intent(userDashB_setting.this, userAct.class);
-            startActivity(intent);
-            finish();
-        });
+//        // Set the action for the "Get Started" button
+//        btnGetStarted.setOnClickListener(v -> {
+//            // Action to perform when "Get Started" is clicked
+//            // Redirect to Login or next activity, for example
+//            Intent intent = new Intent(userDashB_setting.this, userAct.class);
+//            startActivity(intent);
+//            finish();
+//        });
     }
 
     private void initializeServices() {

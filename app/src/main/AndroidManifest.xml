@@ -26,6 +26,10 @@
             android:exported="true"
             android:theme="@style/Theme.AppCompat.DayNight.NoActionBar"
             android:launchMode="singleTask">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
 
         </activity>
         <activity
@@ -47,10 +51,6 @@
             android:name=".acts.splash"
             android:exported="true"
             android:theme="@style/Theme.AppCompat.DayNight.NoActionBar">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".acts.settingAct"
@@ -92,6 +92,24 @@
         </activity>
         <activity
             android:name=".acts.userAct"
+            android:exported="true"
+            android:theme="@style/Theme.AppCompat.DayNight.NoActionBar"
+            android:launchMode="singleTop">
+        </activity>
+        <activity
+            android:name=".acts.setUpPassword"
+            android:exported="true"
+            android:theme="@style/Theme.AppCompat.DayNight.NoActionBar"
+            android:launchMode="singleTop">
+        </activity>
+        <activity
+            android:name=".fragments.userRegisterAct"
+            android:exported="true"
+            android:theme="@style/Theme.AppCompat.DayNight.NoActionBar"
+            android:launchMode="singleTop">
+        </activity>
+        <activity
+            android:name=".fragments.userLoginAct"
             android:exported="true"
             android:theme="@style/Theme.AppCompat.DayNight.NoActionBar"
             android:launchMode="singleTop">
