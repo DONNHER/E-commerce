@@ -18,6 +18,7 @@ import androidx.fragment.app.DialogFragment;
 
 import com.example.Calayo.R;
 import com.example.Calayo.acts.UserDashboardAct;
+import com.example.Calayo.acts.main_act;
 import com.google.firebase.FirebaseNetworkException;
 import com.google.firebase.auth.FirebaseAuth;
 
@@ -73,5 +74,9 @@ public class userLoginAct extends AppCompatActivity {
     public void register(View view){
         Intent log = new Intent(this, userRegisterAct.class);
         startActivity(log);
+    }
+    public void onBackClick(View view) {
+        Intent intent = new Intent(view.getContext(), main_act.class);
+        view.getContext().startActivity(intent);
     }
 }

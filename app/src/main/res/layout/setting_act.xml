@@ -221,7 +221,8 @@
                 android:background="@drawable/red"
                 android:text="LOG OUT"
                 android:textColor="@color/black"
-                android:layout_margin="5dp">
+                android:layout_margin="5dp"
+                android:onClick="logoutClick">
             </Button>
         </LinearLayout>
     </ScrollView>

@@ -20,15 +20,15 @@
         android:padding="10dp">
 
         <!-- Avatar -->
-        <LinearLayout
+        <GridLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="start"
             android:layout_marginTop="20dp"
-            android:layout_marginBottom="20dp">
+            android:layout_marginBottom="10dp">
 
             <EditText
-                android:layout_width="300dp"
+                android:layout_width="250dp"
                 android:layout_height="wrap_content"
                 android:background="@drawable/edit_background"
                 android:text="Type to Search"
@@ -41,8 +41,9 @@
                 android:layout_height="50dp"
                 android:contentDescription="TODO"
                 android:src="@drawable/turnover"
-                android:background="@drawable/yellow"/>
-        </LinearLayout>
+                android:background="@drawable/yellow"
+                android:layout_gravity="end"/>
+        </GridLayout>
     </LinearLayout>
 
 
@@ -59,7 +60,6 @@
         <GridLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
             android:padding="20dp">
 
             <TextView

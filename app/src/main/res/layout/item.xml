@@ -1,5 +1,6 @@
 <GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="match_parent"
+    android:id="@+id/itemHolder"
+    android:layout_width="match_parent"
         android:layout_height="200dp"
         android:orientation="horizontal"
         android:background="@drawable/pizza1"

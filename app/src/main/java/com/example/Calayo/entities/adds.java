@@ -1,6 +1,6 @@
 package com.example.Calayo.entities;
 
-public class Item {
+public class adds {
 
     private  String id ;
     private  String Image;
@@ -8,18 +8,11 @@ public class Item {
     private  String name;
     private int quantity;
     private String description;
-    private String ingredients;
-    private String category;
-    private String type;
     private boolean isFavorite;
 
     // Constructor
-    public Item(){}
-    public Item(double Price,String image,String Name,int quantity,String description) {
-        Image = image;
-        price = Price;
-        name = Name;
-        this.quantity = quantity;
+    public adds(){}
+    public adds(String description) {
         this.description = description;
     }
 

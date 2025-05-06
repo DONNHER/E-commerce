@@ -17,7 +17,9 @@
             android:layout_height="24dp"
             android:src="@drawable/undo"
             android:layout_gravity="start"
-            android:contentDescription="Back" />
+            android:contentDescription="Back"
+            android:onClick="onBackClick"
+            android:focusable="true"/>
 
         <!-- Social Login Title -->
         <TextView

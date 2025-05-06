@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -22,7 +23,7 @@ import java.util.ArrayList;
 
 public class productsAct extends AppCompatActivity {
 
-    private RecyclerView recyclerView;
+    private RecyclerView products;
     private ArrayList<Item> list;
     private product_adapt Adaptor;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -32,11 +33,6 @@ public class productsAct extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.user_food_menu);
-        recyclerView = findViewById(R.id.Products_Recycler);
-        list = new ArrayList<>();
-        Adaptor = new product_adapt(list,this);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setAdapter(Adaptor);
         loadServices();
         ImageView home = findViewById(R.id.home);
         home.setOnClickListener(view -> {
@@ -58,6 +54,18 @@ public class productsAct extends AppCompatActivity {
             Intent profilepage = new Intent(this, settingAct.class);
             startActivity(profilepage);
         });
+
+        //Load products
+        //Products
+        products = findViewById(R.id.Products_Recycler);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
+        products.setLayoutManager(layoutManager);
+
+        ArrayList<Item> data = getItems();
+        Adaptor = new product_adapt(data,this);
+        products.setAdapter(Adaptor);
+
+
     }
 
     @Override
@@ -85,5 +93,17 @@ public class productsAct extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(), "error:2", Toast.LENGTH_SHORT).show();
             }
         });
+    }
+    @NonNull
+    private static ArrayList<Item> getItems() {
+        ArrayList<Item> data = new ArrayList<>();
+        Item newItem = new Item(200,"https://ik.imagekit.io/k4imggmfa/pizza1.png?updatedAt=1746566552587","Pizza",50,"Hawaiian pizza typically uses, mozzarella cheese, ham pizza dough, pizza sauce, mozzarella cheese, ham, and pineapple. Some variations also include bacon or other toppings.");
+        Item newItem2 = new Item(200,"https://ik.imagekit.io/k4imggmfa/burger.png?updatedAt=1746566830867","Burger",50,"Hawaiian pizza typically uses, mozzarella cheese, ham pizza dough, pizza sauce, mozzarella cheese, ham, and pineapple. Some variations also include bacon or other toppings.");
+        Item newItem3 = new Item(200,"https://ik.imagekit.io/k4imggmfa/burger(1).png?updatedAt=1746566911926","Chicken Burger",50,"Hawaiian pizza typically uses, mozzarella cheese, ham pizza dough, pizza sauce, mozzarella cheese, ham, and pineapple. Some variations also include bacon or other toppings.");
+
+        data.add(newItem);
+        data.add(newItem2);
+        data.add(newItem3);
+        return data;
     }
 }

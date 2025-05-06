@@ -41,6 +41,7 @@ public class product_management extends DialogFragment {
         View view = inflater.inflate(R.layout.product_management, container, false);
 
         EditText nameEditText = view.findViewById(R.id.TextName3);
+        EditText desciption = view.findViewById(R.id.description);
         EditText priceEdit = view.findViewById(R.id.editTextPrice3);
         EditText slots = view.findViewById(R.id.slot_number);
         imageView = view.findViewById(R.id.imageViewSelected_pm);
@@ -64,10 +65,15 @@ public class product_management extends DialogFragment {
             String price = priceEdit.getText().toString().trim();
             String name = nameEditText.getText().toString().trim();
             String units = slots.getText().toString().trim();
+            String des = desciption.getText().toString().trim();
 
-            if (name.isEmpty() || price.isEmpty() || selectedImageUri == null) {
+            if (name.isEmpty() ||des.isEmpty() || price.isEmpty() || selectedImageUri == null) {
                 Toast.makeText(getContext(), "Please fill all fields and select an image.", Toast.LENGTH_SHORT).show();
             } else {
+                if(des.length()>100){
+                    Toast.makeText(getContext(), "Description must be less than 100 characters", Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 // Generate a unique filename for the image (e.g., using the current timestamp)
                 String fileName = "service_" + System.currentTimeMillis() + ".jpg";
 
@@ -77,7 +83,7 @@ public class product_management extends DialogFragment {
                     public void onSuccess(String imageUrl) {
                         // Create a ServiceType object
                         String docId = UUID.randomUUID().toString();
-                        Item item = new Item(Double.parseDouble(price), imageUrl, name,Integer.parseInt(units));
+                        Item item = new Item(Double.parseDouble(price), imageUrl, name,Integer.parseInt(units),des);
                         item.setId(docId);
                         // Prepare data to be stored in Firestore
                         Map<String, Object> data = new HashMap<>();
@@ -86,11 +92,12 @@ public class product_management extends DialogFragment {
                         data.put("price", item.getPrice());
                         data.put("Slots", item.getQuantity());
                         data.put("image", item.getImage());
+                        data.put("description", item.getDescription());
 
                         // Upload data to Firestore
                         db.collection("products").document(docId).set(data)
                                 .addOnSuccessListener(aVoid -> {
-                                    Toast.makeText(getContext(), "Service added: " + item.getName(), Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(getContext(), "Food added: " + item.getName(), Toast.LENGTH_SHORT).show();
                                     dismiss();
                                     requireActivity().recreate();
                                       // Close the dialog

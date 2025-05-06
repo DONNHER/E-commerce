@@ -10,10 +10,12 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.Calayo.R;
 import com.example.Calayo.fragments.userLoginAct;
+import com.google.firebase.auth.FirebaseAuth;
 //import com.example.uni.management.SessionManager;
 
 public class settingAct extends AppCompatActivity {
-    private userLoginAct ownerLogin;
+
+    private final FirebaseAuth myAuth= FirebaseAuth.getInstance();
 
 
     @Override
@@ -101,12 +103,12 @@ public class settingAct extends AppCompatActivity {
     public void back(View view) {
         finish();
     }
-//    public void logoutClick(View view) {
-//        ownerLogin.setLoggedIn(null);
-//        Intent intent = new Intent(this, main_act.class); // Replace with actual target
-//        startActivity(intent);
-//        finish();
-//    }
+    public void logoutClick(View view) {
+        myAuth.signOut();
+        Intent intent = new Intent(this, main_act.class); // Replace with actual target
+        startActivity(intent);
+        finish();
+    }
     public void editProfileClick(View view) {
         Intent intent = new Intent(this, userAct.class); // Replace with actual target
         startActivity(intent);
