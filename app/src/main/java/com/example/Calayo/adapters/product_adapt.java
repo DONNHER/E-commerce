@@ -1,5 +1,8 @@
 package com.example.Calayo.adapters;
 
+import static android.view.View.INVISIBLE;
+import static android.view.View.VISIBLE;
+
 import android.annotation.SuppressLint;
 import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
@@ -78,8 +81,11 @@ public class product_adapt extends RecyclerView.Adapter<product_adapt.ViewHolder
         });
 
         // Handle favorite button click
-        holder.favorite.setOnClickListener(v ->
-                Toast.makeText(fragmentActivity, "Added Successfully", Toast.LENGTH_SHORT).show());
+        if (item.isFavorite()){
+            holder.favorite.setVisibility(VISIBLE);
+        }else {
+            holder.favorite.setVisibility(INVISIBLE);
+        }
     }
 
     @Override

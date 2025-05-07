@@ -116,13 +116,24 @@ public class main_act extends AppCompatActivity {
     private static ArrayList<Item> getItems() {
         ArrayList<Item> data = new ArrayList<>();
         Item newItem = new Item(200,"https://ik.imagekit.io/k4imggmfa/pizza1.png?updatedAt=1746566552587","Pizza",50,"Hawaiian pizza typically uses, mozzarella cheese, ham pizza dough, pizza sauce, mozzarella cheese, ham, and pineapple. Some variations also include bacon or other toppings.");
-        Item newItem2 = new Item(200,"https://ik.imagekit.io/k4imggmfa/burger.png?updatedAt=1746566830867","Burger",50,"Hawaiian pizza typically uses, mozzarella cheese, ham pizza dough, pizza sauce, mozzarella cheese, ham, and pineapple. Some variations also include bacon or other toppings.");
-        Item newItem3 = new Item(200,"https://ik.imagekit.io/k4imggmfa/burger(1).png?updatedAt=1746566911926","Chicken Burger",50,"Hawaiian pizza typically uses, mozzarella cheese, ham pizza dough, pizza sauce, mozzarella cheese, ham, and pineapple. Some variations also include bacon or other toppings.");
+        Item newItem2 = new Item(180,"https://ik.imagekit.io/k4imggmfa/burger.png?updatedAt=1746566830867","Burger",50,"Hawaiian pizza typically uses, mozzarella cheese, ham pizza dough, pizza sauce, mozzarella cheese, ham, and pineapple. Some variations also include bacon or other toppings.");
+        Item newItem3 = new Item(250,"https://ik.imagekit.io/k4imggmfa/hotdogs.png?updatedAt=1746566840760","Chicken Burger",50,"Hawaiian pizza typically uses, mozzarella cheese, ham pizza dough, pizza sauce, mozzarella cheese, ham, and pineapple. Some variations also include bacon or other toppings.");
 
         data.add(newItem);
         data.add(newItem2);
         data.add(newItem3);
+        Item newI= new Item(200,"https://ik.imagekit.io/k4imggmfa/pizza1.png?updatedAt=1746566552587","Pizza",50,"Hawaiian pizza typically uses, mozzarella cheese, ham pizza dough, pizza sauce, mozzarella cheese, ham, and pineapple. Some variations also include bacon or other toppings.");
+        Item newIte = new Item(200,"https://ik.imagekit.io/k4imggmfa/burger.png?updatedAt=1746566830867","Burger",50,"Hawaiian pizza typically uses, mozzarella cheese, ham pizza dough, pizza sauce, mozzarella cheese, ham, and pineapple. Some variations also include bacon or other toppings.");
+        Item neww = new Item(200,"https://ik.imagekit.io/k4imggmfa/hotdogs.png?updatedAt=1746566840760","Chicken Burger",50,"Hawaiian pizza typically uses, mozzarella cheese, ham pizza dough, pizza sauce, mozzarella cheese, ham, and pineapple. Some variations also include bacon or other toppings.");
+
+        data.add(newItem);
+        data.add(newItem2);
+        data.add(newItem3);
+        data.add(newI);
+        data.add(newIte);
+        data.add(neww);
         return data;
+
     }
 
     public void onMenuClick2(View view) {
