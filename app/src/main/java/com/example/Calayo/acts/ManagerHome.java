@@ -40,8 +40,8 @@ public class ManagerHome extends AppCompatActivity {
 
         // 🔧 Initialize UI components
         recyclerView = findViewById(R.id.appointmentsView_manage);
-        btn1 = findViewById(R.id.btnConfirmed); // Replace with actual button IDs
-        btn2 = findViewById(R.id.btnPending);   // Replace with actual button IDs
+        btn1 = findViewById(R.id.btnConfirmed);
+        btn2 = findViewById(R.id.btnPending); 
 
         Adapt = new order_adaptor();
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -73,7 +73,7 @@ public class ManagerHome extends AppCompatActivity {
             for (DocumentSnapshot documentSnapshot : queryDocumentSnapshots) {
                 Order appt = documentSnapshot.toObject(Order.class);
                 if (appt != null) {
-                    appt.setId(documentSnapshot.getId()); // Set document ID
+                    appt.setId(documentSnapshot.getId()); 
                     orders.add(appt);
                 }
             }
