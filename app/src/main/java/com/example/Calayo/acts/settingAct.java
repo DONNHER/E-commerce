@@ -11,12 +11,15 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.Calayo.R;
 import com.example.Calayo.fragments.userLoginAct;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.FirebaseFirestore;
 //import com.example.uni.management.SessionManager;
 
 public class settingAct extends AppCompatActivity {
 
     private final FirebaseAuth myAuth= FirebaseAuth.getInstance();
 
+    private FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,8 +48,20 @@ public class settingAct extends AppCompatActivity {
 //        });
         ImageView home = findViewById(R.id.home);
         home.setOnClickListener(view -> {
-            Intent homepage = new Intent(this,UserDashboardAct.class);
-            startActivity(homepage);
+            FirebaseUser user = myAuth.getCurrentUser();
+            if (user != null) {
+                String uid = user.getUid();
+                db.collection("users").document(uid).get().addOnSuccessListener(documentSnapshot -> {
+                    if (documentSnapshot.exists()) {
+                        Intent intent = new Intent(this, UserDashboardAct.class); // Replace with actual target
+                        startActivity(intent);
+                        finish();
+                    }
+                });
+            } else {
+                Intent homepage = new Intent(this, main_act.class);
+                startActivity(homepage);
+            }
         });
         ImageView menu = findViewById(R.id.menu);
         menu.setOnClickListener(view -> {
@@ -104,6 +119,8 @@ public class settingAct extends AppCompatActivity {
         finish();
     }
     public void logoutClick(View view) {
+        SharedPreferences sharedPreferences = getSharedPreferences("user",MODE_PRIVATE);
+        sharedPreferences.edit().remove("isLoggedIn").apply();
         myAuth.signOut();
         Intent intent = new Intent(this, main_act.class); // Replace with actual target
         startActivity(intent);

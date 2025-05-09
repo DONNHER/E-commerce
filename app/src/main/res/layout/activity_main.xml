@@ -16,7 +16,10 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:gravity="center"
-        android:padding="10dp">
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:paddingTop="5dp"
+        android:paddingBottom= "0dp">
         <GridLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -32,7 +35,8 @@
                 android:textAlignment="center"
                 android:textSize="20dp"
                 android:textStyle="bold"
-                android:layout_margin="5dp"/>
+                android:layout_margin="5dp"
+                android:onClick="onLogClick"/>
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -41,7 +45,8 @@
                 android:textAlignment="center"
                 android:textSize="20dp"
                 android:textStyle="bold"
-                android:layout_margin="5dp"/>
+                android:layout_margin="5dp"
+                android:onClick="onResClick"/>
 
             <ImageView
                 android:layout_width="50dp"
@@ -59,26 +64,7 @@
                 android:src="@drawable/regis"/>
         </GridLayout>
         <!-- Avatar -->
-        <GridLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="start">
 
-            <EditText
-                android:layout_width="250dp"
-                android:layout_height="wrap_content"
-                android:background="@drawable/edit_background"
-                android:text="Type to Search"
-                android:textSize="15dp"
-                android:layout_gravity="center"
-                android:drawableStart="@android:drawable/ic_menu_search"/>
-            <ImageView
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:contentDescription="TODO"
-                android:src="@drawable/yellow"
-                android:layout_gravity="end"/>
-        </GridLayout>
     </LinearLayout>
 
     <ScrollView
@@ -93,6 +79,26 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:padding="10dp">
+            <GridLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start">
+
+                <EditText
+                    android:layout_width="250dp"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/edit_background"
+                    android:text="Type to Search"
+                    android:textSize="15dp"
+                    android:layout_gravity="center"
+                    android:drawableStart="@android:drawable/ic_menu_search"/>
+                <ImageView
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:contentDescription="TODO"
+                    android:src="@drawable/yellow"
+                    android:layout_gravity="end"/>
+            </GridLayout>
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/Adds_Recycler"
@@ -218,8 +224,10 @@
             <GridLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:padding="20dp">
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:paddingTop="20dp"
+                android:paddingBottom= "0dp">
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -240,8 +248,7 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/Products_Recycler"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:scrollbars="vertical"
+                android:layout_height="650dp"
                 android:padding="10dp"
                 />
         </LinearLayout>

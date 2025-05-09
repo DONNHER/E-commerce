@@ -69,11 +69,7 @@ dependencies {
     implementation("com.github.bumptech.glide:glide:4.16.0")
     annotationProcessor("com.github.bumptech.glide:glide:4.16.0")
     kapt("com.github.bumptech.glide:compiler:4.16.0")
-//    implementation ("com.google.firebase:firebase-storage:20.1.0")
-//    implementation ("com.google.firebase:firebase-firestore:24.1.0")
-//
-//// Firestore
-//    implementation("com.google.cloud:google-cloud-firestore:3.17.0")
     implementation ("com.squareup.okhttp3:okhttp:4.12.0")
     implementation ("com.google.code.gson:gson:2.10.1")
+    implementation("org.osmdroid:osmdroid-android:6.1.14")
 }

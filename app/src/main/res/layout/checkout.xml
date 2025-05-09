@@ -2,90 +2,338 @@
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="16dp"
     >
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        tools:ignore="MissingConstraints">
 
-<!--    &lt;!&ndash; Delivery Fee Notice &ndash;&gt;-->
-<!--    <TextView-->
-<!--        android:id="@+id/deliveryFeeNotice"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:text="₱0 Delivery fee over ₱30"-->
-<!--        android:textSize="18sp"-->
-<!--        android:textStyle="bold"-->
-<!--        app:layout_constraintTop_toTopOf="parent"-->
-<!--        app:layout_constraintStart_toStartOf="parent"/>-->
+        <LinearLayout
+            android:id="@+id/head"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:gravity="center"
+            android:padding="10dp">
+            <GridLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
-<!--    &lt;!&ndash; Green Check Icon &ndash;&gt;-->
-<!--    <ImageView-->
-<!--        android:id="@+id/checkIcon"-->
-<!--        android:layout_width="40dp"-->
-<!--        android:layout_height="40dp"-->
-<!--        android:src="@drawable/ic_check"-->
-<!--        app:layout_constraintTop_toBottomOf="@id/deliveryFeeNotice"-->
-<!--        app:layout_constraintStart_toStartOf="parent"/>-->
+                <Button
+                    android:id="@+id/btnBack"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:background="@drawable/undo" />
 
-<!--    &lt;!&ndash; Item List &ndash;&gt;-->
-<!--    <LinearLayout-->
-<!--        android:id="@+id/itemList"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:orientation="vertical"-->
-<!--        app:layout_constraintTop_toBottomOf="@id/checkIcon"-->
-<!--        app:layout_constraintStart_toStartOf="parent">-->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_row="0"
+                    android:layout_column="1"
+                    android:text="Checkout"
+                    android:textSize="18sp"
+                    android:textColor="@android:color/black"
+                    android:layout_gravity="center"/>
+            </GridLayout>
+        </LinearLayout>
 
-<!--        <TextView-->
-<!--            android:id="@+id/item1"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:text="Item 1: ₱175"-->
-<!--            android:textSize="16sp"/>-->
+        <!--    Header-->
 
-<!--        <TextView-->
-<!--            android:id="@+id/item2"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:text="Item 2: ₱25"-->
-<!--            android:textSize="16sp"/>-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="10dp">
+            <GridLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
-<!--        <TextView-->
-<!--            android:id="@+id/item3"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:text="Item 3: ₱25"-->
-<!--            android:textSize="16sp"/>-->
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/home_green"/>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_gravity="start|center">
 
-<!--        <TextView-->
-<!--            android:id="@+id/item4"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:text="Item 4: ₱225"-->
-<!--            android:textSize="16sp"/>-->
-<!--    </LinearLayout>-->
+                <TextView
+                    android:id="@+id/header"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="Home"
+                    android:textColor="@android:color/black"
+                    android:textStyle="bold" />
+                <TextView
+                    android:id="@+id/address"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="Address"
+                    android:textColor="@android:color/black" />
 
-<!--    &lt;!&ndash; Notes Input &ndash;&gt;-->
-<!--    <EditText-->
-<!--        android:id="@+id/notesInput"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:hint="Write notes here..."-->
-<!--        android:textSize="16sp"-->
-<!--        android:padding="8dp"-->
-<!--        app:layout_constraintTop_toBottomOf="@id/itemList"-->
-<!--        app:layout_constraintStart_toStartOf="parent"/>-->
+            </LinearLayout>
 
-<!--    &lt;!&ndash; Checkout Button &ndash;&gt;-->
-<!--    <Button-->
-<!--        android:id="@+id/checkoutButton"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:text="Checkout"-->
-<!--        android:textSize="18sp"-->
-<!--        android:background="@color/green"-->
-<!--        android:textColor="@android:color/white"-->
-<!--        app:layout_constraintTop_toBottomOf="@id/notesInput"-->
-<!--        app:layout_constraintStart_toStartOf="parent"/>-->
 
+            </GridLayout>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_row="0"
+                    android:layout_column="1"
+                    android:text="Order total"
+                    android:layout_gravity="center"
+                    android:textColor="@android:color/black" />
+
+
+                <TextView
+                    android:id="@+id/units"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_row="0"
+                    android:layout_column="1"
+                    android:text=" (1 item):"
+                    android:layout_gravity="center"
+                    android:textColor="@android:color/black" />
+
+
+            </LinearLayout>
+            <TextView
+                android:id="@+id/name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Hawaiian Pizza"
+                android:textSize="25sp"
+                android:textStyle="bold"
+                android:textColor="@android:color/black"
+                android:gravity="start"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_row="0"
+                android:layout_column="1"
+                android:text="₱0 Delivery fee over ₱30"
+                android:textSize="18sp"
+                android:textColor="@android:color/holo_green_dark" />
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="10dp">
+            <GridLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_row="0"
+                    android:layout_column="1"
+                    android:text="Payment Option"
+                    android:layout_gravity="center"
+                    android:textColor="@android:color/black" />
+
+            </GridLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <CheckBox
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:visibility="invisible">
+
+                </CheckBox>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Cash on Delivery">
+
+
+                </TextView>
+
+            </LinearLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Other payment option in the future."
+                android:paddingTop="30dp"/>
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="10dp">
+
+            <GridLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_row="0"
+                    android:layout_column="1"
+                    android:textStyle="bold"
+                    android:layout_gravity="center"
+                    android:text="Order Summary"
+                    android:textColor="@android:color/black" />
+
+            </GridLayout>
+            <GridLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:ignore="MissingConstraints">
+
+                <TextView
+                    android:id="@+id/name2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Pizza"
+                    android:textColor="@color/black">
+
+                </TextView>
+
+                <TextView
+                    android:id="@+id/name3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_row="0"
+                    android:layout_column="1"
+                    android:text="  1x"
+                    android:textColor="@color/black">
+
+                </TextView>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end|center"
+                    android:padding="0dp">
+
+                    <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="end"
+
+                        android:paddingLeft="5dp"
+                        android:src="@drawable/p" />
+
+                    <TextView
+                        android:id="@+id/Price3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="end"
+                        android:text="200"
+                        android:textColor="@color/black"
+                        android:paddingEnd="5dp"
+                        android:paddingTop="0dp"
+                        android:paddingStart="0dp"
+                        android:paddingBottom="0dp"/>
+                </LinearLayout>
+
+            </GridLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/OrderSummary_Recycler3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:scrollbars="vertical" />
+            <GridLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:ignore="MissingConstraints">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Total:"
+                    android:textColor="@color/black">
+
+                </TextView>
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end|center"
+                    android:padding="0dp">
+
+                    <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="end"
+
+                        android:paddingLeft="5dp"
+                        android:src="@drawable/p" />
+
+                    <TextView
+                        android:id="@+id/totalPrice"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="end"
+                        android:text="200"
+                        android:textColor="@color/black"
+                        android:paddingEnd="5dp"
+                        android:paddingTop="0dp"
+                        android:paddingStart="0dp"
+                        android:paddingBottom="0dp"/>
+                </LinearLayout>
+
+            </GridLayout>
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <!--Footer-->
+    <LinearLayout
+        android:id="@+id/footer"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:orientation="vertical">
+
+        <GridLayout
+            android:id="@+id/checkout"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:background="@drawable/green"
+            android:layout_margin="20dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Checkout"
+                android:layout_gravity="center"
+                android:textColor="@color/black">
+            </TextView>
+        </GridLayout>
+
+
+    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

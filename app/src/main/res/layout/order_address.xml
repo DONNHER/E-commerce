@@ -1,80 +1,82 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/admin"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="16dp">
+    >
 
-<!--    &lt;!&ndash; Top Bar &ndash;&gt;-->
-<!--    <LinearLayout-->
-<!--        android:id="@+id/topBar"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:orientation="horizontal"-->
-<!--        android:gravity="center_vertical">-->
+    <Button
+        android:id="@+id/switch_acc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="55dp"
+        android:layout_marginLeft="135dp"
+        android:background="@drawable/blue"
+        android:onClick="add"
+        android:text="Edit Products"
+        android:layout_gravity="bottom"/>
 
-<!--        <ImageView-->
-<!--            android:id="@+id/backArrow"-->
-<!--            android:layout_width="24dp"-->
-<!--            android:layout_height="24dp"-->
-<!--            android:src="@drawable/ic_back"/>-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
 
-<!--        <TextView-->
-<!--            android:id="@+id/searchText"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:text="Search"-->
-<!--            android:textSize="18sp"-->
-<!--            android:layout_marginStart="8dp"/>-->
-<!--    </LinearLayout>-->
+        <!-- Top Greeting Section -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginBottom="16dp">
 
-<!--    &lt;!&ndash; Map Container &ndash;&gt;-->
-<!--    <FrameLayout-->
-<!--        android:id="@+id/mapContainer"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="300dp"-->
-<!--        android:background="@drawable/map_image"-->
-<!--        app:layout_constraintTop_toBottomOf="@id/topBar"/>-->
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
 
-<!--    &lt;!&ndash; Status Box &ndash;&gt;-->
-<!--    <LinearLayout-->
-<!--        android:id="@+id/statusBox"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:orientation="vertical"-->
-<!--        android:background="@drawable/bg_status_box"-->
-<!--        android:padding="12dp"-->
-<!--        app:layout_constraintTop_toBottomOf="@id/mapContainer">-->
+                <GridLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
 
-<!--        <TextView-->
-<!--            android:id="@+id/etaText"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:text="19 min"-->
-<!--            android:textSize="18sp"-->
-<!--            android:textStyle="bold"/>-->
+                    <Button
+                        android:id="@+id/btn"
+                        android:layout_width="47dp"
+                        android:layout_height="34dp"
+                        android:layout_row="0"
+                        android:layout_column="0"
+                        android:background="@drawable/undo"
+                        android:onClick="onside"
+                        android:textStyle="bold" />
 
-<!--        <TextView-->
-<!--            android:id="@+id/preparingFoodText"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:text="The restaurant is preparing your food"-->
-<!--            android:textSize="16sp"/>-->
+                </GridLayout>
 
-<!--        <TextView-->
-<!--            android:id="@+id/riderNameText"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:text="Rider: Dionher Love Custeros"-->
-<!--            android:textSize="16sp"/>-->
 
-<!--        <TextView-->
-<!--            android:id="@+id/deliveryAddressText"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:text="P3 Catarata St, Poblacion Valencia City Buk."-->
-<!--            android:textSize="16sp"/>-->
-<!--    </LinearLayout>-->
+            </LinearLayout>
+        </LinearLayout>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <!-- Search Bar -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="My address"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:textColorHint="#888888"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            tools:ignore="RtlSymmetry" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/Product_Address_Recycler"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:scrollbars="vertical"
+            />
+
+    </LinearLayout>
+
+</FrameLayout>

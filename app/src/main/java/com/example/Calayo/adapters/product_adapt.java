@@ -4,6 +4,7 @@ import static android.view.View.INVISIBLE;
 import static android.view.View.VISIBLE;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,11 +12,9 @@ import android.view.ViewGroup;
 import android.widget.GridLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -24,13 +23,20 @@ import com.bumptech.glide.request.target.CustomTarget;
 import com.bumptech.glide.request.transition.Transition;
 import com.example.Calayo.R;
 import com.example.Calayo.entities.Item;
-import com.example.Calayo.fragments.product_management;
+import com.example.Calayo.fragments.order_Details;
+import com.example.Calayo.fragments.userLoginAct;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
 
 public class product_adapt extends RecyclerView.Adapter<product_adapt.ViewHolder> {
     private ArrayList<Item> items;
+    private ArrayList<Item.addOn> addOns;
     private FragmentActivity fragmentActivity;
+
+    private final FirebaseAuth myAuth= FirebaseAuth.getInstance();
+    private FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     public product_adapt(ArrayList<Item> items, FragmentActivity fragmentActivity) {
         this.items = items;
@@ -76,8 +82,17 @@ public class product_adapt extends RecyclerView.Adapter<product_adapt.ViewHolder
 
         // Handle item click to open product management dialog
         holder.itemView.setOnClickListener(view -> {
-            product_management dialogFragment = new product_management();
-            dialogFragment.show(fragmentActivity.getSupportFragmentManager(), "AppointmentDialog");
+            if(myAuth.getCurrentUser() == null) {
+                Intent order = new Intent(fragmentActivity, userLoginAct.class);
+                fragmentActivity.startActivity(order);
+            }else {
+                Intent intent = new Intent(fragmentActivity, order_Details.class);
+                intent.putExtra("image", item.getImage());
+                intent.putExtra("name", item.getName());
+                intent.putExtra("description",item.getDescription());
+                intent.putExtra("price",String.valueOf( item.getPrice()));
+                fragmentActivity.startActivity(intent);
+            }
         });
 
         // Handle favorite button click

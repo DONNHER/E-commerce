@@ -10,6 +10,7 @@ import com.example.Calayo.fragments.userLoginAct;
 import com.example.Calayo.fragments.userRegisterAct;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -51,17 +52,13 @@ public class main_act extends AppCompatActivity {
     @Override
     public void onStart(){
         super.onStart();
-        FirebaseUser user = myAuth.getCurrentUser();
-        if(user != null){
-            String uid = user.getUid();
-            db.collection("users").document(uid).get().addOnSuccessListener(documentSnapshot -> {
-                if(documentSnapshot.exists()) {
-                        Intent intent = new Intent(this, UserDashboardAct.class); // Replace with actual target
-                        startActivity(intent);
-                        finish();
-                }
-            });
-        }
+        SharedPreferences sharedPreferences  = getSharedPreferences("user",MODE_PRIVATE);
+        boolean isLoggedIn = sharedPreferences.getBoolean("isLoggedIn",false);
+        if(isLoggedIn){
+            Intent intent = new Intent(this, UserDashboardAct.class); // Replace with actual target
+            startActivity(intent);
+            finish();
+            }
     }
 
     @Override
@@ -72,7 +69,7 @@ public class main_act extends AppCompatActivity {
 //        recyclerView.setLayoutManager(new LinearLayoutManager(this));
         ImageView home = findViewById(R.id.home);
         home.setOnClickListener(view -> {
-            Intent homepage = new Intent(this,UserDashboardAct.class);
+            Intent homepage = new Intent(this, main_act.class);
             startActivity(homepage);
         });
         ImageView menu = findViewById(R.id.foodMenu);
@@ -87,17 +84,22 @@ public class main_act extends AppCompatActivity {
 //        });
         ImageView profile = findViewById(R.id.profile);
         profile.setOnClickListener(view -> {
-            Intent profilepage = new Intent(this, settingAct.class);
-            startActivity(profilepage);
+            if(myAuth.getCurrentUser() == null) {
+                Intent login = new Intent(this, userLoginAct.class);
+                startActivity(login);
+            }else {
+                Intent profilepage = new Intent(this, settingAct.class);
+                startActivity(profilepage);
+            }
         });
         //Products
         products = findViewById(R.id.Products_Recycler);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         products.setLayoutManager(layoutManager);
 
-        ArrayList<Item> data = getItems();
-        Adapt = new product_adapt(data,this);
-        products.setAdapter(Adapt);
+
+        // Force a re-layout to update the RecyclerView's height
+
 
         // adds
         addsRecyclerView = findViewById(R.id.Adds_Recycler);
@@ -133,7 +135,6 @@ public class main_act extends AppCompatActivity {
         data.add(newIte);
         data.add(neww);
         return data;
-
     }
 
     public void onMenuClick2(View view) {
@@ -146,9 +147,7 @@ public class main_act extends AppCompatActivity {
         view.getContext().startActivity(intent);
     }
     public void onResClick(View view) {
-        userRegisterAct dialogFragment = new userRegisterAct();
-        Intent intent = new Intent(view.getContext(), userLoginAct.class);
+        Intent intent = new Intent(view.getContext(), userRegisterAct.class);
         view.getContext().startActivity(intent);
     }
-
 }

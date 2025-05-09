@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
+import android.util.Log;
 import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,17 +13,28 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
 
 import com.example.Calayo.R;
 import com.example.Calayo.acts.setUpPassword;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.FirebaseNetworkException;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -39,35 +51,60 @@ public class userRegisterAct extends AppCompatActivity {
         EditText Email = findViewById(R.id.editTextEmail);
         EditText Name = findViewById(R.id.editTextName);
         Button btnGetStarted = findViewById(R.id.buttonSignUp);
+        TextView error = findViewById(R.id.error);
+        ImageView btn = findViewById(R.id.back);
+        btn.setOnClickListener(view -> finish());
         btnGetStarted.setOnClickListener(v -> {
             String email = Email.getText().toString().trim();
-            String name = Name.getText().toString().trim();
+            String input = Name.getText().toString().trim();
 
-            if (name.isEmpty() || email.isEmpty()) {
-                Toast.makeText(this, "Please fill in all required fields.", Toast.LENGTH_SHORT).show();
-            } else if (Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-                myAuth.createUserWithEmailAndPassword(email,name).addOnCompleteListener(this, task -> {
-                            if (task.isSuccessful()) {
-                                FirebaseUser user = myAuth.getCurrentUser();
-                                Map<String,Object> data = new HashMap<>();
-                                data.put("uid",user.getUid());
-                                data.put("username",user.getEmail());
-                                data.put("role","user");
-                                db.collection("users").document(user.getUid()).set(data);
-                                Toast.makeText(this, "Successfully Registered.", Toast.LENGTH_SHORT).show();
-                                Intent loginAct = new Intent(this , setUpPassword.class);
-                                startActivity(loginAct);
+            // Reset previous errors
+            Name.setError(null);
+            Email.setError(null);
+
+            if (input.isEmpty() || email.isEmpty()) {
+                if (input.isEmpty()) Name.setError("Required");
+                if (email.isEmpty()) Email.setError("Required");
+                return;
+            }
+
+            if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+                Email.setError("Invalid email format");
+                return;
+            }
+
+            db.collection("users").whereEqualTo("email", email).get()
+                    .addOnCompleteListener(task -> {
+                        if (task.isSuccessful()) {
+                            if (!task.getResult().isEmpty()) {
+                                Email.setError("This email is already registered.");
+
                             } else {
-                                Exception e = task.getException();
-                                if (e instanceof FirebaseNetworkException) {
-                                    Toast.makeText(this, "No internet connection", Toast.LENGTH_LONG).show();
-                                } else {
-                                    Toast.makeText(this, "Error: Unknown", Toast.LENGTH_LONG).show();
+                                String name = input.replaceAll("\\W","");
+                                Toast.makeText(userRegisterAct.this, name, Toast.LENGTH_LONG).show();
+
+                                Intent intent = new Intent(userRegisterAct.this, setUpPassword.class);
+                                intent.putExtra("email", email);
+                                intent.putExtra("name", name);
+                                startActivity(intent);
+                            }
+                        } else {
+                            Exception e = task.getException();
+                            if (e instanceof FirebaseFirestoreException) {
+                                FirebaseFirestoreException firestoreException = (FirebaseFirestoreException) e;
+                                if (firestoreException.getCode() == FirebaseFirestoreException.Code.UNAVAILABLE) {
+                                    Toast.makeText(userRegisterAct.this, "No internet connection", Toast.LENGTH_LONG).show();
+                                    return;
                                 }
                             }
-                        });
-            }
+                            Log.e("Firestore", "Error getting document", e);
+                            Toast.makeText(userRegisterAct.this, "Error checking email. Please try again.", Toast.LENGTH_SHORT).show();
+                        }
+                    });
         });
+    }
+
+
 
         // Toggle password visibility for both fields simultaneously
 //        showPasswordCheckBox.setOnCheckedChangeListener((buttonView, isChecked) -> {
@@ -85,9 +122,10 @@ public class userRegisterAct extends AppCompatActivity {
 //            passwordEditText.post(() -> passwordEditText.setSelection(passwordEditText.getText().length()));
 //            conpasswordEditText.post(() -> conpasswordEditText.setSelection(conpasswordEditText.getText().length()));
 //        });
-    }
+
     public void login(View view){
         Intent log = new Intent(this, userLoginAct.class);
         startActivity(log);
     }
+
 }

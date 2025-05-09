@@ -16,6 +16,8 @@ import com.example.Calayo.R;
 import com.example.Calayo.adapters.product_adapt;
 import com.example.Calayo.entities.Item;
 import com.example.Calayo.fragments.userMenu;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 
@@ -27,18 +29,33 @@ public class productsAct extends AppCompatActivity {
     private ArrayList<Item> list;
     private product_adapt Adaptor;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
+    private final FirebaseAuth myAuth= FirebaseAuth.getInstance();
 
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.user_food_menu);
-        loadServices();
+//        loadServices();
         ImageView home = findViewById(R.id.home);
+
         home.setOnClickListener(view -> {
-            Intent homepage = new Intent(this,UserDashboardAct.class);
-            startActivity(homepage);
-        });
+                    FirebaseUser user = myAuth.getCurrentUser();
+                    if (user != null) {
+                        String uid = user.getUid();
+                        db.collection("users").document(uid).get().addOnSuccessListener(documentSnapshot -> {
+                            if (documentSnapshot.exists()) {
+                                Intent intent = new Intent(this, UserDashboardAct.class); // Replace with actual target
+                                startActivity(intent);
+                                finish();
+                            }
+                        });
+                    } else {
+                        Intent homepage = new Intent(this, main_act.class);
+                        startActivity(homepage);
+                    }
+                });
+
         ImageView menu = findViewById(R.id.menu);
         menu.setOnClickListener(view -> {
             Intent menupage = new Intent(this,productsAct.class);
@@ -71,7 +88,7 @@ public class productsAct extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        loadServices();
+//        loadServices();
     }
 
     public void onside(View view) {

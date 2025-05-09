@@ -33,7 +33,7 @@ public class ManagerHome extends AppCompatActivity {
     private final FirebaseAuth myAuth= FirebaseAuth.getInstance();
     @SuppressLint("SetTextI18n")
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)  {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.manager_home);
         recyclerView = findViewById(R.id.appointmentsView_manage);

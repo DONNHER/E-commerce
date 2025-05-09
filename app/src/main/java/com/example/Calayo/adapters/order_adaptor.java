@@ -61,8 +61,8 @@ public class order_adaptor extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         SectionItem sectionItem = sectionItems.get(position);
 
         holder.itemView.setOnClickListener(v -> {
-            order_Details dialogFragment = new order_Details();
-            dialogFragment.show(fragmentManager, "AppointmentDialog");
+//            order_Details dialogFragment = new order_Details();
+//            dialogFragment.show(fragmentManager, "AppointmentDialog");
         });
         if (holder instanceof HeaderViewHolder) {
             ((HeaderViewHolder) holder).bind(sectionItem.date);

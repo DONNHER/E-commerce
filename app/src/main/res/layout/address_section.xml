@@ -1,103 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:padding="16dp">
+    android:layout_height="wrap_content"
+    android:layout_margin="10dp">
+    <GridLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:ignore="MissingConstraints">
 
-<!--    &lt;!&ndash; Title &ndash;&gt;-->
-<!--    <TextView-->
-<!--        android:id="@+id/titleText"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:text="My Address"-->
-<!--        android:textSize="24sp"-->
-<!--        android:textStyle="bold"-->
-<!--        app:layout_constraintTop_toTopOf="parent"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"/>-->
+        <ImageView
+            android:id="@+id/image"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="@drawable/yellow"
+            android:src="@drawable/home_green"
+            android:layout_marginEnd="10dp"/>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_gravity="start|center">
 
-<!--    &lt;!&ndash; Home Address &ndash;&gt;-->
-<!--    <LinearLayout-->
-<!--        android:id="@+id/homeAddressLayout"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:orientation="horizontal"-->
-<!--        app:layout_constraintTop_toBottomOf="@id/titleText"-->
-<!--        app:layout_constraintStart_toStartOf="parent">-->
+            <TextView
+                android:id="@+id/header"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Home"
+                android:textStyle="bold"
+                android:layout_gravity="center"
+                android:textColor="@android:color/black" />
+            <TextView
+                android:id="@+id/address"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="Address"
+                android:textColor="@android:color/black" />
 
-<!--        <ImageView-->
-<!--            android:id="@+id/homeIcon"-->
-<!--            android:layout_width="24dp"-->
-<!--            android:layout_height="24dp"-->
-<!--            android:src="@drawable/ic_home"/>-->
+        </LinearLayout>
 
-<!--        <TextView-->
-<!--            android:id="@+id/homeAddressText"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:text="P-3 Catarata St. Poblacion Val City Buk"-->
-<!--            android:textSize="16sp"-->
-<!--            android:layout_marginStart="8dp"/>-->
-<!--    </LinearLayout>-->
-
-<!--    &lt;!&ndash; Work Address &ndash;&gt;-->
-<!--    <LinearLayout-->
-<!--        android:id="@+id/workAddressLayout"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:orientation="horizontal"-->
-<!--        app:layout_constraintTop_toBottomOf="@id/homeAddressLayout"-->
-<!--        app:layout_constraintStart_toStartOf="parent">-->
-
-<!--        <ImageView-->
-<!--            android:id="@+id/workIcon"-->
-<!--            android:layout_width="24dp"-->
-<!--            android:layout_height="24dp"-->
-<!--            android:src="@drawable/ic_work"/>-->
-
-<!--        <TextView-->
-<!--            android:id="@+id/workAddressText"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:text="Lapu-Lapu St, Valencia City, 8709 Buk"-->
-<!--            android:textSize="16sp"-->
-<!--            android:layout_marginStart="8dp"/>-->
-<!--    </LinearLayout>-->
-
-<!--    &lt;!&ndash; Other Address &ndash;&gt;-->
-<!--    <LinearLayout-->
-<!--        android:id="@+id/otherAddressLayout"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:orientation="horizontal"-->
-<!--        app:layout_constraintTop_toBottomOf="@id/workAddressLayout"-->
-<!--        app:layout_constraintStart_toStartOf="parent">-->
-
-<!--        <ImageView-->
-<!--            android:id="@+id/otherIcon"-->
-<!--            android:layout_width="24dp"-->
-<!--            android:layout_height="24dp"-->
-<!--            android:src="@drawable/ic_other"/>-->
-
-<!--        <TextView-->
-<!--            android:id="@+id/otherAddressText"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:text="Lapu-Lapu St, Valencia City, 8709 Buk"-->
-<!--            android:textSize="16sp"-->
-<!--            android:layout_marginStart="8dp"/>-->
-<!--    </LinearLayout>-->
-
-<!--    &lt;!&ndash; Switch Account Button &ndash;&gt;-->
-<!--    <Button-->
-<!--        android:id="@+id/switchAccountButton"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:text="Switch Account"-->
-<!--        app:layout_constraintTop_toBottomOf="@id/otherAddressLayout"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintBottom_toBottomOf="parent"/>-->
+    </GridLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

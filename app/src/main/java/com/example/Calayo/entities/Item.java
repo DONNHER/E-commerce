@@ -1,6 +1,60 @@
 package com.example.Calayo.entities;
 
+import java.util.ArrayList;
+
 public class Item {
+    public ArrayList<addOn> getAddOns() {
+        return addOns;
+    }
+
+    public void setAddOns(ArrayList<addOn> addOns) {
+        this.addOns = addOns;
+    }
+
+    public static class addOn{
+        private String addOnName;
+        private Double addOnPrice;
+        private String itemName;
+        private boolean isChecked;
+        public addOn(){}
+        public addOn(String add, double addOnPrice, String item){
+            this.addOnName = add;
+            this.addOnPrice = addOnPrice;
+            this.itemName = item;
+        }
+
+        public String getAddOnName() {
+            return addOnName;
+        }
+
+        public void setAddOnName(String name) {
+            this.addOnName = name;
+        }
+
+        public double getAddOnPrice() {
+            return addOnPrice;
+        }
+
+        public void setAddOnPrice(double price) {
+            this.addOnPrice = price;
+        }
+
+        public String getItemName() {
+            return itemName;
+        }
+
+        public void setItemName(String item) {
+            this.itemName = item;
+        }
+
+        public boolean isChecked() {
+            return isChecked;
+        }
+
+        public void setChecked(boolean checked) {
+            isChecked = checked;
+        }
+    }
 
     private  String id ;
     private  String Image;
@@ -12,6 +66,8 @@ public class Item {
     private String category;
     private String type;
     private boolean isFavorite;
+
+    private ArrayList<addOn> addOns;
 
     // Constructor
     public Item(){}

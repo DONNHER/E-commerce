@@ -10,6 +10,8 @@ public class user {
 
     private String password;
     // Constructor
+    public user() {
+    }
     public user(String email, String password) {
         this.email = email;
         this.password = password;

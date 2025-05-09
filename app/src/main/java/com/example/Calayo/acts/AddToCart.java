@@ -1,6 +1,6 @@
 package com.example.Calayo.acts;
 
-import androidx.fragment.app.DialogFragment;
+import androidx.appcompat.app.AppCompatActivity;
 
-public class AddToCart extends DialogFragment {
+public class AddToCart extends AppCompatActivity {
 }

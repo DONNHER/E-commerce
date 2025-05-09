@@ -14,7 +14,6 @@ public class Order {
     private String serviceID;
     private String patientName;
 
-
     // Constructor
     public Order(){}
     public Order(String Email, String appointmentDate, String appointmentTime, String name) {

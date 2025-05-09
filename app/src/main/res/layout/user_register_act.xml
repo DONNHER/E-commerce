@@ -13,6 +13,7 @@
 
         <!-- Back Icon -->
         <ImageView
+            android:id="@+id/back"
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:layout_gravity="start"
@@ -51,7 +52,9 @@
             android:layout_marginTop="10dp"
             android:background="@drawable/edit_background"
             android:padding="12dp"
-            android:autofillHints="name"/>
+            android:autofillHints="name"
+            android:singleLine="true"
+            android:maxLength="16"/>
 
         <!-- Email Field -->
         <TextView
@@ -68,7 +71,17 @@
             android:layout_height="48dp"
             android:layout_marginTop="10dp"
             android:background="@drawable/edit_background"
-            android:padding="12dp" />
+            android:padding="12dp"
+            android:singleLine="true"/>
+        <TextView
+            android:id="@+id/error"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="        "
+            android:textSize="16sp"
+            android:layout_gravity="start"
+            android:textColor="@color/black"
+            android:layout_marginTop="10dp"/>
 
         <!-- Sign Up Button -->
         <Button
