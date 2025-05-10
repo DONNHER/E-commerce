@@ -39,6 +39,12 @@ public class productsAct extends AppCompatActivity {
 //        loadServices();
         ImageView home = findViewById(R.id.home);
 
+        ImageView cart = findViewById(R.id.cart);
+        cart.setOnClickListener(v -> {
+            Intent intent = new Intent(this,AddToCart.class);
+            startActivity(intent);
+        });
+
         home.setOnClickListener(view -> {
                     FirebaseUser user = myAuth.getCurrentUser();
                     if (user != null) {

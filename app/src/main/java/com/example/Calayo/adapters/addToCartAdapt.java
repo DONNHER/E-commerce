@@ -17,7 +17,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.Calayo.R;
-import com.example.Calayo.entities.Order;
 import com.example.Calayo.entities.address;
 import com.example.Calayo.entities.cartItem;
 import com.example.Calayo.helper.tempStorage;
@@ -25,13 +24,13 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.List;
 
-public class order_adaptor  extends RecyclerView.Adapter<order_adaptor.PageViewHolder> {
-    private List<Order> items;
+public class addToCartAdapt  extends RecyclerView.Adapter<addToCartAdapt.PageViewHolder> {
+    private List<cartItem> items;
     FragmentActivity fragmentAct;
     private tempStorage temp = tempStorage.getInstance();
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
 
-    public order_adaptor(List<Order> items, FragmentActivity fragmentActivity) {
+    public addToCartAdapt(List<cartItem> items, FragmentActivity fragmentActivity) {
         this.items = items;
         this.fragmentAct = fragmentActivity;
     }
@@ -39,18 +38,42 @@ public class order_adaptor  extends RecyclerView.Adapter<order_adaptor.PageViewH
     @NonNull
     @Override
     public PageViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.order, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.cart, parent, false);
         return new PageViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull PageViewHolder holder, int position) {
-        Order item = items.get(position);
+        cartItem item = items.get(position);
         Glide.with(holder.pic.getContext())
-                .load(item.getImage())
+                .load(item.getPic())
                 .into(holder.pic);
-        holder.units.setText(item.getUnits()+"x");
-        holder.name.setText(item.getProductName());
+        holder.units.setText(item.getUnits());
+
+        holder.minus.setOnClickListener(v -> {
+            int unit = Integer.parseInt(holder.units.getText().toString().trim());
+            if (unit < 0) {
+                holder.units.setText("1");
+            }
+            if (unit > 1) {
+                unit--;
+                holder.units.setText("   " + unit + "   ");
+            }
+        });
+        holder.add.setOnClickListener(v -> {
+            int unit = Integer.parseInt(holder.units.getText().toString().trim());
+            unit++;
+            holder.units.setText("   " + unit + "   ");
+        });
+
+        holder.checkBox.setOnCheckedChangeListener(null); // Prevent recycling issues
+        holder.checkBox.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if (isChecked) {
+                temp.getCartItemArrayList().add(item);
+            } else {
+                temp.getCartItemArrayList().remove(item);
+            }
+        });
     }
 
     @Override
@@ -62,11 +85,17 @@ public class order_adaptor  extends RecyclerView.Adapter<order_adaptor.PageViewH
         ImageView pic;
         TextView units;
         TextView name;
+        CheckBox checkBox;
+        ImageView minus;
+        ImageView add;
         PageViewHolder(View itemView) {
             super(itemView);
             pic = itemView.findViewById(R.id.image);
             name = itemView.findViewById(R.id.name);
             units = itemView.findViewById(R.id.units);
+            checkBox = itemView.findViewById(R.id.checkbox);
+            minus = itemView.findViewById(R.id.minus);
+            add = itemView.findViewById(R.id.add);
         }
     }
 }

@@ -40,10 +40,10 @@ public class ManagerHome extends AppCompatActivity {
 
         // 🔧 Initialize UI components
         recyclerView = findViewById(R.id.appointmentsView_manage);
-        btn1 = findViewById(R.id.btnConfirmed);
-        btn2 = findViewById(R.id.btnPending); 
+//        btn1 = findViewById(R.id.btnConfirmed);
+//        btn2 = findViewById(R.id.btnPending);
 
-        Adapt = new order_adaptor();
+//        Adapt = new order_adaptor();
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(Adapt);
 
@@ -90,7 +90,7 @@ public class ManagerHome extends AppCompatActivity {
         }
 
         Map<String, List<Order>> grouped = groupByDate(filtered);
-        Adapt.setAppointments(grouped, getSupportFragmentManager());
+//        Adapt.setAppointments(grouped, getSupportFragmentManager());
     }
 
     private Map<String, List<Order>> groupByDate(List<Order> orders) {

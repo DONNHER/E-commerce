@@ -1,5 +1,8 @@
 package com.example.Calayo.adapters;
 
+import static android.content.Context.MODE_PRIVATE;
+
+import android.content.SharedPreferences;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -44,7 +47,10 @@ public class address_adapter  extends RecyclerView.Adapter<address_adapter.PageV
         holder.address.setText(item.getFullAddress());
         holder.header.setText(item.getName());
         holder.itemView.setOnClickListener(v -> {
-            temp.setSelectedAddress(item);
+            SharedPreferences preferences = fragmentAct.getSharedPreferences("SelectedAddress",MODE_PRIVATE);
+            SharedPreferences preferences2 = fragmentAct.getSharedPreferences("typeAddress",MODE_PRIVATE);
+            preferences2.edit().putString("typeAddress",item.getName()).apply();
+            preferences.edit().putString("SelectedAddress",item.getFullAddress()).apply();
             Toast.makeText(fragmentAct,item.getFullAddress()+ " is selected.",Toast.LENGTH_SHORT).show();
         });
     }

@@ -59,17 +59,17 @@ public class userLoginAct extends AppCompatActivity {
             }
             loginUser(emailEditText,passwordEditText);
     });
-//        CheckBox showPasswordCheckBox = view.findViewById(R.id.showPasswordCheckBox);
-//
-//
-//        showPasswordCheckBox.setOnCheckedChangeListener((buttonView, isChecked) -> {
-//            if (isChecked) {
-//                passwordEditText.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
-//            } else {
-//                passwordEditText.setTransformationMethod(PasswordTransformationMethod.getInstance());
-//            }
-//            passwordEditText.post(() -> passwordEditText.setSelection(passwordEditText.getText().length()));
-//        });
+        CheckBox showPasswordCheckBox = findViewById(R.id.showPasswordCheckBox);
+
+
+        showPasswordCheckBox.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if (isChecked) {
+                passwordEditText.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+            } else {
+                passwordEditText.setTransformationMethod(PasswordTransformationMethod.getInstance());
+            }
+            passwordEditText.post(() -> passwordEditText.setSelection(passwordEditText.getText().length()));
+        });
     }
 
     protected void loginUser(EditText email, EditText pass) {
@@ -80,16 +80,17 @@ public class userLoginAct extends AppCompatActivity {
                 Toast.makeText(this,"Login Successful",Toast.LENGTH_SHORT).show();
                 SharedPreferences preferences = getSharedPreferences("user",MODE_PRIVATE);
                 preferences.edit().putBoolean("isLoggedIn",true).apply();
+                preferences.edit().putString("userName",myAuth.getCurrentUser().getUid());
+                preferences.edit().putString("email",myAuth.getCurrentUser().getEmail());
                 Intent intent = new Intent(this, UserDashboardAct.class);
                 startActivity(intent);
                 finish();
             }else{
                 Exception e = task.getException();
+                this.recreate();
                 if (e instanceof FirebaseNetworkException) {
-                    this.recreate();
                     Toast.makeText(this, "No internet connection", Toast.LENGTH_LONG).show();
                 } else {
-                    this.recreate();
                     Toast.makeText(this, "Error: unknown" , Toast.LENGTH_LONG).show();
                 }
             }

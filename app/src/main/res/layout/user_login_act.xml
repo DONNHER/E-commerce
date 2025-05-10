@@ -106,17 +106,21 @@
                 android:padding="16dp"
                 android:inputType="textPassword" />
 
-            <ImageView
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:layout_alignParentEnd="true"
-                android:layout_centerVertical="true"
-                android:layout_marginEnd="16dp"
-                android:src="@drawable/eye_open"
-                android:contentDescription="Toggle Password" />
         </RelativeLayout>
+<GridLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
 
-
+        <CheckBox
+            android:id="@+id/showPasswordCheckBox"
+            android:layout_width="wrap_content"
+            android:layout_height="24dp"
+            android:layout_marginEnd="20dp"
+            android:contentDescription="Toggle Password"
+            android:src="@drawable/eye_open"
+            android:layout_gravity="center"
+            android:text="Show password"
+            android:textSize="14dp"/>
 
         <!-- Forgot Password -->
         <TextView
@@ -128,6 +132,7 @@
             android:layout_marginTop="8dp"
             android:textColor="#000000" />
 
+</GridLayout>
         <!-- Login Button -->
         <Button
             android:id="@+id/btnLogin"
@@ -167,5 +172,7 @@
             android:focusable="true"/>
 
         </LinearLayout>
-        </LinearLayout>
+
+
+    </LinearLayout>
 </ScrollView>

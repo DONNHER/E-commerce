@@ -24,11 +24,14 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.Calayo.R;
+import com.example.Calayo.acts.AddToCart;
 import com.example.Calayo.acts.checkout;
 import com.example.Calayo.adapters.AddsADaptor;
 import com.example.Calayo.adapters.addOns;
 import com.example.Calayo.adapters.product_adapt;
 import com.example.Calayo.entities.Item;
+import com.example.Calayo.entities.cartItem;
+import com.example.Calayo.helper.tempStorage;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -37,6 +40,7 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 public class order_Details extends AppCompatActivity {
     private String date, time, name2, services;
@@ -45,6 +49,8 @@ public class order_Details extends AppCompatActivity {
     private addOns addOn;
     private ArrayList<Item.addOn> addOnsItems = new ArrayList<>();
     private RecyclerView addOnsRecycler;
+
+    private tempStorage temp = tempStorage.getInstance();
 
     @SuppressLint({"WrongViewCast", "MissingInflatedId"})
     @Override
@@ -60,6 +66,13 @@ public class order_Details extends AppCompatActivity {
         ImageView minus = findViewById(R.id.minus);
         ImageView add = findViewById(R.id.add);
         TextView quantity = findViewById(R.id.units);
+
+        ImageView cart = findViewById(R.id.cart);
+        cart.setOnClickListener(v -> {
+            Intent intent = new Intent(this, AddToCart.class);
+            startActivity(intent);
+        });
+
 
         minus.setOnClickListener(v -> {
                 int unit = Integer.parseInt(quantity.getText().toString().trim());
@@ -114,11 +127,14 @@ public class order_Details extends AppCompatActivity {
             intent.putExtra("quantity",quantity.getText().toString().trim());
             intent.putExtra("name", name2);
             intent.putExtra("price",price);
+            intent.putExtra("image",image);
+            cartItem newItem = new cartItem(image,quantity.getText().toString().trim(),name,new Date());
+            int i = temp.findNodeInsertion(newItem);
+            temp.getCartItemArrayList().add(i,newItem);
+            Toast.makeText(this, ""+temp.getCartItemArrayList().size(), Toast.LENGTH_SHORT).show();
             startActivity(intent);
         });
-
         back.setOnClickListener(view4 -> finish());
-
     }
 
 }

@@ -2,6 +2,7 @@ package com.example.Calayo.acts;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.GridLayout;
@@ -15,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.Calayo.R;
 import com.example.Calayo.adapters.addOns;
 import com.example.Calayo.entities.Item;
+import com.example.Calayo.entities.Order;
 import com.example.Calayo.entities.address;
 import com.example.Calayo.fragments.OrderSuccessDialog;
 import com.example.Calayo.fragments.userRegisterAct;
@@ -22,6 +24,8 @@ import com.example.Calayo.helper.tempStorage;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.Objects;
 
 public class checkout  extends AppCompatActivity {
     private double totalCost ;
@@ -46,14 +50,17 @@ public class checkout  extends AppCompatActivity {
         TextView address = findViewById(R.id.address);
 
         TextView header = findViewById(R.id.header);
-        if(temp.getSelectedAddress()==null){
+        SharedPreferences preferences1 = getSharedPreferences("SelectedAddress",MODE_PRIVATE);
+        SharedPreferences preferences2 = getSharedPreferences("typeAddress",MODE_PRIVATE);
+
+        if(preferences1.getString("SelectedAddress",null) == null || Objects.requireNonNull(preferences1.getString("SelectedAddress", null)).isEmpty()){
             Intent intent = new Intent(this, myAddress.class);
             Toast.makeText(this,"Please select address first.",Toast.LENGTH_LONG).show();
             startActivity(intent);
             recreate();
         }
-        address.setText(temp.getSelectedAddress().getFullAddress());
-        header.setText(temp.getSelectedAddress().getName());
+        address.setText(preferences1.getString("SelectedAddress","default_value"));
+        header.setText(preferences2.getString("typeAddress","default_value"));
 
         addOnsRecycler = findViewById(R.id.OrderSummary_Recycler3);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
@@ -77,9 +84,15 @@ public class checkout  extends AppCompatActivity {
         Name.setText(name);
         Name2.setText(name);
 
+        String pic = getIntent().getStringExtra("image");
         tCost.setText(""+(temp.getTotalAddOnPrice()+ totalCost));
 
         checkout.setOnClickListener(view2 -> {
+            SharedPreferences sp = getSharedPreferences("user",MODE_PRIVATE);
+            String  name5 = sp.getString("userName",null);
+            Order newOrder = new Order(pic,new Date().toString(),new Date().toString(),name5,name,des);
+            temp.getCheckOutArrayList().add(newOrder);
+            temp.deleteItem(name);
             Intent intent = new Intent(this,OrderSuccessDialog.class);
             startActivity(intent);
             finish();

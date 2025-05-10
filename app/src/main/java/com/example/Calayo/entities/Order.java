@@ -1,26 +1,29 @@
 package com.example.Calayo.entities;
 
 public class Order {
-    private  String email;
+    private  String productName;
     private String appointmentDate;
     private String appointmentTime;
-    private String status;
+    private String status = "Pending";
     private  String paymentMethod = "COD";
     private double totalCost = 0;
     private String createdAt;
     private String updatedAt;
     private String id ;
-    private String userID;
+    private String image;
     private String serviceID;
-    private String patientName;
+    private String userName;
+    private String units;
 
     // Constructor
     public Order(){}
-    public Order(String Email, String appointmentDate, String appointmentTime, String name) {
-        email = Email;
+    public Order(String image, String appointmentDate, String appointmentTime, String name,String productName,String units) {
+        this.productName = productName;
         this.appointmentDate = appointmentDate;
         this.appointmentTime = appointmentTime;
-        this.patientName =name;
+        this.userName =name;
+        this.image = image;
+        this.units = units;
     }
 
     public String getAppointmentDate() { return appointmentDate; }
@@ -39,12 +42,12 @@ public class Order {
     public String getUpdatedAt() { return updatedAt; }
     public void setUpdatedAt(String updatedAt) { this.updatedAt = updatedAt; }
 
-    public  String getEmail() {
-        return email;
+    public  String getProductName() {
+        return productName;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setProductName(String productName) {
+        this.productName = productName;
     }
     public String getAppointmentTime() {
         return appointmentTime;
@@ -60,14 +63,6 @@ public class Order {
         this.id = id;
     }
 
-    public String getUserID() {
-        return userID;
-    }
-
-    public void setUserID(String userID) {
-        this.userID = userID;
-    }
-
     public String getServiceID() {
         return serviceID;
     }
@@ -76,11 +71,27 @@ public class Order {
         this.serviceID = serviceID;
     }
 
-    public String getPatientName() {
-        return patientName;
+    public String getUserName() {
+        return userName;
     }
 
-    public void setPatientName(String patientName) {
-        this.patientName = patientName;
+    public void setUserName(String Name) {
+        this.userName = Name;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
+    public String getUnits() {
+        return units;
+    }
+
+    public void setUnits(String units) {
+        this.units = units;
     }
 }

@@ -15,6 +15,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
 
@@ -28,6 +29,7 @@ import androidx.recyclerview.widget.SnapHelper;
 
 import com.example.Calayo.R;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
@@ -42,6 +44,8 @@ public class main_act extends AppCompatActivity {
     private RecyclerView recyclerView;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private final FirebaseAuth myAuth= FirebaseAuth.getInstance();
+
+    private  ArrayList<Item> items = new ArrayList<>();
 
     private RecyclerView products ;
     private product_adapt Adapt;
@@ -67,6 +71,12 @@ public class main_act extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 //        recyclerView = findViewById(R.id.appointmentsView);
 //        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        TextView seeAll = findViewById(R.id.seeAll);
+        seeAll.setOnClickListener( view ->{
+            Intent menupage = new Intent(this,productsAct.class);
+            startActivity(menupage);
+        });
+
         ImageView home = findViewById(R.id.home);
         home.setOnClickListener(view -> {
             Intent homepage = new Intent(this, main_act.class);
@@ -77,11 +87,11 @@ public class main_act extends AppCompatActivity {
             Intent menupage = new Intent(this,productsAct.class);
             startActivity(menupage);
         });
-//        ImageView history = findViewById(R.id.history);
-//        menu.setOnClickListener(view -> {
-//            Intent menupage = new Intent(this,productsAct.class);
-//            startActivity(menupage);
-//        });
+        ImageView history = findViewById(R.id.history);
+        history.setOnClickListener(view -> {
+            Intent menupage = new Intent(this,transactions.class);
+            startActivity(menupage);
+        });
         ImageView profile = findViewById(R.id.profile);
         profile.setOnClickListener(view -> {
             if(myAuth.getCurrentUser() == null) {
@@ -96,7 +106,7 @@ public class main_act extends AppCompatActivity {
         products = findViewById(R.id.Products_Recycler);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         products.setLayoutManager(layoutManager);
-
+        products_db();
 
         // Force a re-layout to update the RecyclerView's height
 
@@ -114,34 +124,6 @@ public class main_act extends AppCompatActivity {
         addsRecyclerView.setAdapter(adapter);
     }
 
-    @NonNull
-    private static ArrayList<Item> getItems() {
-        ArrayList<Item> data = new ArrayList<>();
-        Item newItem = new Item(200,"https://ik.imagekit.io/k4imggmfa/pizza1.png?updatedAt=1746566552587","Pizza",50,"Hawaiian pizza typically uses, mozzarella cheese, ham pizza dough, pizza sauce, mozzarella cheese, ham, and pineapple. Some variations also include bacon or other toppings.");
-        Item newItem2 = new Item(180,"https://ik.imagekit.io/k4imggmfa/burger.png?updatedAt=1746566830867","Burger",50,"Hawaiian pizza typically uses, mozzarella cheese, ham pizza dough, pizza sauce, mozzarella cheese, ham, and pineapple. Some variations also include bacon or other toppings.");
-        Item newItem3 = new Item(250,"https://ik.imagekit.io/k4imggmfa/hotdogs.png?updatedAt=1746566840760","Chicken Burger",50,"Hawaiian pizza typically uses, mozzarella cheese, ham pizza dough, pizza sauce, mozzarella cheese, ham, and pineapple. Some variations also include bacon or other toppings.");
-
-        data.add(newItem);
-        data.add(newItem2);
-        data.add(newItem3);
-        Item newI= new Item(200,"https://ik.imagekit.io/k4imggmfa/pizza1.png?updatedAt=1746566552587","Pizza",50,"Hawaiian pizza typically uses, mozzarella cheese, ham pizza dough, pizza sauce, mozzarella cheese, ham, and pineapple. Some variations also include bacon or other toppings.");
-        Item newIte = new Item(200,"https://ik.imagekit.io/k4imggmfa/burger.png?updatedAt=1746566830867","Burger",50,"Hawaiian pizza typically uses, mozzarella cheese, ham pizza dough, pizza sauce, mozzarella cheese, ham, and pineapple. Some variations also include bacon or other toppings.");
-        Item neww = new Item(200,"https://ik.imagekit.io/k4imggmfa/hotdogs.png?updatedAt=1746566840760","Chicken Burger",50,"Hawaiian pizza typically uses, mozzarella cheese, ham pizza dough, pizza sauce, mozzarella cheese, ham, and pineapple. Some variations also include bacon or other toppings.");
-
-        data.add(newItem);
-        data.add(newItem2);
-        data.add(newItem3);
-        data.add(newI);
-        data.add(newIte);
-        data.add(neww);
-        return data;
-    }
-
-    public void onMenuClick2(View view) {
-        Intent intent = new Intent(view.getContext(), settingAct.class);
-        view.getContext().startActivity(intent);
-
-    }
     public void onLogClick(View view) {
         Intent intent = new Intent(view.getContext(), userLoginAct.class);
         view.getContext().startActivity(intent);
@@ -149,5 +131,21 @@ public class main_act extends AppCompatActivity {
     public void onResClick(View view) {
         Intent intent = new Intent(view.getContext(), userRegisterAct.class);
         view.getContext().startActivity(intent);
+    }
+    private void products_db() {
+        db.collection("items").get().addOnSuccessListener(queryDocumentSnapshots -> {
+            items.clear();
+            for (DocumentSnapshot documentSnapshot : queryDocumentSnapshots) {
+                Item item = documentSnapshot.toObject(Item.class);
+                items.add(item);
+            }
+            Adapt = new product_adapt(items, this);
+            products.setAdapter(Adapt);
+        });
+    }
+    @Override
+    public void onResume(){
+        super.onResume();
+        products_db();
     }
 }

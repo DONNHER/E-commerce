@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.Calayo.R;
 import com.example.Calayo.acts.AddToCart;
+import com.example.Calayo.acts.productsAct;
 import com.example.Calayo.entities.adds;
 import com.example.Calayo.fragments.order_Details;
 import com.example.Calayo.fragments.userLoginAct;
@@ -47,7 +48,7 @@ public class AddsADaptor extends RecyclerView.Adapter<AddsADaptor.PageViewHolder
                 Intent order = new Intent(fragmentAct, userLoginAct.class);
                 fragmentAct.startActivity(order);
             }else {
-                Intent order = new Intent(fragmentAct, order_Details.class);
+                Intent order = new Intent(fragmentAct, productsAct.class);
                 fragmentAct.startActivity(order);
             }
         });

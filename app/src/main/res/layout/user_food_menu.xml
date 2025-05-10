@@ -38,6 +38,7 @@
                 android:layout_gravity="center"
                 android:drawableStart="@android:drawable/ic_menu_search"/>
             <ImageView
+                android:id="@+id/cart"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:contentDescription="TODO"

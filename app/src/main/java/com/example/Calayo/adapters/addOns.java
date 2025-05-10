@@ -58,7 +58,6 @@ public class addOns extends RecyclerView.Adapter<addOns.PageViewHolder> {
         }
         holder.checkBox.setOnCheckedChangeListener((buttonView, isChecked) -> {
             item.setChecked(isChecked); // update state
-
             if (isChecked) {
                 temp.getAddOnArrayList().add(item);
                 Toast.makeText(fragmentAct, item.getAddOnName() + " added", Toast.LENGTH_SHORT).show();

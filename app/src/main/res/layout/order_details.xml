@@ -25,7 +25,8 @@
         android:padding="10dp">
         <GridLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:columnCount="3">
 
             <Button
                 android:id="@+id/back"
@@ -37,11 +38,20 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_row="0"
-                android:layout_column="1"
+                android:layout_column="2"
                 android:text="Detials"
                 android:textSize="18sp"
                 android:textColor="@android:color/black"
                 android:layout_gravity="center"/>
+            <ImageView
+                android:id="@+id/cart"
+                android:layout_width="50dp"
+                android:layout_height="50dp"  android:layout_row="0"
+                android:layout_column="2"
+                android:contentDescription="TODO"
+                android:src="@drawable/turnover"
+                android:background="@drawable/yellow"
+                android:layout_gravity="end"/>
         </GridLayout>
     </LinearLayout>
     <ImageView
@@ -161,14 +171,7 @@
         android:paddingStart="10dp"
         android:paddingEnd="10dp"
         android:paddingBottom="10dp">
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:hint="Write notes"
-            android:background="@drawable/edit_text"
-            android:layout_margin="10dp"
-            android:layout_marginEnd="10dp">
-        </EditText>
+
 
         <LinearLayout
             android:layout_width="wrap_content"

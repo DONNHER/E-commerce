@@ -5,6 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#E6F4F1"
     >
     <LinearLayout
         android:layout_width="match_parent"
@@ -183,9 +184,9 @@
 
         </LinearLayout>
 
-        <LinearLayout
+        <GridLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="238dp"
             android:orientation="vertical"
             android:padding="10dp">
 
@@ -199,12 +200,13 @@
                     android:layout_height="wrap_content"
                     android:layout_row="0"
                     android:layout_column="1"
-                    android:textStyle="bold"
                     android:layout_gravity="center"
                     android:text="Order Summary"
-                    android:textColor="@android:color/black" />
+                    android:textColor="@android:color/black"
+                    android:textStyle="bold" />
 
             </GridLayout>
+
             <GridLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -249,12 +251,12 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="end"
-                        android:text="200"
-                        android:textColor="@color/black"
-                        android:paddingEnd="5dp"
-                        android:paddingTop="0dp"
                         android:paddingStart="0dp"
-                        android:paddingBottom="0dp"/>
+                        android:paddingTop="0dp"
+                        android:paddingEnd="5dp"
+                        android:paddingBottom="0dp"
+                        android:text="200"
+                        android:textColor="@color/black" />
                 </LinearLayout>
 
             </GridLayout>
@@ -265,9 +267,11 @@
                 android:layout_height="wrap_content"
                 android:padding="10dp"
                 android:scrollbars="vertical" />
+
             <GridLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
                 tools:ignore="MissingConstraints">
 
                 <TextView
@@ -277,6 +281,7 @@
                     android:textColor="@color/black">
 
                 </TextView>
+
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -296,16 +301,16 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="end"
-                        android:text="200"
-                        android:textColor="@color/black"
-                        android:paddingEnd="5dp"
-                        android:paddingTop="0dp"
                         android:paddingStart="0dp"
-                        android:paddingBottom="0dp"/>
+                        android:paddingTop="0dp"
+                        android:paddingEnd="5dp"
+                        android:paddingBottom="0dp"
+                        android:text="200"
+                        android:textColor="@color/black" />
                 </LinearLayout>
 
             </GridLayout>
-        </LinearLayout>
+        </GridLayout>
 
     </LinearLayout>
 
@@ -318,7 +323,14 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         android:orientation="vertical">
-
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:hint="Write notes"
+            android:background="@drawable/edit_text"
+            android:layout_margin="10dp"
+            android:layout_marginEnd="10dp">
+        </EditText>
         <GridLayout
             android:id="@+id/checkout"
             android:layout_height="wrap_content"

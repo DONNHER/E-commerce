@@ -37,7 +37,7 @@ public class ManagerDashB extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.manager_dash);
         recyclerView = findViewById(R.id.appointmentsView4);
-        Adapt = new order_adaptor();
+//        Adapt = new order_adaptor();
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(Adapt);
         TextView name = findViewById(R.id.name);
@@ -79,7 +79,7 @@ public class ManagerDashB extends AppCompatActivity {
 
         // Group appointments by date
         Map<String, List<Order>> grouped = groupByDate(filtered);
-        Adapt.setAppointments(grouped,getSupportFragmentManager());
+//        Adapt.setAppointments(grouped,getSupportFragmentManager());
     }
 
     private Map<String, List<Order>> groupByDate(List<Order> orders) {

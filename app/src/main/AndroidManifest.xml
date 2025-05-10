@@ -61,6 +61,16 @@
         android:theme="@style/Theme.AppCompat.DayNight.NoActionBar">
     </activity>
         <activity
+            android:name=".acts.transactions"
+            android:exported="true"
+            android:theme="@style/Theme.AppCompat.DayNight.NoActionBar">
+        </activity>
+        <activity
+            android:name=".acts.AddToCart"
+            android:exported="true"
+            android:theme="@style/Theme.AppCompat.DayNight.NoActionBar">
+        </activity>
+        <activity
             android:name=".fragments.OrderSuccessDialog"
             android:exported="true"
             android:theme="@style/Theme.AppCompat.DayNight.NoActionBar">

@@ -238,11 +238,12 @@
                     android:textColor="@color/black"/>
 
                 <TextView
+                    android:id="@+id/seeAll"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="See All"
                     android:layout_gravity="end"
-                    android:textColor="@color/black"/>
+                    android:text="See All"
+                    android:textColor="@color/black" />
             </GridLayout>
 
             <androidx.recyclerview.widget.RecyclerView

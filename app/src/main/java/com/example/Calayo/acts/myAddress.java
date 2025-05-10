@@ -70,34 +70,34 @@ public class myAddress extends AppCompatActivity {
         addsRecyclerView.setLayoutManager(layoutManager2);
 
 
-        address data = new address("P2", " Palma", "Kibawe", "Bukidnon", "8720","home");
-
-        address data2 = new address("P18", " Musuan", "Maramag", "Bukidnon", "8714","work");
-
-        adds.add(data);
-        adds.add(data2);
-        for (address l : adds) {
-            Map<String, Object> mydata2 = new HashMap<>();
-            mydata2.put("street", l.getStreet());
-            mydata2.put("baranggay", l.getBaranggay());
-            mydata2.put("city", l.getCity());
-            mydata2.put("province", l.getProvince());
-            mydata2.put("code", l.getCode());
-            mydata2.put("name", l.getName());
-
-            db.collection("users").document(myAuth.getCurrentUser().getUid()).collection("address").document(l.getName()).get().addOnCompleteListener(task -> {
-                if(task.isSuccessful()){
-                    DocumentSnapshot d = task.getResult();
-                    if(d.exists()){
-                        Log.d("Firestore", "Document already exists");
-                    }else {
-                        db.collection("users").document(myAuth.getCurrentUser().getUid()).collection("address").document(l.getName()).set(mydata2);
-                    }
-                }else {
-                    Log.d("Firestore","Failed to get document", task.getException());
-                }
-            });
-        }
+//        address data = new address("P2", " Palma", "Kibawe", "Bukidnon", "8720","home");
+//
+//        address data2 = new address("P18", " Musuan", "Maramag", "Bukidnon", "8714","work");
+//
+//        adds.add(data);
+//        adds.add(data2);
+//        for (address l : adds) {
+//            Map<String, Object> mydata2 = new HashMap<>();
+//            mydata2.put("street", l.getStreet());
+//            mydata2.put("baranggay", l.getBaranggay());
+//            mydata2.put("city", l.getCity());
+//            mydata2.put("province", l.getProvince());
+//            mydata2.put("code", l.getCode());
+//            mydata2.put("name", l.getName());
+//
+//            db.collection("users").document(myAuth.getCurrentUser().getUid()).collection("address").document(l.getName()).get().addOnCompleteListener(task -> {
+//                if(task.isSuccessful()){
+//                    DocumentSnapshot d = task.getResult();
+//                    if(d.exists()){
+//                        Log.d("Firestore", "Document already exists");
+//                    }else {
+//                        db.collection("users").document(myAuth.getCurrentUser().getUid()).collection("address").document(l.getName()).set(mydata2);
+//                    }
+//                }else {
+//                    Log.d("Firestore","Failed to get document", task.getException());
+//                }
+//            });
+//        }
         db.collection("users").document(myAuth.getCurrentUser().getUid()).collection("address").get().addOnSuccessListener(queryDocumentSnapshots -> {
             adds.clear();
             for (DocumentSnapshot documentSnapshot : queryDocumentSnapshots) {

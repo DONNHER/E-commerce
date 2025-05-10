@@ -75,72 +75,23 @@ public class UserDashboardAct extends AppCompatActivity {
             Intent menupage = new Intent(this,productsAct.class);
             startActivity(menupage);
         });
-//        ImageView history = findViewById(R.id.history);
-//        menu.setOnClickListener(view -> {
-//            Intent menupage = new Intent(this,productsAct.class);
-//            startActivity(menupage);
-//        });
+        ImageView history = findViewById(R.id.history);
+        history.setOnClickListener(view -> {
+            Intent menupage = new Intent(this, transactions.class);
+            startActivity(menupage);
+        });
         ImageView profile = findViewById(R.id.profile);
         profile.setOnClickListener(view -> {
             Intent profilepage = new Intent(this, settingAct.class);
             startActivity(profilepage);
         });
-        //Products
-        for(Item i : getItems()){
-            Map<String, Object> data = new HashMap<>();
-            data.put("name", i.getName());
-            data.put("price", i.getPrice());
-            data.put("description", i.getDescription());
-            data.put("image", i.getImage());
-            data.put("quantity", i.getQuantity());
-            data.put("favorite", i.isFavorite());
 
-            db.collection("items").document(i.getName()).get().addOnCompleteListener(task -> {
-               if(task.isSuccessful()){
-                   DocumentSnapshot d = task.getResult();
-                   if(d.exists()){
-                       Log.d("Firestore", "Document already exists");
-                   }else {
-                       db.collection("items").document(i.getName()).set(data);
-                   }
-               }else {
-                   Log.d("Firestore","Failed to get document", task.getException());
-               }
-            });
-
-        }
-        for(Item.addOn l : getItemsAddOns()) {
-            Map<String, Object> data2 = new HashMap<>();
-            data2.put("ItemName", l.getItemName());
-            data2.put("addOnPrice", l.getAddOnPrice());
-            data2.put("addOnName", l.getAddOnName());
-            db.collection("items").document(l.getAddOnName()).collection("addOns").document(l.getAddOnName()).get().addOnCompleteListener(task -> {
-                if(task.isSuccessful()){
-                    DocumentSnapshot d = task.getResult();
-                    if(d.exists()){
-                        Log.d("Firestore", "Document already exists");
-                    }else {
-                        db.collection("items").document(l.getItemName()).collection("addOns").document(l.getAddOnName()).set(data2);
-                    }
-                }else {
-                    Log.d("Firestore","Failed to get document", task.getException());
-                }
-            });
-        }
         products = findViewById(R.id.Products_Recycler);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         products.setLayoutManager(layoutManager);
         products_db();
 
 
-        // adds
-
-//        for(adds j : data2){
-//            Map<String, Object> data = new HashMap<>();
-//            data.put("description", j.getDescription());
-//            j.setId(uuid.);
-//            db.collection("items").document(j.getName()).set(data);
-//        }
         addsRecyclerView = findViewById(R.id.Adds_Recycler);
         LinearLayoutManager layoutManager2 = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
         addsRecyclerView.setLayoutManager(layoutManager2);
@@ -150,6 +101,7 @@ public class UserDashboardAct extends AppCompatActivity {
 
 //         adds_db();
         List<adds> data2 = Arrays.asList(new adds("Get 40% off\nYour First Order"),new adds("Get 10% off\nYour First Order"),new adds("Get 30% off\nYour First Order"),new adds("Get 20% off\nYour First Order"));
+
         adapter = new AddsADaptor(data2,this);
         addsRecyclerView.setAdapter(adapter);
     }
