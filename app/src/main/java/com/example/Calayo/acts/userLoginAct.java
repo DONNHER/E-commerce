@@ -1,4 +1,4 @@
-package com.example.Calayo.fragments;
+package com.example.Calayo.acts;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -7,26 +7,23 @@ import android.os.Bundle;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
 import android.util.Patterns;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.DialogFragment;
 
 import com.example.Calayo.R;
-import com.example.Calayo.acts.UserDashboardAct;
-import com.example.Calayo.acts.main_act;
+import com.example.Calayo.helper.tempStorage;
 import com.google.firebase.FirebaseNetworkException;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class userLoginAct extends AppCompatActivity {
 
-    private FirebaseAuth myAuth= FirebaseAuth.getInstance();;
+    private FirebaseAuth myAuth= FirebaseAuth.getInstance();
+    tempStorage temp;
 
     @SuppressLint({"WrongViewCast", "MissingInflatedId"})
     @Override
@@ -50,7 +47,7 @@ public class userLoginAct extends AppCompatActivity {
                 if (pass.isEmpty()) passwordEditText.setError("Required");
                 return;
             }if (pass.length() < 6 || pass.length() >16 ) {
-                if (pass.length() < 6) emailEditText.setError("Password must be at least 6 characters");
+                if (pass.length() < 6) passwordEditText.setError("Password must be at least 6 characters");
                 if (pass.length() >16) passwordEditText.setError("Password is ambiguous");
                 return;
             }if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {

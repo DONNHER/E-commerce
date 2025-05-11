@@ -2,8 +2,8 @@ package com.example.Calayo.entities;
 
 public class Order {
     private  String productName;
-    private String appointmentDate;
-    private String appointmentTime;
+    private String Date;
+    private String Time;
     private String status = "Pending";
     private  String paymentMethod = "COD";
     private double totalCost = 0;
@@ -17,17 +17,18 @@ public class Order {
 
     // Constructor
     public Order(){}
-    public Order(String image, String appointmentDate, String appointmentTime, String name,String productName,String units) {
+    public Order(String image, String Date, String Time, String name,String productName,String units,String id) {
         this.productName = productName;
-        this.appointmentDate = appointmentDate;
-        this.appointmentTime = appointmentTime;
+        this.Date = Date;
+        this.Time = Time;
         this.userName =name;
         this.image = image;
         this.units = units;
+        this.id = id;
     }
 
-    public String getAppointmentDate() { return appointmentDate; }
-    public void setAppointmentDate(String appointmentDate) { this.appointmentDate = appointmentDate; }
+    public String getAppointmentDate() { return Date; }
+    public void setAppointmentDate(String appointmentDate) { this.Date = appointmentDate; }
 
     public String getStatus() { return status; }
     public void setStatus(String status) { this.status = status; }
@@ -50,11 +51,11 @@ public class Order {
         this.productName = productName;
     }
     public String getAppointmentTime() {
-        return appointmentTime;
+        return Time;
     }
 
     public void setAppointmentTime(String appointmentTime) {
-        this.appointmentTime = appointmentTime;
+        this.Time = appointmentTime;
     }
     public String getId() {
         return id;

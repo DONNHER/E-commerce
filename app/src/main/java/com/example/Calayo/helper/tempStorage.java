@@ -1,6 +1,9 @@
 package com.example.Calayo.helper;
 
+import static android.content.Context.MODE_PRIVATE;
+
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
@@ -11,13 +14,23 @@ import androidx.work.NetworkType;
 import androidx.work.OneTimeWorkRequest;
 import androidx.work.WorkManager;
 
+import com.example.Calayo.acts.order_Details;
+import com.example.Calayo.adapters.addOns;
+import com.example.Calayo.adapters.address_adapter;
+import com.example.Calayo.adapters.product_adapt;
 import com.example.Calayo.entities.Item;
 import com.example.Calayo.entities.Order;
 import com.example.Calayo.entities.address;
+import com.example.Calayo.entities.adds;
 import com.example.Calayo.entities.cartItem;
+import com.example.Calayo.entities.user;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Singleton class to temporarily hold in-memory data for a food delivery app session.
@@ -29,35 +42,68 @@ public class tempStorage {
 
     // In-memory storage lists
     private final ArrayList<Item.addOn> addOnArrayList;
+    private final ArrayList<Item> itemArrayList;
     private final ArrayList<cartItem> cartItemArrayList;
     private final ArrayList<Order> checkOutArrayList;
     private final ArrayList<address> addressList;
+
+    private final FirebaseAuth myAuth= FirebaseAuth.getInstance();
+    ArrayList<Item.addOn> addOnsItems;
+    ArrayList<adds> adds ;
+    SharedPreferences sharedPreferences;
+    private String loggedIn = myAuth.getCurrentUser().getUid();
 
     // LiveData for UI observation of cart changes
     private final MutableLiveData<ArrayList<cartItem>> cartLiveData;
 
     // Firebase Firestore instance for remote sync
     private final FirebaseFirestore db;
+    private boolean isloggedIn;
+
 
     /**
      * Private constructor initializes all internal lists and Firestore reference.
      */
     private tempStorage() {
+
+        db = FirebaseFirestore.getInstance();
         addOnArrayList = new ArrayList<>();
         cartItemArrayList = new ArrayList<>();
         checkOutArrayList = new ArrayList<>();
+        itemArrayList = new ArrayList<>();
+        adds = new ArrayList<>();
         addressList = new ArrayList<>();
         cartLiveData = new MutableLiveData<>();
-        db = FirebaseFirestore.getInstance();
+        addOnsItems =  new ArrayList<>();
         Log.d(TAG, "Temporary storage initialized.");
     }
 
+    public boolean getIsLoggedin(){
+        return isloggedIn;
+    }
+    public String getLoggedin(){
+        return loggedIn;
+    }
     public ArrayList<Order> getCheckOutArrayList() {
         return checkOutArrayList;
     }
 
     public ArrayList<address> getAddressList() {
         return addressList;
+    }
+
+    public ArrayList<Item> getItemArrayList() {
+        return itemArrayList;
+    }
+    public ArrayList<adds> getAddsArrayList() {
+        return adds;
+    }
+
+
+
+
+    public void setIsloggedIn(boolean isloggedIn) {
+        this.isloggedIn = isloggedIn;
     }
 
     /**
@@ -121,15 +167,15 @@ public class tempStorage {
         cartLiveData.postValue(cartItemArrayList);
 //        syncCartToRemote(context);
     }
-    public void deleteItem( String name) {
-        cartItem item = searchItem(name);
+    public void deleteItem( String id) {
+        cartItem item = searchCartItem(id);
         if (item != null) {
             cartItemArrayList.remove(item);
-            Log.i(TAG, "Item '" + name + "' removed from cart.");
+            Log.i(TAG, "Item '" + id + "' removed from cart.");
             cartLiveData.postValue(cartItemArrayList);
 //            syncCartToRemote(context);
         } else {
-            Log.w(TAG, "Attempted to remove non-existing item '" + name + "'");
+            Log.w(TAG, "Attempted to remove non-existing item '" + id + "'");
         }
     }
 
@@ -139,7 +185,7 @@ public class tempStorage {
      * @param name Name of the item to delete
      */
     public void deleteItem(Context context, String name) {
-        cartItem item = searchItem(name);
+        cartItem item = searchCartItem(name);
         if (item != null) {
             cartItemArrayList.remove(item);
             Log.i(TAG, "Item '" + name + "' removed from cart.");
@@ -170,11 +216,19 @@ public class tempStorage {
 
     /**
      * Searches for a cart item by its name.
-     * @param name Name to search
+     * @param id ID to search
      * @return cartItem object or null if not found
      */
-    public cartItem searchItem(String name) {
+    public cartItem searchCartItem(String id) {
         for (cartItem item : cartItemArrayList) {
+            if (item.getId().equals(id)) {
+                return item;
+            }
+        }
+        return null;
+    }
+    public Item searchItem(String name) {
+        for (Item item : itemArrayList) {
             if (item.getName().equals(name)) {
                 return item;
             }
@@ -229,5 +283,90 @@ public class tempStorage {
 //        WorkManager.getInstance(context).enqueue(syncRequest);
 //        Log.i(TAG, "Sync request enqueued to WorkManager.");
 //    }
+    public interface OnTempDataReadyListener {
+        void onReady();
+    }
+    public void loadAllData(OnTempDataReadyListener listener) {
+        final int totalTasks = 5;
+        final int[] completedTasks = {0};
+
+        Runnable checkDone = () -> {
+            completedTasks[0]++;
+            if (completedTasks[0] == totalTasks && listener != null) {
+                listener.onReady();
+            }
+        };
+
+        // Products
+        db.collection("items").get().addOnSuccessListener(itemSnapshots -> {
+            itemArrayList.clear(); // Optional: clear before adding
+            for (DocumentSnapshot itemDoc : itemSnapshots) {
+                Item item = itemDoc.toObject(Item.class);
+                String itemId = itemDoc.getId();
+                if (item != null) {
+                    db.collection("items").document(itemId).collection("addOns")
+                            .get()
+                            .addOnSuccessListener(addOnSnapshots -> {
+                                ArrayList<Item.addOn> addOnList = new ArrayList<>();
+                                for (DocumentSnapshot addOnDoc : addOnSnapshots) {
+                                    Item.addOn addOn = addOnDoc.toObject(Item.addOn.class);
+                                    addOnList.add(addOn);
+                                }
+                                item.setAddOns(addOnList);
+                                itemArrayList.add(item);
+                                if (itemArrayList.size() == itemSnapshots.size()) {
+                                    checkDone.run();
+                                }
+                            });
+                }
+            }
+        });
+
+        // Adds
+        db.collection("adds").get().addOnSuccessListener(snapshots -> {
+            adds.clear();
+            for (DocumentSnapshot doc : snapshots) {
+                adds item = doc.toObject(adds.class);
+                adds.add(item);
+            }
+            checkDone.run();
+        });
+
+        // Addresses
+        db.collection("users").document(loggedIn).collection("address")
+                .get()
+                .addOnSuccessListener(snapshots -> {
+                    addressList.clear();
+                    for (DocumentSnapshot doc : snapshots) {
+                        address add = doc.toObject(address.class);
+                        addressList.add(add);
+                    }
+                    checkDone.run();
+                });
+        //Food Cart Items
+        db.collection("users").document(loggedIn).collection("Food Cart Items")
+                .get()
+                .addOnSuccessListener(snapshots -> {
+                    cartItemArrayList.clear();
+                    for (DocumentSnapshot doc : snapshots) {
+                        cartItem add = doc.toObject(cartItem.class);
+                        cartItemArrayList.add(add);
+                    }
+                    checkDone.run();
+                });
+
+        //Orders
+        db.collection("users").document(loggedIn).collection("Orders")
+                .get()
+                .addOnSuccessListener(snapshots -> {
+                    checkOutArrayList.clear();
+                    for (DocumentSnapshot doc : snapshots) {
+                        Order add = doc.toObject(Order.class);
+                        checkOutArrayList.add(add);
+                    }
+                    checkDone.run();
+                });
+    }
+
 
 }

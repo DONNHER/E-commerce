@@ -13,7 +13,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.Calayo.R;
 import com.example.Calayo.adapters.order_adaptor;
 import com.example.Calayo.entities.Order;
-import com.example.Calayo.fragments.Menu;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;

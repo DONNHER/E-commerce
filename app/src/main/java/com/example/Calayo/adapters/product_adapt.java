@@ -5,6 +5,7 @@ import static android.view.View.VISIBLE;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.GridLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -22,9 +24,10 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.CustomTarget;
 import com.bumptech.glide.request.transition.Transition;
 import com.example.Calayo.R;
+import com.example.Calayo.acts.userRegisterAct;
 import com.example.Calayo.entities.Item;
-import com.example.Calayo.fragments.order_Details;
-import com.example.Calayo.fragments.userLoginAct;
+import com.example.Calayo.acts.order_Details;
+import com.example.Calayo.acts.userLoginAct;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -86,9 +89,11 @@ public class product_adapt extends RecyclerView.Adapter<product_adapt.ViewHolder
                 Intent order = new Intent(fragmentActivity, userLoginAct.class);
                 fragmentActivity.startActivity(order);
             }else {
+                SharedPreferences preferences = fragmentActivity.getSharedPreferences("selected", fragmentActivity.MODE_PRIVATE);
+                SharedPreferences.Editor editor = preferences.edit();
+                editor.putString("name", item.getName()).apply();
                 Intent intent = new Intent(fragmentActivity, order_Details.class);
                 intent.putExtra("image", item.getImage());
-                intent.putExtra("name", item.getName());
                 intent.putExtra("description",item.getDescription());
                 intent.putExtra("price",String.valueOf( item.getPrice()));
                 fragmentActivity.startActivity(intent);

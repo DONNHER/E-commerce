@@ -1,13 +1,10 @@
 package com.example.Calayo.acts;
 
 import com.example.Calayo.adapters.AddsADaptor;
-import com.example.Calayo.adapters.order_adaptor;
 import com.example.Calayo.adapters.product_adapt;
 import com.example.Calayo.entities.Item;
 import com.example.Calayo.entities.Order;
 import com.example.Calayo.entities.adds;
-import com.example.Calayo.fragments.userLoginAct;
-import com.example.Calayo.fragments.userRegisterAct;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -17,10 +14,10 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.Calayo.helper.tempStorage;
 import com.google.firebase.auth.FirebaseAuth;
 
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.LinearSnapHelper;
@@ -28,7 +25,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.SnapHelper;
 
 import com.example.Calayo.R;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -43,7 +39,6 @@ public class main_act extends AppCompatActivity {
     private final ArrayList<Order> orders = new ArrayList<>();
     private RecyclerView recyclerView;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
-    private final FirebaseAuth myAuth= FirebaseAuth.getInstance();
 
     private  ArrayList<Item> items = new ArrayList<>();
 
@@ -52,23 +47,30 @@ public class main_act extends AppCompatActivity {
 
     RecyclerView addsRecyclerView;
     AddsADaptor adapter;
+    tempStorage temp;
+    private boolean isLoggedIn;
 
     @Override
-    public void onStart(){
+    protected void onStart() {
         super.onStart();
-        SharedPreferences sharedPreferences  = getSharedPreferences("user",MODE_PRIVATE);
-        boolean isLoggedIn = sharedPreferences.getBoolean("isLoggedIn",false);
-        if(isLoggedIn){
-            Intent intent = new Intent(this, UserDashboardAct.class); // Replace with actual target
+        tempStorage temp = tempStorage.getInstance();
+
+        SharedPreferences sharedPreferences  = getSharedPreferences("user", MODE_PRIVATE);
+        isLoggedIn = sharedPreferences.getBoolean("isLoggedIn", false);
+
+        if (isLoggedIn) {
+            Intent intent = new Intent(main_act.this, UserDashboardAct.class);
             startActivity(intent);
             finish();
-            }
+        }
     }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        temp = tempStorage.getInstance();
 //        recyclerView = findViewById(R.id.appointmentsView);
 //        recyclerView.setLayoutManager(new LinearLayoutManager(this));
         TextView seeAll = findViewById(R.id.seeAll);
@@ -94,7 +96,7 @@ public class main_act extends AppCompatActivity {
         });
         ImageView profile = findViewById(R.id.profile);
         profile.setOnClickListener(view -> {
-            if(myAuth.getCurrentUser() == null) {
+            if(isLoggedIn) {
                 Intent login = new Intent(this, userLoginAct.class);
                 startActivity(login);
             }else {
@@ -106,7 +108,8 @@ public class main_act extends AppCompatActivity {
         products = findViewById(R.id.Products_Recycler);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         products.setLayoutManager(layoutManager);
-        products_db();
+        Adapt = new product_adapt(temp.getItemArrayList(),this);
+        products.setAdapter(Adapt);
 
         // Force a re-layout to update the RecyclerView's height
 
@@ -132,20 +135,10 @@ public class main_act extends AppCompatActivity {
         Intent intent = new Intent(view.getContext(), userRegisterAct.class);
         view.getContext().startActivity(intent);
     }
-    private void products_db() {
-        db.collection("items").get().addOnSuccessListener(queryDocumentSnapshots -> {
-            items.clear();
-            for (DocumentSnapshot documentSnapshot : queryDocumentSnapshots) {
-                Item item = documentSnapshot.toObject(Item.class);
-                items.add(item);
-            }
-            Adapt = new product_adapt(items, this);
-            products.setAdapter(Adapt);
-        });
-    }
     @Override
     public void onResume(){
         super.onResume();
-        products_db();
+        Adapt = new product_adapt(temp.getItemArrayList(),this);
+        products.setAdapter(Adapt);
     }
 }

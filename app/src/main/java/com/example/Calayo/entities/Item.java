@@ -14,13 +14,13 @@ public class Item {
     public static class addOn{
         private String addOnName;
         private Double addOnPrice;
-        private String itemName;
+        private String ItemName;
         private boolean isChecked;
         public addOn(){}
         public addOn(String add, double addOnPrice, String item){
             this.addOnName = add;
             this.addOnPrice = addOnPrice;
-            this.itemName = item;
+            this.ItemName = item;
         }
 
         public String getAddOnName() {
@@ -40,11 +40,11 @@ public class Item {
         }
 
         public String getItemName() {
-            return itemName;
+            return ItemName;
         }
 
         public void setItemName(String item) {
-            this.itemName = item;
+            this.ItemName = item;
         }
 
         public boolean isChecked() {

@@ -1,4 +1,4 @@
-package com.example.Calayo.fragments;
+package com.example.Calayo.acts;
 
 import android.app.Activity;
 import android.content.Intent;

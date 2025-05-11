@@ -12,8 +12,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.Calayo.R;
 import com.example.Calayo.adapters.product_adapt;
 import com.example.Calayo.entities.Item;
-import com.example.Calayo.fragments.Menu;
-import com.example.Calayo.fragments.product_management;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 

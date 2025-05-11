@@ -1,4 +1,4 @@
-package com.example.Calayo.fragments;
+package com.example.Calayo.acts;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;

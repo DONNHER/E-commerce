@@ -1,4 +1,4 @@
-package com.example.Calayo.fragments;
+package com.example.Calayo.acts;
 
 import android.view.Gravity;
 import android.view.ViewGroup;

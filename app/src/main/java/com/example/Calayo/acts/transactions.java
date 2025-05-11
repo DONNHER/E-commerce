@@ -4,7 +4,6 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -12,9 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.Calayo.R;
 import com.example.Calayo.adapters.order_adaptor;
-import com.example.Calayo.adapters.product_adapt;
 import com.example.Calayo.entities.Item;
-import com.example.Calayo.fragments.userLoginAct;
 import com.example.Calayo.helper.tempStorage;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;

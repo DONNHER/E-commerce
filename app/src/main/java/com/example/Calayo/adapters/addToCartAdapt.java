@@ -46,9 +46,9 @@ public class addToCartAdapt  extends RecyclerView.Adapter<addToCartAdapt.PageVie
     public void onBindViewHolder(@NonNull PageViewHolder holder, int position) {
         cartItem item = items.get(position);
         Glide.with(holder.pic.getContext())
-                .load(item.getPic())
+                .load(item.getImage())
                 .into(holder.pic);
-        holder.units.setText(item.getUnits());
+        holder.units.setText(item.getQuantity());
 
         holder.minus.setOnClickListener(v -> {
             int unit = Integer.parseInt(holder.units.getText().toString().trim());

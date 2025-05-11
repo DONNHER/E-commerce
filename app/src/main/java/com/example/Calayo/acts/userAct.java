@@ -7,8 +7,6 @@ import android.view.View;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.Calayo.R;
-import com.example.Calayo.fragments.userLoginAct;
-import com.example.Calayo.fragments.userRegisterAct;
 
 public class userAct extends AppCompatActivity {
 

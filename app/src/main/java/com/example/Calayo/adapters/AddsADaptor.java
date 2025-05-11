@@ -5,7 +5,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.TextClock;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -13,11 +12,9 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.Calayo.R;
-import com.example.Calayo.acts.AddToCart;
 import com.example.Calayo.acts.productsAct;
 import com.example.Calayo.entities.adds;
-import com.example.Calayo.fragments.order_Details;
-import com.example.Calayo.fragments.userLoginAct;
+import com.example.Calayo.acts.userLoginAct;
 import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.List;

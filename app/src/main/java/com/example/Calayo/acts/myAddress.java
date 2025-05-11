@@ -4,41 +4,22 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.Button;
-import android.widget.ImageView;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.LinearSnapHelper;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.recyclerview.widget.SnapHelper;
 
 import com.example.Calayo.R;
-import com.example.Calayo.adapters.AddsADaptor;
-import com.example.Calayo.adapters.addOns;
 import com.example.Calayo.adapters.address_adapter;
 import com.example.Calayo.adapters.product_adapt;
-import com.example.Calayo.entities.Item;
 import com.example.Calayo.entities.address;
-import com.example.Calayo.entities.adds;
-import com.example.Calayo.fragments.order_Details;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
+import com.example.Calayo.helper.tempStorage;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 public class myAddress extends AppCompatActivity {
     RecyclerView addsRecyclerView;
@@ -98,14 +79,14 @@ public class myAddress extends AppCompatActivity {
 //                }
 //            });
 //        }
-        db.collection("users").document(myAuth.getCurrentUser().getUid()).collection("address").get().addOnSuccessListener(queryDocumentSnapshots -> {
-            adds.clear();
-            for (DocumentSnapshot documentSnapshot : queryDocumentSnapshots) {
-                address addnew = documentSnapshot.toObject(address.class);
-                adds.add(addnew);
-            }
-            adapter = new address_adapter(adds,this);
-            addsRecyclerView.setAdapter(adapter);
-        });
+
+        adapter = new address_adapter(tempStorage.getInstance().getAddressList(),this);
+        addsRecyclerView.setAdapter(adapter);
+    }
+    @Override
+    public void onResume(){
+        super.onResume();
+        adapter = new address_adapter(tempStorage.getInstance().getAddressList(),this);
+        addsRecyclerView.setAdapter(adapter);
     }
 }

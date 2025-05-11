@@ -6,9 +6,6 @@ import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.Calayo.R;
-import com.example.Calayo.fragments.Menu;
-
 public class ManagerAnalytics extends AppCompatActivity {
     @SuppressLint("SetTextI18n")
     @Override

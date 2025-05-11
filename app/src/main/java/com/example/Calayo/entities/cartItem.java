@@ -7,17 +7,19 @@ import android.widget.TextView;
 import java.util.Date;
 
 public class cartItem  {
-    private String pic;
-    private String units;
+    private String image;
+    private String quantity;
     private String name;
     private Date date;
+    private String id;
     public cartItem(){
     }
-    public cartItem(String pic, String units, String name,Date date){
-        this.pic = pic;
-        this.units = units;
+    public cartItem(String image, String quantity, String name,Date date,String id){
+        this.image = image;
+        this.quantity = quantity;
         this.name = name;
         this.date = date;
+        this.id = id;
     }
 
     public String getName() {
@@ -28,20 +30,20 @@ public class cartItem  {
         this.name = name;
     }
 
-    public String getUnits() {
-        return units;
+    public String getQuantity() {
+        return quantity;
     }
 
-    public void setUnits(String units) {
-        this.units = units;
+    public void setQuantity(String quantity) {
+        this.quantity = quantity;
     }
 
-    public String getPic() {
-        return pic;
+    public String getImage() {
+        return image;
     }
 
-    public void setPic(String pic) {
-        this.pic = pic;
+    public void setImage(String pic) {
+        this.image = pic;
     }
 
     public Date getDate() {
@@ -50,5 +52,13 @@ public class cartItem  {
 
     public void setDate(Date date) {
         this.date = date;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 }

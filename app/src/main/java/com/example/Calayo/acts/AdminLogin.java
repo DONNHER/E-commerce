@@ -1,4 +1,4 @@
-package com.example.Calayo.fragments;
+package com.example.Calayo.acts;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -16,7 +16,6 @@ import android.widget.Toast;
 import androidx.fragment.app.DialogFragment;
 
 import com.example.Calayo.R;
-import com.example.Calayo.acts.AdminDashB;
 import com.example.Calayo.entities.user;
 import com.google.firebase.FirebaseNetworkException;
 import com.google.firebase.auth.FirebaseAuth;

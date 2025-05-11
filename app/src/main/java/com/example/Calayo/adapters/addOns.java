@@ -1,11 +1,8 @@
 package com.example.Calayo.adapters;
 
-import android.content.Intent;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -16,14 +13,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.Calayo.R;
 import com.example.Calayo.entities.Item;
-import com.example.Calayo.entities.adds;
-import com.example.Calayo.fragments.order_Details;
-import com.example.Calayo.fragments.userLoginAct;
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.example.Calayo.helper.tempStorage;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class addOns extends RecyclerView.Adapter<addOns.PageViewHolder> {

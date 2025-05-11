@@ -1,35 +1,23 @@
 package com.example.Calayo.acts;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.LinearSnapHelper;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.recyclerview.widget.SnapHelper;
 
 import com.example.Calayo.R;
-import com.example.Calayo.adapters.AddsADaptor;
 import com.example.Calayo.adapters.addToCartAdapt;
 import com.example.Calayo.adapters.product_adapt;
 import com.example.Calayo.entities.Order;
-import com.example.Calayo.entities.adds;
-import com.example.Calayo.fragments.userLoginAct;
-import com.example.Calayo.fragments.userRegisterAct;
 import com.example.Calayo.helper.tempStorage;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 public class AddToCart extends AppCompatActivity {
     //    private RecyclerView appointmentsView ;

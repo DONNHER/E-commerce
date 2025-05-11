@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.GridLayout;
 import android.widget.TextView;
@@ -15,17 +16,16 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.Calayo.R;
 import com.example.Calayo.adapters.addOns;
-import com.example.Calayo.entities.Item;
 import com.example.Calayo.entities.Order;
-import com.example.Calayo.entities.address;
-import com.example.Calayo.fragments.OrderSuccessDialog;
-import com.example.Calayo.fragments.userRegisterAct;
 import com.example.Calayo.helper.tempStorage;
 import com.google.firebase.firestore.FirebaseFirestore;
 
-import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Objects;
+import java.util.UUID;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class checkout  extends AppCompatActivity {
     private double totalCost ;
@@ -79,6 +79,7 @@ public class checkout  extends AppCompatActivity {
 
 
         totalCost =  Integer.parseInt(des) * Double.parseDouble(price);
+        String id = getIntent().getStringExtra("id");
 
         String name = getIntent().getStringExtra("name");
         Name.setText(name);
@@ -88,14 +89,51 @@ public class checkout  extends AppCompatActivity {
         tCost.setText(""+(temp.getTotalAddOnPrice()+ totalCost));
 
         checkout.setOnClickListener(view2 -> {
-            SharedPreferences sp = getSharedPreferences("user",MODE_PRIVATE);
-            String  name5 = sp.getString("userName",null);
-            Order newOrder = new Order(pic,new Date().toString(),new Date().toString(),name5,name,des);
-            temp.getCheckOutArrayList().add(newOrder);
-            temp.deleteItem(name);
-            Intent intent = new Intent(this,OrderSuccessDialog.class);
-            startActivity(intent);
-            finish();
+            String orderItemId = UUID.randomUUID().toString();
+            Order newOrder = new Order(pic, new Date().toString(), new Date().toString(), temp.getLoggedin(), name, des, id);
+
+            HashMap<String, Object> orderMap = new HashMap<>();
+            orderMap.put("image", pic);
+            orderMap.put("Time", newOrder.getAppointmentTime());
+            orderMap.put("Date", newOrder.getAppointmentDate());
+            orderMap.put("userName", newOrder.getUserName());
+            orderMap.put("productName", newOrder.getProductName());
+            orderMap.put("units", des);
+
+            // Save order first
+            db.collection("users")
+                    .document(temp.getLoggedin())
+                    .collection("Orders")
+                    .document(orderItemId)
+                    .set(orderMap)
+                    .addOnSuccessListener(aVoid -> {
+                        Log.d("Cart", "Order added successfully");
+
+                        // Now delete item from cart
+                        db.collection("users")
+                                .document(temp.getLoggedin())
+                                .collection("Food Cart Items")
+                                .document(id)
+                                .delete()
+                                .addOnSuccessListener(unused -> {
+                                    Log.d("Cart", "Cart item deleted successfully");
+
+                                    // Update tempStorage and go to OrderSuccessDialog
+                                    temp.getCheckOutArrayList().add(newOrder);
+                                    temp.deleteItem(id);
+                                    Intent intent = new Intent(checkout.this, OrderSuccessDialog.class);
+                                    startActivity(intent);
+                                    finish();
+                                })
+                                .addOnFailureListener(e -> {
+                                    Log.e("Cart", "Failed to delete cart item", e);
+                                    Toast.makeText(checkout.this, "Failed to delete cart item", Toast.LENGTH_SHORT).show();
+                                });
+                    })
+                    .addOnFailureListener(e -> {
+                        Log.e("Cart", "Failed to add order", e);
+                        Toast.makeText(checkout.this, "Failed to add order", Toast.LENGTH_SHORT).show();
+                    });
         });
 
         back.setOnClickListener(view4 -> finish());
