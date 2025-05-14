@@ -38,6 +38,14 @@
 
         </activity>
         <activity
+            android:name=".acts.addAddress"
+            android:exported="true"
+            android:theme="@style/Theme.AppCompat.DayNight.NoActionBar"
+            android:launchMode="singleTask">
+
+
+        </activity>
+        <activity
         android:name=".acts.userDashB_setting"
         android:exported="true"
         android:theme="@style/Theme.AppCompat.DayNight.NoActionBar">

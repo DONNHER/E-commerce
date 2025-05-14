@@ -16,14 +16,13 @@
         android:layout_marginLeft="135dp"
         android:background="@drawable/blue"
         android:onClick="add"
-        android:text="Edit Products"
+        android:text="Add address"
         android:layout_gravity="bottom"/>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="16dp">
+        android:orientation="vertical">
 
         <!-- Top Greeting Section -->
         <LinearLayout
@@ -51,7 +50,8 @@
                         android:layout_column="0"
                         android:background="@drawable/undo"
                         android:onClick="onside"
-                        android:textStyle="bold" />
+                        android:textStyle="bold"
+                        android:layout_margin="20dp"/>
 
                 </GridLayout>
 

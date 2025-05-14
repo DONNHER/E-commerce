@@ -1,8 +1,9 @@
 <GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/itemHolder"
-    android:layout_width="wrap_content"
-    android:layout_height="200dp"
-    android:orientation="horizontal">
+    android:layout_width="match_parent"
+    android:layout_height="150dp"
+    android:orientation="horizontal"
+    android:layout_marginBottom="10dp">
     <CheckBox
         android:id="@+id/checkbox"
         android:layout_gravity="center"
@@ -13,21 +14,22 @@
 
     <ImageView
         android:id="@+id/image"
-        android:layout_width="128dp"
-        android:layout_height="match_parent"
+        android:layout_width="80dp"
+        android:layout_height="wrap_content"
         android:layout_row="1"
         android:layout_column="1"
-        android:layout_gravity="start|top"
+        android:layout_gravity="center"
         android:background="@drawable/fav"
-        android:src="@drawable/fa" />
+        android:src="@drawable/fa"
+        android:layout_marginRight="5dp"/>
 
     <LinearLayout
-        android:layout_width="248dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_row="1"
         android:layout_column="2"
         android:layout_columnWeight="0"
-        android:layout_gravity="start"
+        android:layout_gravity="top"
         android:orientation="vertical">
 
         <TextView
@@ -41,12 +43,13 @@
         </TextView>
 
         <TextView
-            android:layout_width="192dp"
+            android:layout_width="wrap_content"
             android:layout_height="27dp"
             android:layout_marginTop="1dp"
             android:background="@drawable/border"
             android:drawableEnd="@drawable/head_arrowdown"
             android:paddingBottom="3dp"
+
             android:text="Add  more ham"
             android:textSize="20dp">
 
@@ -55,7 +58,7 @@
     </LinearLayout>
 
     <GridLayout
-        android:layout_width="248dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_column="2"
         android:layout_gravity="start|bottom"

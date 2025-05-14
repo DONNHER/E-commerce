@@ -104,10 +104,9 @@
         </LinearLayout>
 
         <GridLayout
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="549dp"
-            android:orientation="vertical"
-            android:padding="10dp">
+            android:orientation="vertical">
 
             <GridLayout
                 android:layout_width="match_parent"
@@ -115,9 +114,8 @@
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/CartItems_Recycler3"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="10dp"
                 android:scrollbars="vertical" />
 
 

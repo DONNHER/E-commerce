@@ -45,36 +45,38 @@ public class addToCartAdapt  extends RecyclerView.Adapter<addToCartAdapt.PageVie
     @Override
     public void onBindViewHolder(@NonNull PageViewHolder holder, int position) {
         cartItem item = items.get(position);
+
         Glide.with(holder.pic.getContext())
                 .load(item.getImage())
                 .into(holder.pic);
+
         holder.units.setText(item.getQuantity());
+        holder.name.setText(item.getName());
 
         holder.minus.setOnClickListener(v -> {
             int unit = Integer.parseInt(holder.units.getText().toString().trim());
-            if (unit < 0) {
-                holder.units.setText("1");
-            }
             if (unit > 1) {
                 unit--;
                 holder.units.setText("   " + unit + "   ");
             }
         });
+
         holder.add.setOnClickListener(v -> {
             int unit = Integer.parseInt(holder.units.getText().toString().trim());
             unit++;
             holder.units.setText("   " + unit + "   ");
         });
 
-        holder.checkBox.setOnCheckedChangeListener(null); // Prevent recycling issues
+        // Proper checkbox state binding
+        holder.checkBox.setOnCheckedChangeListener(null); // Prevent triggering listener during recycling
+        holder.checkBox.setChecked(item.isSelected());
+
+        // Update state when checkbox is toggled
         holder.checkBox.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            if (isChecked) {
-                temp.getCartItemArrayList().add(item);
-            } else {
-                temp.getCartItemArrayList().remove(item);
-            }
+            item.setSelected(isChecked);
         });
     }
+
 
     @Override
     public int getItemCount() {

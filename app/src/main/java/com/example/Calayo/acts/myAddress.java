@@ -20,6 +20,9 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
+import java.util.concurrent.Executor;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class myAddress extends AppCompatActivity {
     RecyclerView addsRecyclerView;
@@ -27,7 +30,8 @@ public class myAddress extends AppCompatActivity {
     ArrayList<address> adds = new ArrayList<>();
     private final FirebaseAuth myAuth = FirebaseAuth.getInstance();
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
-
+    tempStorage temp = tempStorage.getInstance();
+    ExecutorService executor = Executors.newSingleThreadExecutor();
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,47 +42,13 @@ public class myAddress extends AppCompatActivity {
 
         Button switch_acc = findViewById(R.id.switch_acc);
         switch_acc.setOnClickListener(view -> {
-            SharedPreferences sharedPreferences = getSharedPreferences("user", MODE_PRIVATE);
-            sharedPreferences.edit().remove("isLoggedIn").apply();
-            myAuth.signOut();
-            Intent intent = new Intent(this, main_act.class); // Replace with actual target
+            Intent intent = new Intent(this, addAddress.class); // Replace with actual target
             startActivity(intent);
-            finish();
         });
 
         addsRecyclerView = findViewById(R.id.Product_Address_Recycler);
         LinearLayoutManager layoutManager2 = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         addsRecyclerView.setLayoutManager(layoutManager2);
-
-
-//        address data = new address("P2", " Palma", "Kibawe", "Bukidnon", "8720","home");
-//
-//        address data2 = new address("P18", " Musuan", "Maramag", "Bukidnon", "8714","work");
-//
-//        adds.add(data);
-//        adds.add(data2);
-//        for (address l : adds) {
-//            Map<String, Object> mydata2 = new HashMap<>();
-//            mydata2.put("street", l.getStreet());
-//            mydata2.put("baranggay", l.getBaranggay());
-//            mydata2.put("city", l.getCity());
-//            mydata2.put("province", l.getProvince());
-//            mydata2.put("code", l.getCode());
-//            mydata2.put("name", l.getName());
-//
-//            db.collection("users").document(myAuth.getCurrentUser().getUid()).collection("address").document(l.getName()).get().addOnCompleteListener(task -> {
-//                if(task.isSuccessful()){
-//                    DocumentSnapshot d = task.getResult();
-//                    if(d.exists()){
-//                        Log.d("Firestore", "Document already exists");
-//                    }else {
-//                        db.collection("users").document(myAuth.getCurrentUser().getUid()).collection("address").document(l.getName()).set(mydata2);
-//                    }
-//                }else {
-//                    Log.d("Firestore","Failed to get document", task.getException());
-//                }
-//            });
-//        }
 
         adapter = new address_adapter(tempStorage.getInstance().getAddressList(),this);
         addsRecyclerView.setAdapter(adapter);
@@ -86,7 +56,10 @@ public class myAddress extends AppCompatActivity {
     @Override
     public void onResume(){
         super.onResume();
-        adapter = new address_adapter(tempStorage.getInstance().getAddressList(),this);
-        addsRecyclerView.setAdapter(adapter);
+        executor.execute(() -> temp.loadAllUserData(() -> runOnUiThread(() -> {
+            adapter = new address_adapter(tempStorage.getInstance().getAddressList(),this);
+            addsRecyclerView.setAdapter(adapter);
+        })));
+
     }
 }

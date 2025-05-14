@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#E6F4F1">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="24dp"
+        android:gravity="center_horizontal">
+
+        <!-- Back Icon -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+            <Button
+                android:id="@+id/back2"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_gravity="start"
+                android:background="@drawable/undo"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Add Address"
+                android:textSize="20dp"
+                android:textColor="@android:color/black"
+                android:layout_marginLeft="100dp">
+
+            </TextView>
+        </LinearLayout>
+
+        <!-- Avatar -->
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <!-- Title -->
+
+        <!-- Name Field -->
+
+
+        <!-- Social Buttons -->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="12dp">
+
+        </LinearLayout>
+
+        <EditText
+            android:id="@+id/pass"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:autofillHints=""
+            android:background="@drawable/edit_text"
+            android:inputType="text"
+            android:padding="12dp"
+            android:singleLine="true"
+            android:hint="Street"
+            />
+
+        <!-- Sign Up Button -->
+        <EditText
+            android:id="@+id/pass2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:autofillHints=""
+            android:background="@drawable/edit_text"
+            android:hint="Baranggay"
+            android:inputType="text"
+            android:padding="12dp"
+            android:singleLine="true" />
+
+        <EditText
+            android:id="@+id/pass3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:autofillHints=""
+            android:background="@drawable/edit_text"
+            android:hint="City"
+            android:inputType="text"
+            android:padding="12dp"
+            android:singleLine="true" />
+        <EditText
+            android:id="@+id/pass4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:autofillHints=""
+            android:background="@drawable/edit_text"
+            android:hint="Province"
+            android:inputType="text"
+            android:padding="12dp"
+            android:singleLine="true" />
+
+        <EditText
+            android:id="@+id/pass5"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:autofillHints=""
+            android:background="@drawable/edit_text"
+            android:hint="Zip code"
+            android:inputType="text"
+            android:padding="12dp"
+            android:singleLine="true" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start"
+            android:paddingTop="10dp">
+
+
+        <CheckBox
+            android:id="@+id/home"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Home">
+
+        </CheckBox>
+        <CheckBox
+            android:id="@+id/work"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Work">
+
+        </CheckBox>
+        </LinearLayout>
+<GridLayout
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:columnCount="2">
+    <Button
+        android:id="@+id/cancelSignUp"
+        android:layout_width="wrap_content"
+        android:layout_height="48dp"
+        android:layout_marginTop="15dp"
+        android:text="Cancel"
+        android:background="@drawable/border"
+        android:layout_column="0"
+        android:layout_marginEnd="50dp"/>
+    <Button
+        android:id="@+id/buttonSignUp"
+        android:layout_width="wrap_content"
+        android:layout_height="48dp"
+        android:layout_marginTop="15dp"
+        android:text="Confirm"
+        android:background="@drawable/cone"
+        android:layout_column="1"/>
+</GridLayout>
+
+
+        <!-- Or Login With -->
+
+
+        <!-- Footer -->
+
+    </LinearLayout>
+</ScrollView>

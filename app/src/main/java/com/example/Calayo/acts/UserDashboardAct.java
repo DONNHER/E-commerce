@@ -13,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.view.View;
 import com.example.Calayo.R;
 import com.example.Calayo.adapters.AddsADaptor;
+import com.example.Calayo.adapters.address_adapter;
 import com.example.Calayo.adapters.product_adapt;
 import com.example.Calayo.entities.Item;
 import com.example.Calayo.entities.Order;
@@ -27,6 +28,8 @@ import java.util.Arrays;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class UserDashboardAct extends AppCompatActivity {
 //    private  RecyclerView ordersView ;
@@ -38,15 +41,7 @@ public class UserDashboardAct extends AppCompatActivity {
     RecyclerView addsRecyclerView;
     AddsADaptor adapter;
     ArrayList<adds> adds = new ArrayList<>();
-    @Override
-    public void onStart(){
-        super.onStart();
-        products = findViewById(R.id.Products_Recycler);
-        LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
-        products.setLayoutManager(layoutManager);
-        Adapt = new product_adapt(temp.getItemArrayList(),this);
-        products.setAdapter(Adapt);
-    }
+    ExecutorService executor = Executors.newSingleThreadExecutor();
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -116,7 +111,10 @@ public class UserDashboardAct extends AppCompatActivity {
     @Override
     public void onResume(){
         super.onResume();
-        Adapt = new product_adapt(temp.getItemArrayList(),this);
-        products.setAdapter(Adapt);
+        executor.execute(() -> temp.loadAllUserData(()->runOnUiThread(() -> {})));
+        executor.execute(() -> temp.loadAllData(()-> runOnUiThread(() -> {
+            Adapt = new product_adapt(temp.getItemArrayList(),this);
+            products.setAdapter(Adapt);
+        })));
     }
 }

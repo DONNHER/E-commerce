@@ -28,6 +28,7 @@ import com.example.Calayo.acts.userRegisterAct;
 import com.example.Calayo.entities.Item;
 import com.example.Calayo.acts.order_Details;
 import com.example.Calayo.acts.userLoginAct;
+import com.example.Calayo.helper.tempStorage;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -40,7 +41,7 @@ public class product_adapt extends RecyclerView.Adapter<product_adapt.ViewHolder
 
     private final FirebaseAuth myAuth= FirebaseAuth.getInstance();
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
-
+    tempStorage temp = tempStorage.getInstance();
     public product_adapt(ArrayList<Item> items, FragmentActivity fragmentActivity) {
         this.items = items;
         this.fragmentActivity = fragmentActivity;

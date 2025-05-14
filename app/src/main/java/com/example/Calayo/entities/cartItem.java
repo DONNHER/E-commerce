@@ -12,6 +12,7 @@ public class cartItem  {
     private String name;
     private Date date;
     private String id;
+    private boolean isSelected;
     public cartItem(){
     }
     public cartItem(String image, String quantity, String name,Date date,String id){
@@ -60,5 +61,13 @@ public class cartItem  {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public boolean isSelected() {
+        return isSelected;
+    }
+
+    public void setSelected(boolean selected) {
+        isSelected = selected;
     }
 }

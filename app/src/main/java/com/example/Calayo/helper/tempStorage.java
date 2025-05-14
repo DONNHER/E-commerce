@@ -84,6 +84,9 @@ public class tempStorage {
     public String getLoggedin(){
         return loggedIn;
     }
+    public void setLoggedin(String s){
+        loggedIn = s;
+    }
     public ArrayList<Order> getCheckOutArrayList() {
         return checkOutArrayList;
     }
@@ -287,7 +290,7 @@ public class tempStorage {
         void onReady();
     }
     public void loadAllData(OnTempDataReadyListener listener) {
-        final int totalTasks = 5;
+        final int totalTasks = 2;
         final int[] completedTasks = {0};
 
         Runnable checkDone = () -> {

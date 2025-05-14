@@ -74,7 +74,6 @@ public class userLoginAct extends AppCompatActivity {
         String password = pass.getText().toString().trim();
         myAuth.signInWithEmailAndPassword(username,password).addOnCompleteListener(this, task -> {
             if(task.isSuccessful()){
-                Toast.makeText(this,myAuth.getCurrentUser().getUid(),Toast.LENGTH_SHORT).show();
                 SharedPreferences preferences = getSharedPreferences("user",MODE_PRIVATE);
                 preferences.edit().putBoolean("isLoggedIn",true).apply();
                 preferences.edit().putString("userName",myAuth.getCurrentUser().getUid());

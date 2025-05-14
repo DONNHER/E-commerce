@@ -1,6 +1,7 @@
 package com.example.Calayo.acts;
 
 import com.example.Calayo.adapters.AddsADaptor;
+import com.example.Calayo.adapters.address_adapter;
 import com.example.Calayo.adapters.product_adapt;
 import com.example.Calayo.entities.Item;
 import com.example.Calayo.entities.Order;
@@ -13,6 +14,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.Calayo.helper.tempStorage;
 import com.google.firebase.auth.FirebaseAuth;
@@ -31,6 +33,8 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class main_act extends AppCompatActivity {
 //    private RecyclerView appointmentsView ;
@@ -47,32 +51,14 @@ public class main_act extends AppCompatActivity {
 
     RecyclerView addsRecyclerView;
     AddsADaptor adapter;
-    tempStorage temp;
+    tempStorage temp = tempStorage.getInstance();
+    FirebaseAuth myAuth;
     private boolean isLoggedIn;
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-        tempStorage temp = tempStorage.getInstance();
-
-        SharedPreferences sharedPreferences  = getSharedPreferences("user", MODE_PRIVATE);
-        isLoggedIn = sharedPreferences.getBoolean("isLoggedIn", false);
-
-        if (isLoggedIn) {
-            Intent intent = new Intent(main_act.this, UserDashboardAct.class);
-            startActivity(intent);
-            finish();
-        }
-    }
-
-
+    ExecutorService executor = Executors.newSingleThreadExecutor();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        temp = tempStorage.getInstance();
-//        recyclerView = findViewById(R.id.appointmentsView);
-//        recyclerView.setLayoutManager(new LinearLayoutManager(this));
         TextView seeAll = findViewById(R.id.seeAll);
         seeAll.setOnClickListener( view ->{
             Intent menupage = new Intent(this,productsAct.class);
@@ -108,8 +94,6 @@ public class main_act extends AppCompatActivity {
         products = findViewById(R.id.Products_Recycler);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         products.setLayoutManager(layoutManager);
-        Adapt = new product_adapt(temp.getItemArrayList(),this);
-        products.setAdapter(Adapt);
 
         // Force a re-layout to update the RecyclerView's height
 
@@ -138,7 +122,9 @@ public class main_act extends AppCompatActivity {
     @Override
     public void onResume(){
         super.onResume();
-        Adapt = new product_adapt(temp.getItemArrayList(),this);
-        products.setAdapter(Adapt);
+        executor.execute(() -> temp.loadAllUserData(() -> runOnUiThread(() -> {
+            Adapt = new product_adapt(temp.getItemArrayList(),this);
+            products.setAdapter(Adapt);
+        })));
     }
 }

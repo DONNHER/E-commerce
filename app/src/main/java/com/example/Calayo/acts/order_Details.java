@@ -103,6 +103,7 @@ public class order_Details extends AppCompatActivity {
         addOn = new addOns(temp.searchItem(name).getAddOns(), this);
         addOnsRecycler.setAdapter(addOn);
 
+
         btncheckout.setOnClickListener(view2 -> {
              // This will create a unique ID for each item
             Intent intent = new Intent(this, checkout.class);
@@ -111,7 +112,7 @@ public class order_Details extends AppCompatActivity {
             intent.putExtra("price", price);
             intent.putExtra("image", image);
             cartItem newItem = new cartItem(image, quantity.getText().toString().trim(), name2, new Date(),cartItemId);
-            intent.putExtra("id",cartItemId);
+            intent.putExtra(temp.getLoggedin(),cartItemId);
             ExecutorService executor = Executors.newSingleThreadExecutor();
 
 // Inside the executor.execute method
@@ -125,7 +126,6 @@ public class order_Details extends AppCompatActivity {
                 itemMap.put("name", newItem.getName());
                 itemMap.put("date", newItem.getDate());
                 itemMap.put("id", cartItemId);// or format if n   eeded
-
                 // Use the generated UUID as the document ID
                 db.collection("users")
                         .document(temp.getLoggedin())
