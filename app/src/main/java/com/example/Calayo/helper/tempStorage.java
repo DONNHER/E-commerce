@@ -51,7 +51,7 @@ public class tempStorage {
     ArrayList<Item.addOn> addOnsItems;
     ArrayList<adds> adds ;
     SharedPreferences sharedPreferences;
-    private String loggedIn = myAuth.getCurrentUser().getUid();
+    private String loggedIn;
 
     // LiveData for UI observation of cart changes
     private final MutableLiveData<ArrayList<cartItem>> cartLiveData;
@@ -331,6 +331,17 @@ public class tempStorage {
             }
             checkDone.run();
         });
+    }
+    public void loadAllUserData(OnTempDataReadyListener listener) {
+        final int totalTasks = 3;
+        final int[] completedTasks = {0};
+
+        Runnable checkDone = () -> {
+            completedTasks[0]++;
+            if (completedTasks[0] == totalTasks && listener != null) {
+                listener.onReady();
+            }
+        };
 
         // Addresses
         db.collection("users").document(loggedIn).collection("address")

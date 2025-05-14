@@ -27,7 +27,7 @@
         android:theme="@style/Theme.Calayo"
         tools:targetApi="33"
         android:enableOnBackInvokedCallback="true"
-        android:icon="@android:color/transparent"
+        android:icon="@mipmap/ic_launcher"
         android:roundIcon="@android:color/transparent">
         <activity
             android:name=".acts.main_act"
