@@ -40,6 +40,7 @@ public class order_Details extends AppCompatActivity {
     private RecyclerView addOnsRecycler;
 
     private tempStorage temp = tempStorage.getInstance();
+    ExecutorService executor = Executors.newSingleThreadExecutor();
 
     @SuppressLint({"WrongViewCast", "MissingInflatedId"})
     @Override
@@ -113,7 +114,6 @@ public class order_Details extends AppCompatActivity {
             intent.putExtra("image", image);
             cartItem newItem = new cartItem(image, quantity.getText().toString().trim(), name2, new Date(),cartItemId);
             intent.putExtra(temp.getLoggedin(),cartItemId);
-            ExecutorService executor = Executors.newSingleThreadExecutor();
 
 // Inside the executor.execute method
 

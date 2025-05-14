@@ -35,8 +35,13 @@ public class transactions extends AppCompatActivity {
 
         ImageView home = findViewById(R.id.home);
         home.setOnClickListener(view -> {
-            Intent homepage = new Intent(this, main_act.class);
-            startActivity(homepage);
+            if (temp.getLoggedin() == null) {
+                Intent homepage = new Intent(this, main_act.class);
+                startActivity(homepage);
+            } else {
+                Intent intent = new Intent(this, UserDashboardAct.class); // Replace with actual target
+                startActivity(intent);
+            }
         });
         ImageView menu = findViewById(R.id.menu);
         menu.setOnClickListener(view -> {

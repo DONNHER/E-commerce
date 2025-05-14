@@ -33,6 +33,7 @@ public class checkout  extends AppCompatActivity {
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private com.example.Calayo.adapters.addOns addOn;
     private RecyclerView addOnsRecycler;
+    ExecutorService executor = Executors.newSingleThreadExecutor();
 
     @SuppressLint({"WrongViewCast", "MissingInflatedId", "SetTextI18n"})
     @Override
@@ -65,6 +66,7 @@ public class checkout  extends AppCompatActivity {
         addOnsRecycler = findViewById(R.id.OrderSummary_Recycler3);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         addOnsRecycler.setLayoutManager(layoutManager);
+
         addOn = new addOns(temp.getAddOnArrayList(), checkout.this);
         addOnsRecycler.setAdapter(addOn);
 

@@ -35,9 +35,7 @@ public class productsAct extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.user_food_menu);
-//        loadServices();
         ImageView home = findViewById(R.id.home);
-
         ImageView cart = findViewById(R.id.cart);
         cart.setOnClickListener(v -> {
             Intent intent = new Intent(this,AddToCart.class);
@@ -46,13 +44,12 @@ public class productsAct extends AppCompatActivity {
 
         home.setOnClickListener(view -> {
 
-            if (temp.getIsLoggedin()) {
+            if (temp.getLoggedin() == null) {
+                Intent homepage = new Intent(this, main_act.class);
+                startActivity(homepage);
+            } else {
                 Intent intent = new Intent(this, UserDashboardAct.class); // Replace with actual target
                 startActivity(intent);
-                finish();
-            } else {
-                    Intent homepage = new Intent(this, main_act.class);
-                    startActivity(homepage);
             }
         });
 
@@ -61,11 +58,11 @@ public class productsAct extends AppCompatActivity {
             Intent menupage = new Intent(this,productsAct.class);
             startActivity(menupage);
         });
-//        ImageView history = findViewById(R.id.history);
-//        menu.setOnClickListener(view -> {
-//            Intent menupage = new Intent(this,productsAct.class);
-//            startActivity(menupage);
-//        });
+        ImageView history = findViewById(R.id.history);
+        history.setOnClickListener(view -> {
+            Intent menupage = new Intent(this,transactions.class);
+            startActivity(menupage);
+        });
         ImageView profile = findViewById(R.id.profile);
         profile.setOnClickListener(view -> {
             Intent profilepage = new Intent(this, settingAct.class);
