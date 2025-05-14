@@ -1,8 +1,10 @@
 package com.example.Calayo.acts;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -13,11 +15,14 @@ import com.example.Calayo.R;
 import com.example.Calayo.adapters.addToCartAdapt;
 import com.example.Calayo.adapters.product_adapt;
 import com.example.Calayo.entities.Order;
+import com.example.Calayo.entities.cartItem;
 import com.example.Calayo.helper.tempStorage;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class AddToCart extends AppCompatActivity {
     //    private RecyclerView appointmentsView ;
@@ -33,7 +38,9 @@ public class AddToCart extends AppCompatActivity {
 
     RecyclerView cartRecyclerView;
     addToCartAdapt adapter;
+    ExecutorService executor = Executors.newSingleThreadExecutor();
 
+    @SuppressLint("NotifyDataSetChanged")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,7 +48,7 @@ public class AddToCart extends AppCompatActivity {
 
         Button back = findViewById(R.id.btnBack);
         TextView units = findViewById(R.id.units);
-
+        CheckBox all = findViewById(R.id.checkboxAll);
         units.setText(temp.getCartItemArrayList().size()+"");
         back.setOnClickListener(view -> finish());
         Button checkout = findViewById(R.id.checkout);
@@ -61,7 +68,17 @@ public class AddToCart extends AppCompatActivity {
         }
         checkout.setOnClickListener(view2 ->{
             Intent intent = new Intent(this, checkout.class);
-            startActivity(intent);
+            executor.execute(() -> temp.loadAllData(() -> runOnUiThread(() -> startActivity(intent))));
         });
+
+// When Select All checkbox is clicked
+        all.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            // Update all item selections in the list
+            for (cartItem item : temp.getCartItemArrayList()) {
+                item.setSelected(isChecked);
+            }
+            adapter.notifyDataSetChanged(); // Refresh the UI
+        });
+
     }
 }
