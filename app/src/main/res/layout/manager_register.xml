@@ -91,7 +91,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Sign Up"
-            android:backgroundTint="#5A2F17"
+            android:backgroundTint="#2CB57A"
             android:textColor="@android:color/white"
             android:layout_marginTop="16dp" />
 

@@ -21,7 +21,7 @@
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:layout_gravity="start"
-                android:src="@drawable/undo" />
+                />
         </LinearLayout>
 
         <!-- Avatar -->
@@ -143,6 +143,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Back to home"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            android:textSize="19dp"
             android:background="@drawable/green"
             android:layout_marginTop="50dp">
 

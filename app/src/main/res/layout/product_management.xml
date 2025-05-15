@@ -39,7 +39,7 @@
         android:layout_height="80dp"
         android:layout_gravity="center"
         android:scaleType="centerCrop"
-        android:src="@drawable/add"
+        android:src="@drawable/plus"
         android:contentDescription="Selected image"
         android:layout_marginTop="12dp" />
     <GridLayout
@@ -50,12 +50,14 @@
 
         <Button
             android:id="@+id/cancel_pm"
-            android:layout_width="77dp"
-            android:layout_height="31dp"
+            android:layout_width="95dp"
+            android:layout_height="35dp"
             android:layout_marginEnd="30dp"
             android:background="@drawable/red"
+            android:textStyle="bold"
             android:text="Cancel"
-            android:textSize="10dp"
+            android:textColor="@color/white"
+            android:textSize="13dp"
             android:layout_columnWeight="1"
             >
 
@@ -63,11 +65,12 @@
 
         <Button
             android:id="@+id/confirm_pm"
-            android:layout_width="77dp"
-            android:layout_height="30dp"
+            android:layout_width="95dp"
+            android:layout_height="35dp"
             android:background="@drawable/green"
+            android:textColor="@color/white"
             android:text="Confirm"
-            android:textSize="10dp"
+            android:textSize="13dp"
             android:layout_columnWeight="2">
         </Button>
     </GridLayout>

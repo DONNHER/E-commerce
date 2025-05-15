@@ -33,7 +33,7 @@
                 android:background="@drawable/green"
                 android:text="LOG IN"
                 android:textAlignment="center"
-                android:textSize="20dp"
+                android:textSize="18dp"
                 android:textStyle="bold"
                 android:layout_margin="5dp"
                 android:onClick="onLogClick"/>
@@ -43,7 +43,7 @@
                 android:background="@drawable/border"
                 android:text="SIGN UP"
                 android:textAlignment="center"
-                android:textSize="20dp"
+                android:textSize="18dp"
                 android:textStyle="bold"
                 android:layout_margin="5dp"
                 android:onClick="onResClick"/>
@@ -53,7 +53,7 @@
                 android:layout_height="50dp"
                 android:layout_gravity="end"
                 android:contentDescription="TODO"
-                android:src="@drawable/locate"
+                android:src="@drawable/home_green"
                 android:layout_marginEnd="5dp"
                 />
 
@@ -119,8 +119,8 @@
                     android:layout_columnWeight="0"
                     android:layout_gravity="start"
                     android:layout_marginEnd="10dp"
-                    android:background="@drawable/yellow"
-                    android:src="@drawable/burger3"
+                    android:background="@drawable/green"
+                    android:src="@drawable/lokal_kofi_png"
                     android:textColor="@android:color/holo_green_dark"
                     android:textSize="16sp"
 
@@ -137,8 +137,8 @@
                     android:layout_columnWeight="0"
                     android:layout_gravity="start"
                     android:layout_marginStart="5dp"
-                    android:background="@drawable/yellow"
-                    android:src="@drawable/pizza2"
+                    android:background="@drawable/green"
+                    android:src="@drawable/cafe_luiza"
                     android:textColor="@android:color/holo_green_dark"
                     android:textSize="16sp"
                     android:textStyle="bold">
@@ -147,17 +147,17 @@
 
                 <ImageView
                     android:layout_width="75dp"
-                    android:layout_height="76dp"
+                    android:layout_height="79dp"
                     android:layout_row="0"
                     android:layout_column="2"
                     android:layout_columnWeight="0"
+                    android:layout_gravity="center"
                     android:layout_marginStart="15dp"
                     android:background="@drawable/black"
-                    android:src="@drawable/salad"
+                    android:src="@drawable/sukool_royal_png"
                     android:textColor="@android:color/holo_green_dark"
                     android:textSize="16sp"
-                    android:textStyle="bold"
-                    android:layout_gravity="center">
+                    android:textStyle="bold">
 
                 </ImageView>
 
@@ -167,7 +167,7 @@
                     android:layout_height="76dp"
                     android:layout_gravity="center"
                     android:background="@drawable/black"
-                    android:src="@drawable/suzi"
+                    android:src="@drawable/sungkab_sisisg_png"
                     android:textColor="@drawable/black"
                     android:textSize="16sp"
                     android:textStyle="bold">
@@ -180,8 +180,8 @@
                     android:layout_row="1"
                     android:layout_column="0"
                     android:layout_columnWeight="0"
-                    android:layout_marginStart="15dp"
-                    android:text="Burger"
+                    android:layout_marginStart="5dp"
+                    android:text="LokalKofi"
                     android:textAlignment="center"
                     android:textColor="@android:color/holo_green_dark"
                     android:textSize="16sp"
@@ -194,7 +194,7 @@
                     android:layout_row="1"
                     android:layout_column="1"
                     android:layout_gravity="center"
-                    android:text="Pizza"
+                    android:text="Cafe Luiza"
                     android:textColor="@android:color/holo_green_dark"
                     android:textSize="16sp"
                     android:textStyle="bold" />
@@ -203,15 +203,16 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:text="Salad"
+                    android:text="SukolRoyal"
                     android:textColor="@color/black"
                     android:textSize="16sp"
+                    android:layout_marginStart="16dp"
                     android:textStyle="bold" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Sushi"
+                    android:text="Sungkab"
                     android:textColor="@color/black"
                     android:textSize="16sp"
                     android:textStyle="bold"
@@ -249,13 +250,13 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/Products_Recycler"
                 android:layout_width="match_parent"
-                android:layout_height="650dp"
+                android:layout_height="60dp"
                 android:padding="10dp"
                 />
         </LinearLayout>
     </ScrollView>
 
-<!--    FOoter-->
+<!--    Footer-->
 
     <GridLayout
         android:id="@+id/footer"
