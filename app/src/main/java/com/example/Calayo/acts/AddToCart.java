@@ -21,6 +21,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -76,6 +77,8 @@ public class AddToCart extends AppCompatActivity {
             // Update all item selections in the list
             for (cartItem item : temp.getCartItemArrayList()) {
                 item.setSelected(isChecked);
+                Order newOrder = new Order(item.getImage(), new Date().toString(), new Date().toString(), temp.getLoggedin(), item.getName(), "", "");
+                temp.getCheckOutArrayList().add(newOrder);
             }
             adapter.notifyDataSetChanged(); // Refresh the UI
         });

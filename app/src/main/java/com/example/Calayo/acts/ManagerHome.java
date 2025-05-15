@@ -95,7 +95,7 @@ public class ManagerHome extends AppCompatActivity {
     private Map<String, List<Order>> groupByDate(List<Order> orders) {
         Map<String, List<Order>> grouped = new LinkedHashMap<>();
         for (Order order : orders) {
-            String date = order.getAppointmentDate(); // Assuming getAppointmentDate() returns date string
+            String date = order.getDate(); // Assuming getAppointmentDate() returns date string
             if (!grouped.containsKey(date)) {
                 grouped.put(date, new ArrayList<>());
             }

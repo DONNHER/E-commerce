@@ -27,8 +27,8 @@ public class Order {
         this.id = id;
     }
 
-    public String getAppointmentDate() { return Date; }
-    public void setAppointmentDate(String appointmentDate) { this.Date = appointmentDate; }
+    public String getDate() { return Date; }
+    public void setDate(String appointmentDate) { this.Date = appointmentDate; }
 
     public String getStatus() { return status; }
     public void setStatus(String status) { this.status = status; }

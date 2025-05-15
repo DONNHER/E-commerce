@@ -84,7 +84,7 @@ public class ManagerDashB extends AppCompatActivity {
     private Map<String, List<Order>> groupByDate(List<Order> orders) {
         Map<String, List<Order>> grouped = new LinkedHashMap<>();
         for (Order order : orders) {
-            String date = order.getAppointmentDate(); // Assuming getDate() returns the date as a string
+            String date = order.getDate(); // Assuming getDate() returns the date as a string
             if (!grouped.containsKey(date)) {
                 grouped.put(date, new ArrayList<>());
             }

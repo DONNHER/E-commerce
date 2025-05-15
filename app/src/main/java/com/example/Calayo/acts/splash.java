@@ -31,7 +31,9 @@ public class splash extends AppCompatActivity {
             if (isLoggedIn) {
                 executor.execute(() ->{
                     myAuth = FirebaseAuth.getInstance();
-                    temp.setLoggedin(myAuth.getCurrentUser().getUid());
+                    if(temp.getLoggedin() == null) {
+                        temp.setLoggedin(myAuth.getCurrentUser().getUid());
+                    }
                     temp.loadAllUserData(() -> runOnUiThread(() -> {
                         Intent intent = new Intent(splash.this, UserDashboardAct.class);
                         startActivity(intent);

@@ -112,7 +112,8 @@ public class order_Details extends AppCompatActivity {
             intent.putExtra("name", name2);
             intent.putExtra("price", price);
             intent.putExtra("image", image);
-            cartItem newItem = new cartItem(image, quantity.getText().toString().trim(), name2, new Date(),cartItemId);
+            cartItem newItem = new cartItem(image, quantity.getText().toString().trim(), name2, new Date(),cartItemId,price);
+            temp.getCartItemArrayList().add(newItem);
             intent.putExtra(temp.getLoggedin(),cartItemId);
 
 // Inside the executor.execute method
@@ -135,8 +136,10 @@ public class order_Details extends AppCompatActivity {
                         .addOnSuccessListener(documentReference -> Log.d("Cart", "Added successfully"))
                         .addOnFailureListener(e -> Log.e("Cart", "Error adding", e));
             });
+            temp.getTotalAddOnPrice();
             // Ensure UI updates happen on the main thread
-            runOnUiThread(() -> startActivity(intent));
+            runOnUiThread(() ->
+                    startActivity(intent));
         });
         back.setOnClickListener(view4 -> finish());
     }

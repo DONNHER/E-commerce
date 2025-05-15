@@ -13,14 +13,15 @@ public class cartItem  {
     private Date date;
     private String id;
     private boolean isSelected;
-    public cartItem(){
-    }
-    public cartItem(String image, String quantity, String name,Date date,String id){
+    private String price;
+    public cartItem(){}
+    public cartItem(String image, String quantity, String name, Date date, String id, String price){
         this.image = image;
         this.quantity = quantity;
         this.name = name;
         this.date = date;
         this.id = id;
+        this.price = price;
     }
 
     public String getName() {
@@ -69,5 +70,13 @@ public class cartItem  {
 
     public void setSelected(boolean selected) {
         isSelected = selected;
+    }
+
+    public String getPrice() {
+        return price;
+    }
+
+    public void setPrice(String price) {
+        this.price = price;
     }
 }
