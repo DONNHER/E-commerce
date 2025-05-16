@@ -23,24 +23,18 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 /**
- * Displays a list of user-saved addresses in a RecyclerView.
- * Allows navigation to add a new address or exit the activity.
- *
- * Responsibilities:
- * - Load user data from tempStorage
- * - Populate RecyclerView with address list
- * - Launch add address activity
- *
- * Handles:
- * - Null safety for logged-in user and address list
- * - Logging errors and steps for debug
+ * Activity that displays the list of user-saved addresses.
+ * Provides options to add a new address or exit the screen.
+ * 
+ * This class handles loading addresses asynchronously using tempStorage,
+ * updates the UI safely, and logs important events or errors.
  */
 public class myAddress extends AppCompatActivity {
 
     private RecyclerView addsRecyclerView;
     private address_adapter adapter;
 
-    // Firebase and helpers
+    // Firebase and helper instances
     private final FirebaseAuth myAuth = FirebaseAuth.getInstance();
     private final FirebaseFirestore db = FirebaseFirestore.getInstance();
     private final tempStorage temp = tempStorage.getInstance();
@@ -49,7 +43,8 @@ public class myAddress extends AppCompatActivity {
     private static final String TAG = "myAddressActivity";
 
     /**
-     * Entry point for the activity lifecycle
+     * Initializes the activity and UI components.
+     * Sets content view and calls UI setup with error handling.
      */
     @SuppressLint("MissingInflatedId")
     @Override
@@ -60,13 +55,13 @@ public class myAddress extends AppCompatActivity {
         try {
             setupUI();
         } catch (Exception e) {
-            Log.e(TAG, "UI setup failed", e);
+            Log.e(TAG, "Failed to setup UI components", e);
         }
     }
 
     /**
-     * Initializes UI components and click listeners.
-     * Wraps each listener in null checks and error-safe blocks.
+     * Finds views and sets click listeners for buttons.
+     * Performs null checks to avoid crashes.
      */
     private void setupUI() {
         Button btn = findViewById(R.id.btn);
@@ -74,31 +69,31 @@ public class myAddress extends AppCompatActivity {
         addsRecyclerView = findViewById(R.id.Product_Address_Recycler);
 
         if (btn != null) {
-            btn.setOnClickListener(view -> finish());
+            btn.setOnClickListener(view -> finish()); // Close activity when back pressed
         } else {
-            Log.w(TAG, "Back button not found");
+            Log.w(TAG, "Back button view not found");
         }
 
         if (switchAcc != null) {
             switchAcc.setOnClickListener(view -> {
-                Log.d(TAG, "Navigating to add address screen");
+                Log.d(TAG, "Navigating to Add Address screen");
                 Intent intent = new Intent(this, addAddress.class);
                 startActivity(intent);
             });
         } else {
-            Log.w(TAG, "Switch account button not found");
+            Log.w(TAG, "Add Address button view not found");
         }
 
         if (addsRecyclerView != null) {
             addsRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         } else {
-            Log.e(TAG, "RecyclerView not initialized");
+            Log.e(TAG, "RecyclerView for addresses not found");
         }
     }
 
     /**
-     * Refreshes the address list when the activity is resumed.
-     * Handles logged-in user check and null-safe data binding.
+     * Loads and displays the user's address list each time the activity resumes.
+     * Fetches data on a background thread and updates the UI on the main thread.
      */
     @Override
     protected void onResume() {
@@ -106,31 +101,32 @@ public class myAddress extends AppCompatActivity {
 
         String uid = temp.getLoggedin();
         if (uid == null) {
-            Log.e(TAG, "User is not logged in. Cannot load addresses.");
+            Log.e(TAG, "User not logged in, cannot load addresses.");
             return;
         }
 
-        Log.d(TAG, "Loading addresses for UID: " + uid);
+        Log.d(TAG, "Loading addresses for user ID: " + uid);
 
         executor.execute(() -> {
             try {
                 temp.loadAllUserData(() -> runOnUiThread(() -> {
                     ArrayList<address> userAddresses = temp.getAddressList();
+
                     if (userAddresses == null || userAddresses.isEmpty()) {
-                        Log.w(TAG, "No addresses found.");
+                        Log.w(TAG, "No addresses found for user");
                     } else {
-                        Log.d(TAG, "Loaded " + userAddresses.size() + " addresses.");
+                        Log.d(TAG, "Loaded " + userAddresses.size() + " addresses");
                     }
 
                     if (addsRecyclerView != null) {
                         adapter = new address_adapter(userAddresses, this);
                         addsRecyclerView.setAdapter(adapter);
                     } else {
-                        Log.e(TAG, "RecyclerView is null during resume");
+                        Log.e(TAG, "RecyclerView null when setting adapter");
                     }
                 }));
             } catch (Exception e) {
-                Log.e(TAG, "Error loading address data", e);
+                Log.e(TAG, "Error loading addresses", e);
             }
         });
     }

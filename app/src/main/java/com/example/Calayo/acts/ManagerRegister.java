@@ -15,19 +15,35 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * DialogFragment for manager registration.
+ * 
+ * Collects username (email) and password, validates inputs,
+ * and creates a new Firebase Authentication user with role "manager".
+ * 
+ * Also provides an option to toggle password visibility
+ * and switch to the login dialog.
+ */
 public class ManagerRegister extends DialogFragment {
 
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
-    private final FirebaseAuth myAuth= FirebaseAuth.getInstance();
+    private final FirebaseAuth myAuth = FirebaseAuth.getInstance();
+
+    /**
+     * Inflates the registration layout and sets up UI event handlers.
+     * Handles input validation, password visibility toggle, and registration logic.
+     */
     @SuppressLint({"WrongViewCast", "MissingInflatedId"})
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceStat) {
         View view = inflater.inflate(R.layout.manager_register, container, false);
+
         TextView btm_login = view.findViewById(R.id.btm_login);
         EditText passwordEditText = view.findViewById(R.id.pass);
         EditText conpasswordEditText = view.findViewById(R.id.conPass);
         CheckBox showPasswordCheckBox = view.findViewById(R.id.showPasswordCheckBox);
         Button btnGetStarted = view.findViewById(R.id.btnSignUp);
+
         btnGetStarted.setOnClickListener(v -> {
             EditText name = view.findViewById(R.id.username);
             String username = name.getText().toString().trim();
@@ -48,14 +64,13 @@ public class ManagerRegister extends DialogFragment {
                         .addOnCompleteListener(requireActivity(), task -> {
                             if (task.isSuccessful()) {
                                 FirebaseUser user = myAuth.getCurrentUser();
-                                Map<String,Object> data = new HashMap<>();
-                                data.put("uid",user.getUid());
-                                data.put("username",user.getEmail());
-                                data.put("role","manager");
+                                Map<String, Object> data = new HashMap<>();
+                                data.put("uid", user.getUid());
+                                data.put("username", user.getEmail());
+                                data.put("role", "manager");
                                 db.collection("users").document(user.getUid()).set(data);
                                 Toast.makeText(getContext(), "Successfully Registered.", Toast.LENGTH_SHORT).show();
                                 dismiss();
-//                                new userLoginAct().show(getParentFragmentManager(), "LogInDialog");
                             } else {
                                 Exception e = task.getException();
                                 if (e instanceof FirebaseNetworkException) {
@@ -76,6 +91,7 @@ public class ManagerRegister extends DialogFragment {
                 passwordEditText.setTransformationMethod(PasswordTransformationMethod.getInstance());
                 conpasswordEditText.setTransformationMethod(PasswordTransformationMethod.getInstance());
             }
+            // Keep cursor at the end of input after toggling
             passwordEditText.post(() -> passwordEditText.setSelection(passwordEditText.getText().length()));
             conpasswordEditText.post(() -> conpasswordEditText.setSelection(conpasswordEditText.getText().length()));
         });
@@ -85,6 +101,7 @@ public class ManagerRegister extends DialogFragment {
             dialogFragment.show(getParentFragmentManager(), "LoginDialog");
             dismiss();
         });
+
         return view;
     }
 }

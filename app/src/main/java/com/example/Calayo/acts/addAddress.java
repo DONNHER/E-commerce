@@ -22,8 +22,8 @@ import java.util.Map;
 import java.util.concurrent.atomic.AtomicReference;
 
 /**
- * Activity to add a new address for a user.
- * Validates inputs and submits data to Firebase Firestore.
+ * This activity lets the user add a new address (Home or Work).
+ * It checks if the info is correct and saves it to Firebase.
  */
 public class addAddress extends AppCompatActivity {
 
@@ -38,24 +38,30 @@ public class addAddress extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.add_address);
 
+        // Firebase and local storage setup
         db = FirebaseFirestore.getInstance();
         myAuth = FirebaseAuth.getInstance();
         temp = tempStorage.getInstance();
 
+        // Get the input fields
         EditText streetET = findViewById(R.id.pass);
         EditText brngyET = findViewById(R.id.pass2);
         EditText cityET = findViewById(R.id.pass3);
         EditText provET = findViewById(R.id.pass4);
         EditText codeET = findViewById(R.id.pass5);
 
+        // Checkboxes for choosing Home or Work
         CheckBox homeCB = findViewById(R.id.home);
         CheckBox workCB = findViewById(R.id.work);
+
+        // Buttons for submit and back
         Button submitBtn = findViewById(R.id.buttonSignUp);
         Button backBtn = findViewById(R.id.back2);
 
+        // This holds the selected address type
         AtomicReference<String> type = new AtomicReference<>("");
 
-        // Handle checkbox exclusivity
+        // If Home is checked, uncheck Work
         homeCB.setOnCheckedChangeListener((buttonView, isChecked) -> {
             if (isChecked) {
                 type.set("Home");
@@ -63,6 +69,7 @@ public class addAddress extends AppCompatActivity {
             }
         });
 
+        // If Work is checked, uncheck Home
         workCB.setOnCheckedChangeListener((buttonView, isChecked) -> {
             if (isChecked) {
                 type.set("Work");
@@ -70,24 +77,27 @@ public class addAddress extends AppCompatActivity {
             }
         });
 
+        // Go back when back button is clicked
         backBtn.setOnClickListener(view -> finish());
 
+        // List of all EditText fields
         ArrayList<EditText> editTexts = new ArrayList<>(List.of(streetET, brngyET, cityET, provET, codeET));
 
+        // When user clicks Submit
         submitBtn.setOnClickListener(v -> {
-            // Retrieve and sanitize inputs
+            // Get text from all input fields
             String street = streetET.getText().toString().trim();
             String brngy = brngyET.getText().toString().trim();
             String city = cityET.getText().toString().trim();
             String prov = provET.getText().toString().trim();
             String code = codeET.getText().toString().trim();
 
-            // Clear all previous input errors
+            // Clear all previous error messages
             for (EditText editText : editTexts) {
                 editText.setError(null);
             }
 
-            // Validate inputs
+            // Check if input is valid
             boolean isValid = true;
             for (EditText et : editTexts) {
                 String input = et.getText().toString().trim();
@@ -100,27 +110,32 @@ public class addAddress extends AppCompatActivity {
                 }
             }
 
+            // Check if Home or Work was selected
             if (!homeCB.isChecked() && !workCB.isChecked()) {
                 Toast.makeText(this, "Please select Home or Work", Toast.LENGTH_SHORT).show();
                 isValid = false;
             }
 
+            // If something is wrong, stop here
             if (!isValid) {
                 Log.w(TAG, "Validation failed, user input is invalid");
                 return;
             }
 
+            // Check if user is logged in
             if (temp.getLoggedin() == null || temp.getLoggedin().isEmpty()) {
                 Log.e(TAG, "User not logged in");
                 Toast.makeText(this, "User not logged in", Toast.LENGTH_SHORT).show();
                 return;
             }
 
-            // Create address object
+            // Create the address object
             address userAddress = new address(street, brngy, city, prov, code, type.get());
+
+            // Save to local storage
             temp.getAddressList().add(userAddress);
 
-            // Prepare data for Firestore
+            // Prepare data to be uploaded to Firestore
             Map<String, Object> data = new HashMap<>();
             data.put("street", street);
             data.put("baranggay", brngy);
@@ -129,9 +144,10 @@ public class addAddress extends AppCompatActivity {
             data.put("code", code);
             data.put("name", type.get());
 
+            // Create a unique document ID using address parts
             String docId = street + "," + brngy + "," + city;
 
-            // Firestore: Check if address exists before writing
+            // Check if address already exists in Firestore
             db.collection("users")
                     .document(temp.getLoggedin())
                     .collection("address")
@@ -139,9 +155,11 @@ public class addAddress extends AppCompatActivity {
                     .get()
                     .addOnSuccessListener(documentSnapshot -> {
                         if (documentSnapshot.exists()) {
+                            // If address is already there, show message
                             Log.d(TAG, "Address already exists: " + docId);
                             Toast.makeText(this, "Address already exists", Toast.LENGTH_SHORT).show();
                         } else {
+                            // Save the new address in Firestore
                             db.collection("users")
                                     .document(temp.getLoggedin())
                                     .collection("address")
@@ -150,7 +168,7 @@ public class addAddress extends AppCompatActivity {
                                     .addOnSuccessListener(unused -> {
                                         Log.d(TAG, "Address added: " + data);
                                         Toast.makeText(this, "Address added successfully", Toast.LENGTH_SHORT).show();
-                                        finish();
+                                        finish(); // Go back after adding
                                     })
                                     .addOnFailureListener(e -> {
                                         Log.e(TAG, "Error adding address", e);
@@ -159,6 +177,7 @@ public class addAddress extends AppCompatActivity {
                         }
                     })
                     .addOnFailureListener(e -> {
+                        // If there’s a problem checking address
                         Log.e(TAG, "Error checking address existence", e);
                         Toast.makeText(this, "Error validating address", Toast.LENGTH_SHORT).show();
                     });

@@ -47,11 +47,13 @@ public class order_Details extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.order_details);
 
+        // Initialize UI elements and set up listeners
         setupUI();
     }
 
     @SuppressLint("SetTextI18n")
     private void setupUI() {
+        // Find views by ID
         Button btnCheckout = findViewById(R.id.checkout);
         Button back = findViewById(R.id.back);
         ImageView minus = findViewById(R.id.minus);
@@ -64,54 +66,56 @@ public class order_Details extends AppCompatActivity {
         TextView totalCostText = findViewById(R.id.priceOrder);
         addOnsRecycler = findViewById(R.id.OrderDetails);
 
+        // Set layout manager for add-ons list
         addOnsRecycler.setLayoutManager(new LinearLayoutManager(this));
 
-        // Get data
+        // Retrieve item details from intent and shared preferences
         image = getIntent().getStringExtra("image");
         price = getIntent().getStringExtra("price");
         desc = getIntent().getStringExtra("description");
-
         SharedPreferences prefs = getSharedPreferences("selected", MODE_PRIVATE);
         itemName = prefs.getString("name", "Item");
 
+        // Display item details in the UI
         nameText.setText(itemName);
         descriptionText.setText(desc);
         totalCostText.setText(price);
         Glide.with(this).load(image).into(pic);
         quantityText.setText(String.valueOf(quantityCount));
 
+        // Store current logged-in user ID
         temp.setLoggedin(myAuth.getCurrentUser().getUid());
 
+        // Load add-ons for the selected item
         loadAddOns(itemName);
 
+        // Navigate to cart screen when cart icon clicked
         cart.setOnClickListener(v -> startActivity(new Intent(this, AddToCart.class)));
 
+        // Decrease quantity when minus icon clicked, minimum 1
         minus.setOnClickListener(v -> {
             if (quantityCount > 1) quantityCount--;
             quantityText.setText(String.valueOf(quantityCount));
         });
 
+        // Increase quantity when add icon clicked
         add.setOnClickListener(v -> {
             quantityCount++;
             quantityText.setText(String.valueOf(quantityCount));
         });
 
+        // Handle checkout process when checkout button clicked
         btnCheckout.setOnClickListener(view -> {
+            btnCheckout.setEnabled(false); // Disable to prevent multiple clicks
+
+            // Create new cart item with a unique ID
             String cartItemId = UUID.randomUUID().toString();
-            cartItem newItem = new cartItem(
-                    image,
-                    String.valueOf(quantityCount),
-                    itemName,
-                    new Date(),
-                    cartItemId,
-                    price
-            );
+            cartItem newItem = new cartItem(image, String.valueOf(quantityCount), itemName, new Date(), cartItemId, price);
 
-            // Avoid duplicate rapid taps
-            btnCheckout.setEnabled(false);
-
+            // Add item to local cart list
             temp.getCartItemArrayList().add(newItem);
 
+            // Save cart item to Firestore in background thread
             executor.execute(() -> {
                 HashMap<String, Object> itemMap = new HashMap<>();
                 itemMap.put("image", newItem.getImage());
@@ -126,43 +130,49 @@ public class order_Details extends AppCompatActivity {
                         .document(cartItemId)
                         .set(itemMap)
                         .addOnSuccessListener(unused -> runOnUiThread(() -> {
-                            Log.d("Cart", "Item added to Firestore");
+                            Log.d("Cart", "Item saved to Firestore");
+                            // Move to checkout screen with item details
                             Intent checkoutIntent = new Intent(this, checkout.class);
                             checkoutIntent.putExtra("quantity", newItem.getQuantity());
                             checkoutIntent.putExtra("name", newItem.getName());
                             checkoutIntent.putExtra("price", newItem.getPrice());
                             checkoutIntent.putExtra("image", newItem.getImage());
                             startActivity(checkoutIntent);
-                            btnCheckout.setEnabled(true); // re-enable
+                            btnCheckout.setEnabled(true); // Re-enable button
                         }))
                         .addOnFailureListener(e -> runOnUiThread(() -> {
-                            Log.e("Cart", "Failed to add item", e);
+                            Log.e("Cart", "Failed to save item", e);
                             Toast.makeText(this, "Failed to add to cart", Toast.LENGTH_SHORT).show();
-                            btnCheckout.setEnabled(true); // re-enable
+                            btnCheckout.setEnabled(true); // Re-enable button on failure
                         }));
             });
         });
 
+        // Close the activity on back button click
         back.setOnClickListener(view -> finish());
     }
 
+    // Load add-ons related to the selected item
     private void loadAddOns(String name) {
         if (name == null || name.isEmpty()) return;
 
-        executor.execute(() -> temp.loadAllData(() -> temp.loadAllUserData(() -> {
-            Item item = temp.searchItem(name);
-            if (item != null && item.getAddOns() != null) {
-                runOnUiThread(() -> {
-                    addOnAdapter = new addOns(item.getAddOns(), this);
-                    addOnsRecycler.setAdapter(addOnAdapter);
-                });
-            }
-        })));
+        executor.execute(() -> 
+            temp.loadAllData(() -> temp.loadAllUserData(() -> {
+                Item item = temp.searchItem(name);
+                if (item != null && item.getAddOns() != null) {
+                    runOnUiThread(() -> {
+                        addOnAdapter = new addOns(item.getAddOns(), this);
+                        addOnsRecycler.setAdapter(addOnAdapter);
+                    });
+                }
+            }))
+        );
     }
 
     @Override
     protected void onResume() {
         super.onResume();
+        // Reload add-ons when coming back to this screen
         SharedPreferences prefs = getSharedPreferences("selected", MODE_PRIVATE);
         String name = prefs.getString("name", null);
         if (name != null) {
@@ -173,6 +183,6 @@ public class order_Details extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        executor.shutdown(); // Clean up background thread
+        executor.shutdown(); // Stop the background thread when activity destroyed
     }
 }
