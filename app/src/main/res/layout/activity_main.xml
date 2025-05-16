@@ -250,9 +250,8 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/Products_Recycler"
                 android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:padding="10dp"
-                />
+                android:layout_height="750dp"
+                android:padding="10dp" />
         </LinearLayout>
     </ScrollView>
 

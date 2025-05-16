@@ -49,9 +49,9 @@ public class AddToCart extends AppCompatActivity {
         setContentView(R.layout.add_to_cart);
 
         Button backBtn = findViewById(R.id.btnBack);
-        Button checkoutBtn = findViewById(R.id.checkout);
-        TextView unitsTextView = findViewById(R.id.units);
-        CheckBox selectAllCheckbox = findViewById(R.id.checkboxAll);
+//        Button checkoutBtn = findViewById(R.id.checkout);
+//        TextView unitsTextView = findViewById(R.id.units);
+//        CheckBox selectAllCheckbox = findViewById(R.id.checkboxAll);
         cartRecyclerView = findViewById(R.id.CartItems_Recycler3);
 
         // Back button
@@ -66,46 +66,46 @@ public class AddToCart extends AppCompatActivity {
         } else {
             adapter = new addToCartAdapt(cartItems, this);
             cartRecyclerView.setAdapter(adapter);
-            unitsTextView.setText(String.valueOf(cartItems.size()));
+//            unitsTextView.setText(String.valueOf(cartItems.size()));
         }
 
-        // Checkout button
-        checkoutBtn.setOnClickListener(view -> {
-            if (cartItems == null || cartItems.isEmpty()) {
-                Toast.makeText(this, "Your cart is empty", Toast.LENGTH_SHORT).show();
-                return;
-            }
+//        // Checkout button
+//        checkoutBtn.setOnClickListener(view -> {
+//            if (cartItems == null || cartItems.isEmpty()) {
+//                Toast.makeText(this, "Your cart is empty", Toast.LENGTH_SHORT).show();
+//                return;
+//            }
+//
+//            Intent intent = new Intent(this, checkout.class);
+//            executor.execute(() -> temp.loadAllData(() ->
+//                    runOnUiThread(() -> startActivity(intent)))
+//            );
+//        });
 
-            Intent intent = new Intent(this, checkout.class);
-            executor.execute(() -> temp.loadAllData(() ->
-                    runOnUiThread(() -> startActivity(intent)))
-            );
-        });
-
-        // Select All checkbox logic
-        selectAllCheckbox.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            if (cartItems == null) return;
-
-            temp.getCheckOutArrayList().clear(); // Clear previous selections
-
-            for (cartItem item : cartItems) {
-                item.setSelected(isChecked);
-                if (isChecked) {
-                    Order order = new Order(
-                            item.getImage(),
-                            new Date().toString(),
-                            new Date().toString(),
-                            temp.getLoggedin(),
-                            item.getName(),
-                            "", ""
-                    );
-                    temp.getCheckOutArrayList().add(order);
-                }
-            }
-
-            adapter.notifyDataSetChanged(); // Update UI
-            Log.d(TAG, (isChecked ? "Selected" : "Deselected") + " all cart items");
-        });
+//        // Select All checkbox logic
+//        selectAllCheckbox.setOnCheckedChangeListener((buttonView, isChecked) -> {
+//            if (cartItems == null) return;
+//
+//            temp.getCheckOutArrayList().clear(); // Clear previous selections
+//
+//            for (cartItem item : cartItems) {
+//                item.setSelected(isChecked);
+//                if (isChecked) {
+//                    Order order = new Order(
+//                            item.getImage(),
+//                            new Date().toString(),
+//                            new Date().toString(),
+//                            temp.getLoggedin(),
+//                            item.getName(),
+//                            "", ""
+//                    );
+//                    temp.getCheckOutArrayList().add(order);
+//                }
+//            }
+//
+//            adapter.notifyDataSetChanged(); // Update UI
+//            Log.d(TAG, (isChecked ? "Selected" : "Deselected") + " all cart items");
+//        });
     }
 
     @Override
