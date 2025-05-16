@@ -165,7 +165,7 @@
                 android:textColor="@color/black"
                 android:drawableEnd="@drawable/head_arrowdown"
                 android:background="@drawable/green"
-                android:layout_margin="5dp"/>
+                android:layout_marginBottom="5dp"/>
 
             <TextView
                 android:layout_width="match_parent"
@@ -174,7 +174,7 @@
                 android:drawableEnd="@drawable/head_arrowdown"
                 android:text="Change your password"
                 android:textColor="@color/black"
-                android:layout_margin="5dp">
+                android:layout_marginBottom="5dp">
 
             </TextView>
 
@@ -185,7 +185,7 @@
                 android:drawableEnd="@drawable/head_arrowdown"
                 android:text="Security and privacy"
                 android:textColor="@color/black"
-                android:layout_margin="5dp">
+                android:layout_marginBottom="5dp">
 
             </TextView>
 
@@ -196,7 +196,7 @@
                 android:drawableEnd="@drawable/head_arrowdown"
                 android:text="Change Email"
                 android:textColor="@color/black"
-                android:layout_margin="15dp">
+                android:layout_marginBottom="15dp">
 
             </TextView>
 
@@ -247,20 +247,21 @@
             android:id="@+id/home"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:layout_marginStart="40dp"
+            android:layout_marginStart="30dp"
             android:src="@drawable/home_green">
 
         </ImageView>
 
 
         <ImageView
-            android:id="@+id/menu"
+            android:id="@+id/foodMenu"
             android:layout_width="38dp"
             android:layout_height="42dp"
             android:layout_row="0"
             android:layout_column="3"
             android:layout_marginStart="30dp"
-            android:src="@drawable/searchfood">
+            android:src="@drawable/searchfood"
+            android:layout_gravity="bottom">
 
         </ImageView>
 
@@ -268,9 +269,9 @@
             android:id="@+id/history"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:layout_gravity="end"
+            android:layout_gravity="bottom|end"
             android:src="@drawable/history"
-            android:layout_marginStart="20dp">
+            android:layout_marginStart="50dp">
 
         </ImageView>
 
@@ -279,7 +280,7 @@
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_marginStart="20dp"
-            android:layout_marginEnd="40dp"
+            android:layout_marginEnd="20dp"
             android:src="@drawable/profile">
 
         </ImageView>

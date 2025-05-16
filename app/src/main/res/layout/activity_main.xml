@@ -274,7 +274,7 @@
             android:id="@+id/home"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:layout_marginStart="40dp"
+            android:layout_marginStart="30dp"
             android:src="@drawable/home_green">
 
         </ImageView>
@@ -298,7 +298,7 @@
             android:layout_height="50dp"
             android:layout_gravity="bottom|end"
             android:src="@drawable/history"
-            android:layout_marginStart="40dp">
+            android:layout_marginStart="50dp">
 
         </ImageView>
 
@@ -307,7 +307,7 @@
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_marginStart="20dp"
-            android:layout_marginEnd="40dp"
+            android:layout_marginEnd="20dp"
             android:src="@drawable/profile">
 
         </ImageView>

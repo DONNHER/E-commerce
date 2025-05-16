@@ -124,9 +124,6 @@ public class userLoginAct extends AppCompatActivity {
                 preferences.edit().putString("userName", myAuth.getCurrentUser().getUid()).apply();
                 preferences.edit().putString("email", myAuth.getCurrentUser().getEmail()).apply();
 
-                // Show UID briefly
-                Toast.makeText(this, preferences.getString("userName", ""), Toast.LENGTH_SHORT).show();
-
                 // Go to splash screen
                 Intent intent = new Intent(this, splash.class);
                 startActivity(intent);
