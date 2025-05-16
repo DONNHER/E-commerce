@@ -2,10 +2,12 @@ package com.example.Calayo.acts;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.Calayo.R;
@@ -17,74 +19,118 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Activity for setting up a password during user registration.
+ * Performs validation and registers user with Firebase Authentication.
+ */
 public class setUpPassword extends AppCompatActivity {
 
-    private FirebaseFirestore db = FirebaseFirestore.getInstance();
-    private FirebaseAuth myAuth = FirebaseAuth.getInstance();
-    private String email, name, password, confirmPassword;
+    private static final String TAG = "SetUpPasswordActivity";
+
+    private FirebaseFirestore db;
+    private FirebaseAuth myAuth;
+
+    private EditText passField, conPassField;
+    private Button submitBtn, backBtn;
+
+    private String email, name;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.password_set);
 
-        EditText pass = findViewById(R.id.pass);
-        EditText conPass = findViewById(R.id.conPass);
-        Button submitBtn = findViewById(R.id.buttonSignUp); // Add a button to XML and handle click
-        Button back = findViewById(R.id.back2);
-        back.setOnClickListener(view -> finish());
-        // Retrieve email and name from intent
-        String email = getIntent().getStringExtra("email");
-        String name = getIntent().getStringExtra("name");
+        // Initialize Firebase
+        db = FirebaseFirestore.getInstance();
+        myAuth = FirebaseAuth.getInstance();
 
-        submitBtn.setOnClickListener(v -> {
-            String password = pass.getText().toString().trim();
-            String confirmPassword = conPass.getText().toString().trim();
+        // Retrieve extras from intent
+        email = getIntent().getStringExtra("email");
+        name = getIntent().getStringExtra("name");
 
-            pass.setError(null);
-            conPass.setError(null);
+        if (email == null || name == null) {
+            Log.e(TAG, "Missing email or name in intent extras");
+            Toast.makeText(this, "Missing account details. Please try again.", Toast.LENGTH_LONG).show();
+            finish();
+            return;
+        }
 
-            if (password.isEmpty() || confirmPassword.isEmpty()) {
-                if (password.isEmpty()) pass.setError("Required");
-                if (confirmPassword.isEmpty()) conPass.setError("Required");
-                return;
-            }
+        // Initialize UI components
+        passField = findViewById(R.id.pass);
+        conPassField = findViewById(R.id.conPass);
+        submitBtn = findViewById(R.id.buttonSignUp);
+        backBtn = findViewById(R.id.back2);
 
-            if (password.length() < 6 ||password.length() > 16) {
-                if (password.length() < 6) pass.setError("Password must be at least 6 characters");
-                if (password.length() >16) pass.setError("Password is ambiguous");
-                return;
-            }
+        // Handle back button click
+        backBtn.setOnClickListener(view -> finish());
 
-            if (!password.equals(confirmPassword)) {
-                conPass.setError("Passwords do not match");
-                return;
-            }
+        // Handle submit click
+        submitBtn.setOnClickListener(view -> handlePasswordSetup());
+    }
 
-            // Register the user
-            myAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(this, task -> {
-                if (task.isSuccessful()) {
-                    FirebaseUser user = myAuth.getCurrentUser();
-                    Map<String, Object> data = new HashMap<>();
-                    data.put("name", name);
-                    data.put("email", email);
-                    data.put("role", "user");
+    /**
+     * Handles password validation and user registration.
+     */
+    private void handlePasswordSetup() {
+        String password = passField.getText().toString().trim();
+        String confirmPassword = conPassField.getText().toString().trim();
 
-                    db.collection("users").document(user.getUid()).set(data);
+        passField.setError(null);
+        conPassField.setError(null);
 
-                    Toast.makeText(this, "Successfully Registered.", Toast.LENGTH_SHORT).show();
-                    startActivity(new Intent(this, userLoginAct.class));
-                    finish();
-                } else {
-                    Exception e = task.getException();
-                    if (e instanceof FirebaseNetworkException) {
-                        Toast.makeText(this, "No internet connection", Toast.LENGTH_LONG).show();
+        // Validate input
+        if (password.isEmpty() || confirmPassword.isEmpty()) {
+            if (password.isEmpty()) passField.setError("Required");
+            if (confirmPassword.isEmpty()) conPassField.setError("Required");
+            return;
+        }
+
+        if (password.length() < 6 || password.length() > 16) {
+            if (password.length() < 6) passField.setError("Password must be at least 6 characters");
+            else passField.setError("Password must not exceed 16 characters");
+            return;
+        }
+
+        if (!password.equals(confirmPassword)) {
+            conPassField.setError("Passwords do not match");
+            return;
+        }
+
+        // Create user with Firebase
+        myAuth.createUserWithEmailAndPassword(email, password)
+                .addOnCompleteListener(this, task -> {
+                    if (task.isSuccessful()) {
+                        FirebaseUser user = myAuth.getCurrentUser();
+                        if (user == null) {
+                            Log.e(TAG, "Firebase user is null after registration");
+                            Toast.makeText(this, "Registration failed. Try again.", Toast.LENGTH_LONG).show();
+                            return;
+                        }
+
+                        Map<String, Object> data = new HashMap<>();
+                        data.put("name", name);
+                        data.put("email", email);
+                        data.put("role", "user");
+
+                        db.collection("users").document(user.getUid()).set(data)
+                                .addOnSuccessListener(unused -> {
+                                    Toast.makeText(this, "Successfully Registered.", Toast.LENGTH_SHORT).show();
+                                    startActivity(new Intent(this, userLoginAct.class));
+                                    finish();
+                                })
+                                .addOnFailureListener(e -> {
+                                    Log.e(TAG, "Firestore write failed: " + e.getMessage(), e);
+                                    Toast.makeText(this, "Registration failed: " + e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
+                                });
                     } else {
-                        Toast.makeText(this, "Error: " + e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
+                        Exception e = task.getException();
+                        if (e instanceof FirebaseNetworkException) {
+                            Toast.makeText(this, "No internet connection", Toast.LENGTH_LONG).show();
+                        } else {
+                            Log.e(TAG, "FirebaseAuth error: " + e.getMessage(), e);
+                            Toast.makeText(this, "Error: " + e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
+                        }
                     }
-                }
-            });
-        });
+                });
     }
 }
-

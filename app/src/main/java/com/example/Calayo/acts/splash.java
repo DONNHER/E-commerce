@@ -3,7 +3,6 @@ package com.example.Calayo.acts;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.os.Handler;
 import android.util.Log;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -11,47 +10,72 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.Calayo.R;
 import com.example.Calayo.helper.tempStorage;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class splash extends AppCompatActivity {
-        tempStorage temp;
-        FirebaseAuth myAuth;
-        private boolean isLoggedIn;
-        @Override
-        protected void onCreate(Bundle savedInstanceState) {
-            super.onCreate(savedInstanceState);
-            setContentView(R.layout.splash);
+    private tempStorage temp;
+    private FirebaseAuth myAuth;
+    private boolean isLoggedIn;
 
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.splash);
+
+        try {
             temp = tempStorage.getInstance();
-            SharedPreferences sharedPreferences = getSharedPreferences("user", MODE_PRIVATE);
-            isLoggedIn = sharedPreferences.getBoolean("isLoggedIn", false);
             myAuth = FirebaseAuth.getInstance();
 
-            ExecutorService executor = Executors.newSingleThreadExecutor();
+            SharedPreferences sharedPreferences = getSharedPreferences("user", MODE_PRIVATE);
+            isLoggedIn = sharedPreferences.getBoolean("isLoggedIn", false);
 
-            if (isLoggedIn && myAuth.getCurrentUser() != null) {
-                // Valid session, proceed to dashboard
-                temp.setLoggedin(myAuth.getCurrentUser().getUid());
-                executor.execute(() -> temp.loadAllData(() ->
-                        temp.loadAllUserData(() -> runOnUiThread(() -> {
+            ExecutorService executor = Executors.newSingleThreadExecutor();
+            FirebaseUser currentUser = myAuth.getCurrentUser();
+
+            if (isLoggedIn && currentUser != null) {
+                String uid = currentUser.getUid();
+                temp.setLoggedin(uid);
+
+                executor.execute(() -> {
+                    try {
+                        temp.loadAllData(() -> temp.loadAllUserData(() -> runOnUiThread(() -> {
                             Intent intent = new Intent(splash.this, UserDashboardAct.class);
                             startActivity(intent);
                             finish();
-                        }))
-                ));
+                        })));
+                    } catch (Exception e) {
+                        Log.e("Splash", "Error during user data load", e);
+                        redirectToLogin();
+                    }
+                });
             } else {
-                // Invalid session, redirect to login
+                // Invalid session, clear login and go to main_act
                 SharedPreferences.Editor editor = sharedPreferences.edit();
                 editor.putBoolean("isLoggedIn", false);
                 editor.apply();
 
-                executor.execute(() -> temp.loadAllData(() -> runOnUiThread(() -> {
-                    Intent intent = new Intent(splash.this, main_act.class);
-                    startActivity(intent);
-                    finish();
-                })));
+                executor.execute(() -> {
+                    try {
+                        temp.loadAllData(() -> runOnUiThread(this::redirectToLogin));
+                    } catch (Exception e) {
+                        Log.e("Splash", "Error loading data for login redirect", e);
+                        runOnUiThread(this::redirectToLogin);
+                    }
+                });
             }
+
+        } catch (Exception e) {
+            Log.e("Splash", "Critical error in onCreate", e);
+            redirectToLogin();
         }
+    }
+
+    private void redirectToLogin() {
+        Intent intent = new Intent(splash.this, main_act.class);
+        startActivity(intent);
+        finish();
+    }
 }

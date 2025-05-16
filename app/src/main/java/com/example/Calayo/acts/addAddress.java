@@ -21,29 +21,41 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicReference;
 
+/**
+ * Activity to add a new address for a user.
+ * Validates inputs and submits data to Firebase Firestore.
+ */
 public class addAddress extends AppCompatActivity {
 
-    private FirebaseFirestore db = FirebaseFirestore.getInstance();
-    private FirebaseAuth myAuth = FirebaseAuth.getInstance();
-    private tempStorage temp = tempStorage.getInstance();
+    private static final String TAG = "addAddress";
+
+    private FirebaseFirestore db;
+    private FirebaseAuth myAuth;
+    private tempStorage temp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.add_address);
 
+        db = FirebaseFirestore.getInstance();
+        myAuth = FirebaseAuth.getInstance();
+        temp = tempStorage.getInstance();
+
         EditText streetET = findViewById(R.id.pass);
         EditText brngyET = findViewById(R.id.pass2);
         EditText cityET = findViewById(R.id.pass3);
         EditText provET = findViewById(R.id.pass4);
         EditText codeET = findViewById(R.id.pass5);
+
         CheckBox homeCB = findViewById(R.id.home);
         CheckBox workCB = findViewById(R.id.work);
         Button submitBtn = findViewById(R.id.buttonSignUp);
-        Button back = findViewById(R.id.back2);
+        Button backBtn = findViewById(R.id.back2);
 
         AtomicReference<String> type = new AtomicReference<>("");
 
+        // Handle checkbox exclusivity
         homeCB.setOnCheckedChangeListener((buttonView, isChecked) -> {
             if (isChecked) {
                 type.set("Home");
@@ -58,47 +70,57 @@ public class addAddress extends AppCompatActivity {
             }
         });
 
-        back.setOnClickListener(view -> finish());
+        backBtn.setOnClickListener(view -> finish());
 
         ArrayList<EditText> editTexts = new ArrayList<>(List.of(streetET, brngyET, cityET, provET, codeET));
 
         submitBtn.setOnClickListener(v -> {
+            // Retrieve and sanitize inputs
             String street = streetET.getText().toString().trim();
             String brngy = brngyET.getText().toString().trim();
             String city = cityET.getText().toString().trim();
             String prov = provET.getText().toString().trim();
             String code = codeET.getText().toString().trim();
 
-            // Clear all previous errors
+            // Clear all previous input errors
             for (EditText editText : editTexts) {
                 editText.setError(null);
             }
 
-            // Validate fields
-            boolean proceed = true;
-            for (EditText editText : editTexts) {
-                String text = editText.getText().toString().trim();
-                if (text.isEmpty()) {
-                    editText.setError("Required");
-                    proceed = false;
-                } else if (!text.matches("[a-zA-Z0-9\\s]+")) {
-                    editText.setError("No special characters allowed");
-                    proceed = false;
+            // Validate inputs
+            boolean isValid = true;
+            for (EditText et : editTexts) {
+                String input = et.getText().toString().trim();
+                if (input.isEmpty()) {
+                    et.setError("This field is required");
+                    isValid = false;
+                } else if (!input.matches("[a-zA-Z0-9\\s]+")) {
+                    et.setError("Only alphanumeric and spaces allowed");
+                    isValid = false;
                 }
             }
 
-            // Validate checkbox
             if (!homeCB.isChecked() && !workCB.isChecked()) {
-                homeCB.setError("Required");
-                workCB.setError("Required");
-                proceed = false;
+                Toast.makeText(this, "Please select Home or Work", Toast.LENGTH_SHORT).show();
+                isValid = false;
             }
 
-            if (!proceed) return;
+            if (!isValid) {
+                Log.w(TAG, "Validation failed, user input is invalid");
+                return;
+            }
 
+            if (temp.getLoggedin() == null || temp.getLoggedin().isEmpty()) {
+                Log.e(TAG, "User not logged in");
+                Toast.makeText(this, "User not logged in", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            // Create address object
             address userAddress = new address(street, brngy, city, prov, code, type.get());
             temp.getAddressList().add(userAddress);
 
+            // Prepare data for Firestore
             Map<String, Object> data = new HashMap<>();
             data.put("street", street);
             data.put("baranggay", brngy);
@@ -107,28 +129,39 @@ public class addAddress extends AppCompatActivity {
             data.put("code", code);
             data.put("name", type.get());
 
-            // Use 'code' as a unique document ID to prevent duplicates
+            String docId = street + "," + brngy + "," + city;
+
+            // Firestore: Check if address exists before writing
             db.collection("users")
                     .document(temp.getLoggedin())
                     .collection("address")
-                    .document(street+","+brngy+","+city)
+                    .document(docId)
                     .get()
                     .addOnSuccessListener(documentSnapshot -> {
                         if (documentSnapshot.exists()) {
-                            Log.d("Address", "Address with code " + code + " already exists");
+                            Log.d(TAG, "Address already exists: " + docId);
+                            Toast.makeText(this, "Address already exists", Toast.LENGTH_SHORT).show();
                         } else {
                             db.collection("users")
                                     .document(temp.getLoggedin())
                                     .collection("address")
-                                    .document(street+","+brngy+","+city)
+                                    .document(docId)
                                     .set(data)
                                     .addOnSuccessListener(unused -> {
-                                        Log.d("Address", "Address added: " + data);
-                                        addAddress.this.finish();
+                                        Log.d(TAG, "Address added: " + data);
+                                        Toast.makeText(this, "Address added successfully", Toast.LENGTH_SHORT).show();
+                                        finish();
                                     })
-                                    .addOnFailureListener(e -> Log.e("Address", "Error adding address", e));
+                                    .addOnFailureListener(e -> {
+                                        Log.e(TAG, "Error adding address", e);
+                                        Toast.makeText(this, "Failed to add address", Toast.LENGTH_SHORT).show();
+                                    });
                         }
+                    })
+                    .addOnFailureListener(e -> {
+                        Log.e(TAG, "Error checking address existence", e);
+                        Toast.makeText(this, "Error validating address", Toast.LENGTH_SHORT).show();
                     });
         });
-        }
+    }
 }

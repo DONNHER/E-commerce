@@ -6,10 +6,10 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
-import android.widget.GridLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -27,80 +27,103 @@ import java.util.UUID;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-public class checkout  extends AppCompatActivity {
+/**
+ * Checkout activity where user reviews their order and confirms purchase.
+ */
+public class checkout extends AppCompatActivity {
     private double totalCost;
-    private tempStorage temp = tempStorage.getInstance();
-    private FirebaseFirestore db = FirebaseFirestore.getInstance();
-    private com.example.Calayo.adapters.addOns addOn;
+    private final tempStorage temp = tempStorage.getInstance();
+    private final FirebaseFirestore db = FirebaseFirestore.getInstance();
+    private addOns addOn;
     private RecyclerView addOnsRecycler;
-    ExecutorService executor = Executors.newSingleThreadExecutor();
+    private final ExecutorService executor = Executors.newSingleThreadExecutor();
 
     @SuppressLint({"WrongViewCast", "MissingInflatedId", "SetTextI18n"})
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.checkout);
-        Button checkout = findViewById(R.id.checkout);
-        TextView cost = findViewById(R.id.Price3);
-        TextView tCost = findViewById(R.id.totalPrice);
-        TextView Name = findViewById(R.id.name);
-        TextView Name2 = findViewById(R.id.name2);
-        TextView Name3 = findViewById(R.id.name3);
-        Button back = findViewById(R.id.btnBack);
-        TextView units = findViewById(R.id.units);
-        TextView address = findViewById(R.id.address);
 
-        TextView header = findViewById(R.id.header);
+        // Initialize UI components
+        Button checkoutBtn = findViewById(R.id.checkout);
+        Button backBtn = findViewById(R.id.btnBack);
+        TextView costText = findViewById(R.id.Price3);
+        TextView totalCostText = findViewById(R.id.totalPrice);
+        TextView nameText = findViewById(R.id.name);
+        TextView nameText2 = findViewById(R.id.name2);
+        TextView nameText3 = findViewById(R.id.name3);
+        TextView unitsText = findViewById(R.id.units);
+        TextView addressText = findViewById(R.id.address);
+        TextView headerText = findViewById(R.id.header);
+
+        // Load saved addresses
         SharedPreferences preferences1 = getSharedPreferences("SelectedAddress", MODE_PRIVATE);
         SharedPreferences preferences2 = getSharedPreferences("typeAddress", MODE_PRIVATE);
+        String addressStr = preferences1.getString("SelectedAddress", "");
+        String addressType = preferences2.getString("typeAddress", "");
 
-        if (preferences1.getString("SelectedAddress", null) == null || Objects.requireNonNull(preferences1.getString("SelectedAddress", null)).isEmpty()) {
-            Intent intent = new Intent(this, myAddress.class);
+        if (addressStr == null || addressStr.isEmpty()) {
             Toast.makeText(this, "Please select address first.", Toast.LENGTH_LONG).show();
-            startActivity(intent);
-            recreate();
+            startActivity(new Intent(this, myAddress.class));
+            finish();
+            return;
         }
-        address.setText(preferences1.getString("SelectedAddress", "default_value"));
-        header.setText(preferences2.getString("typeAddress", "default_value"));
 
+        addressText.setText(addressStr);
+        headerText.setText(addressType);
+
+        // Setup RecyclerView for add-ons
         addOnsRecycler = findViewById(R.id.OrderSummary_Recycler3);
-        LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
-        addOnsRecycler.setLayoutManager(layoutManager);
+        addOnsRecycler.setLayoutManager(new LinearLayoutManager(this));
         addOn = new addOns(temp.getAddOnArrayList(), checkout.this);
         addOnsRecycler.setAdapter(addOn);
 
-        String price = getIntent().getStringExtra("price");
-        cost.setText(price);
+        // Extract intent data safely
+        Intent intent = getIntent();
+        String priceStr = intent.getStringExtra("price");
+        String quantityStr = intent.getStringExtra("quantity");
+        String name = intent.getStringExtra("name");
+        String id = intent.getStringExtra("id");
+        String image = intent.getStringExtra("image");
 
+        if (priceStr == null || quantityStr == null || name == null || id == null || image == null) {
+            Toast.makeText(this, "Invalid data received. Please go back.", Toast.LENGTH_LONG).show();
+            Log.e("checkout", "Missing intent data");
+            finish();
+            return;
+        }
 
-        String des = getIntent().getStringExtra("quantity");
-        units.setText("(" + des + "item):");
-        Name3.setText(" " + des + "x");
+        try {
+            double price = Double.parseDouble(priceStr);
+            int quantity = Integer.parseInt(quantityStr);
+            totalCost = price * quantity;
 
+            costText.setText(priceStr);
+            unitsText.setText("(" + quantity + " item):");
+            nameText3.setText(" " + quantity + "x");
+            nameText.setText(name);
+            nameText2.setText(name);
+            totalCostText.setText(String.valueOf(temp.getTotalAddOnPrice() + totalCost));
+        } catch (NumberFormatException e) {
+            Toast.makeText(this, "Failed to parse order data.", Toast.LENGTH_SHORT).show();
+            Log.e("checkout", "NumberFormatException", e);
+            finish();
+            return;
+        }
 
-        totalCost = Integer.parseInt(des) * Double.parseDouble(price);
-        String id = getIntent().getStringExtra("id");
-
-        String name = getIntent().getStringExtra("name");
-        Name.setText(name);
-        Name2.setText(name);
-
-        String pic = getIntent().getStringExtra("image");
-        tCost.setText("" + (temp.getTotalAddOnPrice() + totalCost));
-
-        checkout.setOnClickListener(view2 -> {
+        // Handle checkout logic
+        checkoutBtn.setOnClickListener(view -> {
             String orderItemId = UUID.randomUUID().toString();
-            Order newOrder = new Order(pic, new Date().toString(), new Date().toString(), temp.getLoggedin(), name, des, id);
+            Order newOrder = new Order(image, new Date().toString(), new Date().toString(), temp.getLoggedin(), name, quantityStr, id);
 
             HashMap<String, Object> orderMap = new HashMap<>();
-            orderMap.put("image", pic);
+            orderMap.put("image", image);
             orderMap.put("Time", newOrder.getAppointmentTime());
             orderMap.put("Date", newOrder.getDate());
             orderMap.put("userName", newOrder.getUserName());
             orderMap.put("productName", newOrder.getProductName());
-            orderMap.put("units", des);
+            orderMap.put("units", quantityStr);
 
-            // Save order first
             executor.execute(() -> {
                 db.collection("users")
                         .document(temp.getLoggedin())
@@ -109,39 +132,29 @@ public class checkout  extends AppCompatActivity {
                         .set(orderMap)
                         .addOnSuccessListener(aVoid -> {
                             Log.d("Cart", "Order added successfully");
-
-                            // Now delete item from cart
                             db.collection("users")
                                     .document(temp.getLoggedin())
                                     .collection("Food Cart Items")
                                     .document(id)
                                     .delete()
-                                    .addOnSuccessListener(unused -> {
-                                        Log.d("Cart", "Cart item deleted successfully");
-
-                                        // Update tempStorage and go to OrderSuccessDialog
-                                    })
+                                    .addOnSuccessListener(unused -> Log.d("Cart", "Cart item deleted successfully"))
                                     .addOnFailureListener(e -> {
                                         Log.e("Cart", "Failed to delete cart item", e);
-                                        Toast.makeText(checkout.this, "Failed to delete cart item", Toast.LENGTH_SHORT).show();
+                                        runOnUiThread(() -> Toast.makeText(checkout.this, "Failed to delete cart item", Toast.LENGTH_SHORT).show());
                                     });
                         })
                         .addOnFailureListener(e -> {
                             Log.e("Cart", "Failed to add order", e);
-                            Toast.makeText(checkout.this, "Failed to add order", Toast.LENGTH_SHORT).show();
+                            runOnUiThread(() -> Toast.makeText(checkout.this, "Failed to add order", Toast.LENGTH_SHORT).show());
                         });
             });
 
             temp.getCheckOutArrayList().add(newOrder);
             temp.deleteItem(id);
-            Intent intent = new Intent(checkout.this, OrderSuccessDialog.class);
-            startActivity(intent);
+            startActivity(new Intent(checkout.this, OrderSuccessDialog.class));
             finish();
         });
 
-
-        back.setOnClickListener(view4 -> finish());
-
+        backBtn.setOnClickListener(view -> finish());
     }
-
 }
