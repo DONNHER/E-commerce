@@ -48,28 +48,28 @@
                         android:textColor="@android:color/black"
                       />
 
-                    <TextView
-                        android:id="@+id/units"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+<!--                    <TextView-->
+<!--                        android:id="@+id/units"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
 
-                        android:layout_gravity="center"
-                        android:text="(4)"
-                        android:textColor="@android:color/black"
-                        android:textSize="15sp" />
+<!--                        android:layout_gravity="center"-->
+<!--                        android:text="(4)"-->
+<!--                        android:textColor="@android:color/black"-->
+<!--                        android:textSize="15sp" />-->
 
 
                 </LinearLayout>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_column="2"
-                    android:layout_row="0"
-                    android:text="Edit"
-                    android:textSize="15sp"
-                    android:textColor="@android:color/black"
-                    android:layout_gravity="end"/>
+<!--                <TextView-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_column="2"-->
+<!--                    android:layout_row="0"-->
+<!--                    android:text="Edit"-->
+<!--                    android:textSize="15sp"-->
+<!--                    android:textColor="@android:color/black"-->
+<!--                    android:layout_gravity="end"/>-->
 
 
 
@@ -133,65 +133,65 @@
         app:layout_constraintStart_toStartOf="parent"
         android:orientation="vertical">
 
-        <GridLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:padding="10dp">
+<!--        <GridLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:orientation="horizontal"-->
+<!--            android:padding="10dp">-->
 
-            <CheckBox
-                android:id="@+id/checkboxAll"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="All"
+<!--            <CheckBox-->
+<!--                android:id="@+id/checkboxAll"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="All"-->
 
-                android:layout_gravity="center">
+<!--                android:layout_gravity="center">-->
 
-            </CheckBox>
+<!--            </CheckBox>-->
 
 
 
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="end"
-                android:padding="0dp">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:text="Total:"
-                    android:textColor="@color/black">
+<!--&lt;!&ndash;            <LinearLayout&ndash;&gt;-->
+<!--&lt;!&ndash;                android:layout_width="wrap_content"&ndash;&gt;-->
+<!--&lt;!&ndash;                android:layout_height="wrap_content"&ndash;&gt;-->
+<!--&lt;!&ndash;                android:layout_gravity="end"&ndash;&gt;-->
+<!--&lt;!&ndash;                android:padding="0dp">&ndash;&gt;-->
+<!--&lt;!&ndash;                <TextView&ndash;&gt;-->
+<!--&lt;!&ndash;                    android:layout_width="wrap_content"&ndash;&gt;-->
+<!--&lt;!&ndash;                    android:layout_height="match_parent"&ndash;&gt;-->
+<!--&lt;!&ndash;                    android:text="Total:"&ndash;&gt;-->
+<!--&lt;!&ndash;                    android:textColor="@color/black">&ndash;&gt;-->
 
-                </TextView>
+<!--&lt;!&ndash;                </TextView>&ndash;&gt;-->
 
-                <ImageView
-                    android:layout_width="20dp"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="end"
+<!--&lt;!&ndash;                <ImageView&ndash;&gt;-->
+<!--&lt;!&ndash;                    android:layout_width="20dp"&ndash;&gt;-->
+<!--&lt;!&ndash;                    android:layout_height="match_parent"&ndash;&gt;-->
+<!--&lt;!&ndash;                    android:layout_gravity="end"&ndash;&gt;-->
 
-                    android:paddingLeft="5dp"
-                    android:src="@drawable/p" />
+<!--&lt;!&ndash;                    android:paddingLeft="5dp"&ndash;&gt;-->
+<!--&lt;!&ndash;                    android:src="@drawable/p" />&ndash;&gt;-->
 
-                <TextView
-                    android:id="@+id/totalPrice"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="end"
-                    android:paddingStart="0dp"
-                    android:paddingTop="0dp"
-                    android:paddingEnd="5dp"
-                    android:paddingBottom="0dp"
-                    android:text="200"
-                    android:textColor="@color/black" />
-            </LinearLayout>
-            <Button
-                android:id="@+id/checkout"
-                android:layout_height="wrap_content"
-                android:layout_width="wrap_content"
-                android:background="@drawable/green"
-                android:layout_margin="20dp"
-                android:text="Checkout">
-            </Button>
-        </GridLayout>
+<!--&lt;!&ndash;                <TextView&ndash;&gt;-->
+<!--&lt;!&ndash;                    android:id="@+id/totalPrice"&ndash;&gt;-->
+<!--&lt;!&ndash;                    android:layout_width="wrap_content"&ndash;&gt;-->
+<!--&lt;!&ndash;                    android:layout_height="wrap_content"&ndash;&gt;-->
+<!--&lt;!&ndash;                    android:layout_gravity="end"&ndash;&gt;-->
+<!--&lt;!&ndash;                    android:paddingStart="0dp"&ndash;&gt;-->
+<!--&lt;!&ndash;                    android:paddingTop="0dp"&ndash;&gt;-->
+<!--&lt;!&ndash;                    android:paddingEnd="5dp"&ndash;&gt;-->
+<!--&lt;!&ndash;                    android:paddingBottom="0dp"&ndash;&gt;-->
+<!--&lt;!&ndash;                    android:text="200"&ndash;&gt;-->
+<!--&lt;!&ndash;                    android:textColor="@color/black" />&ndash;&gt;-->
+<!--&lt;!&ndash;            </LinearLayout>&ndash;&gt;-->
+<!--            <Button-->
+<!--                android:id="@+id/checkout"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:background="@drawable/green"-->
+<!--                android:layout_margin="20dp"-->
+<!--                android:text="Checkout">-->
+<!--            </Button>-->
+<!--        </GridLayout>-->
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
