@@ -60,7 +60,7 @@ public class transactions extends AppCompatActivity {
                 });
             }
 
-            ImageView menu = findViewById(R.id.menu);
+            ImageView menu = findViewById(R.id.foodMenu);
             if (menu != null) {
                 menu.setOnClickListener(view -> {
                     startActivity(new Intent(this, productsAct.class));

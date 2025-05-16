@@ -62,7 +62,7 @@ public class settingAct extends AppCompatActivity {
                 startActivity(homepage);
             }
         });
-        ImageView menu = findViewById(R.id.menu);
+        ImageView menu = findViewById(R.id.foodMenu);
         menu.setOnClickListener(view -> {
             Intent menupage = new Intent(this,productsAct.class);
             startActivity(menupage);

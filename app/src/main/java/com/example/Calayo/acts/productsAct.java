@@ -55,7 +55,7 @@ public class productsAct extends AppCompatActivity {
     private void setupNavigation() {
         ImageView home = findViewById(R.id.home);
         ImageView cart = findViewById(R.id.cart);
-        ImageView menu = findViewById(R.id.menu);
+        ImageView menu = findViewById(R.id.foodMenu);
         ImageView history = findViewById(R.id.history);
         ImageView profile = findViewById(R.id.profile);
 

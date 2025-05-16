@@ -70,7 +70,7 @@ public class UserDashboardAct extends AppCompatActivity {
         try {
             ImageView home = findViewById(R.id.home);
             ImageView address = findViewById(R.id.address);
-            ImageView menu = findViewById(R.id.menu);
+            ImageView menu = findViewById(R.id.foodMenu);
             ImageView history = findViewById(R.id.history);
             ImageView profile = findViewById(R.id.profile);
 

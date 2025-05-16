@@ -33,7 +33,7 @@ public class order_Details extends AppCompatActivity {
 
     private final FirebaseFirestore db = FirebaseFirestore.getInstance();
     private final FirebaseAuth myAuth = FirebaseAuth.getInstance();
-    private final tempStorage temp = tempStorage.getInstance();
+    private  tempStorage temp;
     private final ExecutorService executor = Executors.newSingleThreadExecutor();
 
     private RecyclerView addOnsRecycler;
@@ -65,6 +65,7 @@ public class order_Details extends AppCompatActivity {
         TextView descriptionText = findViewById(R.id.description);
         TextView totalCostText = findViewById(R.id.priceOrder);
         addOnsRecycler = findViewById(R.id.OrderDetails);
+        temp = tempStorage.getInstance();
 
         // Set layout manager for add-ons list
         addOnsRecycler.setLayoutManager(new LinearLayoutManager(this));
@@ -137,7 +138,9 @@ public class order_Details extends AppCompatActivity {
                             checkoutIntent.putExtra("name", newItem.getName());
                             checkoutIntent.putExtra("price", newItem.getPrice());
                             checkoutIntent.putExtra("image", newItem.getImage());
+                            checkoutIntent.putExtra("id", cartItemId);
                             startActivity(checkoutIntent);
+                            finish(); // Finish this activity after moving to checkout
                             btnCheckout.setEnabled(true); // Re-enable button
                         }))
                         .addOnFailureListener(e -> runOnUiThread(() -> {
@@ -172,6 +175,7 @@ public class order_Details extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        temp = tempStorage.getInstance();
         // Reload add-ons when coming back to this screen
         SharedPreferences prefs = getSharedPreferences("selected", MODE_PRIVATE);
         String name = prefs.getString("name", null);
