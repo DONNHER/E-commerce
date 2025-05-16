@@ -232,7 +232,7 @@ public class tempStorage {
     }
     public Item searchItem(String name) {
         for (Item item : itemArrayList) {
-            if (item.getName().equals(name)) {
+            if (item.getName().equalsIgnoreCase(name)) {
                 return item;
             }
         }

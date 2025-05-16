@@ -71,6 +71,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
             android:text="@string/discover_delicious_meals_fast_delivery_and_nexclusive_all_in_one_app"
+            android:textStyle="bold"
             android:textAlignment="center"
             android:textSize="14sp" />
     </LinearLayout>

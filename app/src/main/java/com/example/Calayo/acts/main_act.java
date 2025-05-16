@@ -4,8 +4,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -81,6 +83,20 @@ public class main_act extends AppCompatActivity {
         ImageView menu = findViewById(R.id.foodMenu);
         ImageView history = findViewById(R.id.history);
         ImageView profile = findViewById(R.id.profile);
+        EditText searchEdit = findViewById(R.id.search);
+        String search = searchEdit.getText().toString().trim();
+        if(!search.isEmpty() ){
+            Item res = temp.searchItem(search);
+            if(res != null){
+                items.clear();
+                items.add(res);
+                LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
+                products.setLayoutManager(layoutManager);
+                productAdapter = new product_adapt(items, this);
+                products.setAdapter(productAdapter);
+            }
+        }
+
 
         if (seeAll != null) {
             seeAll.setOnClickListener(view -> startActivity(new Intent(this, productsAct.class)));
