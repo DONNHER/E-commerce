@@ -16,36 +16,42 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class splash extends AppCompatActivity {
-        tempStorage temp = tempStorage.getInstance();
+        tempStorage temp;
         FirebaseAuth myAuth;
         private boolean isLoggedIn;
         @Override
         protected void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
             setContentView(R.layout.splash);
-            // Start the main activity
-            ExecutorService executor = Executors.newSingleThreadExecutor();
-            SharedPreferences sharedPreferences  = getSharedPreferences("user", MODE_PRIVATE);
-            isLoggedIn = sharedPreferences.getBoolean("isLoggedIn", false);
 
-            if (isLoggedIn) {
-                executor.execute(() ->{
-                    myAuth = FirebaseAuth.getInstance();
-                    if(temp.getLoggedin() == null) {
-                        temp.setLoggedin(myAuth.getCurrentUser().getUid());
-                    }
-                    temp.loadAllUserData(() -> runOnUiThread(() -> {
-                        Intent intent = new Intent(splash.this, UserDashboardAct.class);
-                        startActivity(intent);
-                        finish();
-                    }));
-                });
-                return;
+            temp = tempStorage.getInstance();
+            SharedPreferences sharedPreferences = getSharedPreferences("user", MODE_PRIVATE);
+            isLoggedIn = sharedPreferences.getBoolean("isLoggedIn", false);
+            myAuth = FirebaseAuth.getInstance();
+
+            ExecutorService executor = Executors.newSingleThreadExecutor();
+
+            if (isLoggedIn && myAuth.getCurrentUser() != null) {
+                // Valid session, proceed to dashboard
+                temp.setLoggedin(myAuth.getCurrentUser().getUid());
+                executor.execute(() -> temp.loadAllData(() ->
+                        temp.loadAllUserData(() -> runOnUiThread(() -> {
+                            Intent intent = new Intent(splash.this, UserDashboardAct.class);
+                            startActivity(intent);
+                            finish();
+                        }))
+                ));
+            } else {
+                // Invalid session, redirect to login
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putBoolean("isLoggedIn", false);
+                editor.apply();
+
+                executor.execute(() -> temp.loadAllData(() -> runOnUiThread(() -> {
+                    Intent intent = new Intent(splash.this, main_act.class);
+                    startActivity(intent);
+                    finish();
+                })));
             }
-            executor.execute(() -> temp.loadAllData(() -> runOnUiThread(() -> {
-            Intent intent = new Intent(splash.this, main_act.class);
-            startActivity(intent);
-            finish();
-             })));
         }
-    }
+}

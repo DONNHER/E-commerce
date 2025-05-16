@@ -120,11 +120,11 @@
                     android:layout_gravity="start"
                     android:layout_marginEnd="10dp"
                     android:background="@drawable/green"
-                    android:src="@drawable/lokal_kofi_png"
-                    android:textColor="@android:color/holo_green_dark"
+                     android:textColor="@android:color/holo_green_dark"
                     android:textSize="16sp"
 
                     android:textStyle="bold">
+<!--                    android:src="@drawable/lokal_kofi_png"-->
 
                 </ImageView>
 
@@ -138,10 +138,10 @@
                     android:layout_gravity="start"
                     android:layout_marginStart="5dp"
                     android:background="@drawable/green"
-                    android:src="@drawable/cafe_luiza"
                     android:textColor="@android:color/holo_green_dark"
                     android:textSize="16sp"
                     android:textStyle="bold">
+<!--                    android:src="@drawable/cafe_luiza"-->
 
                 </ImageView>
 
@@ -154,10 +154,10 @@
                     android:layout_gravity="center"
                     android:layout_marginStart="15dp"
                     android:background="@drawable/black"
-                    android:src="@drawable/sukool_royal_png"
                     android:textColor="@android:color/holo_green_dark"
                     android:textSize="16sp"
                     android:textStyle="bold">
+<!--                    android:src="@drawable/sukool_royal_png"-->
 
                 </ImageView>
 
@@ -167,10 +167,10 @@
                     android:layout_height="76dp"
                     android:layout_gravity="center"
                     android:background="@drawable/black"
-                    android:src="@drawable/sungkab_sisisg_png"
-                    android:textColor="@drawable/black"
+                   android:textColor="@drawable/black"
                     android:textSize="16sp"
                     android:textStyle="bold">
+<!--                    android:src="@drawable/sungkab_sisisg_png"-->
 
                 </ImageView>
 

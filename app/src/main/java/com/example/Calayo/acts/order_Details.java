@@ -19,9 +19,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.Calayo.R;
 import com.example.Calayo.adapters.addOns;
+import com.example.Calayo.adapters.product_adapt;
 import com.example.Calayo.entities.Item;
 import com.example.Calayo.entities.cartItem;
 import com.example.Calayo.helper.tempStorage;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 
@@ -39,8 +41,9 @@ public class order_Details extends AppCompatActivity {
     private ArrayList<Item.addOn> addOnsItems = new ArrayList<>();
     private RecyclerView addOnsRecycler;
 
-    private tempStorage temp = tempStorage.getInstance();
+    private tempStorage  temp;
     ExecutorService executor = Executors.newSingleThreadExecutor();
+    FirebaseAuth myAuth = FirebaseAuth.getInstance();
 
     @SuppressLint({"WrongViewCast", "MissingInflatedId"})
     @Override
@@ -58,6 +61,7 @@ public class order_Details extends AppCompatActivity {
         TextView quantity = findViewById(R.id.units);
         String cartItemId = UUID.randomUUID().toString();
         ImageView cart = findViewById(R.id.cart);
+        temp = tempStorage.getInstance();
         cart.setOnClickListener(v -> {
             Intent intent = new Intent(this, AddToCart.class);
             startActivity(intent);
@@ -100,7 +104,8 @@ public class order_Details extends AppCompatActivity {
         Glide.with(this)
                 .load(image)
                 .into(pic);
-
+        temp.setLoggedin(myAuth.getCurrentUser().getUid());
+        executor.execute(() -> temp.loadAllData(()->temp.loadAllUserData(() ->{} )));
         addOn = new addOns(temp.searchItem(name).getAddOns(), this);
         addOnsRecycler.setAdapter(addOn);
 
@@ -109,10 +114,10 @@ public class order_Details extends AppCompatActivity {
              // This will create a unique ID for each item
             Intent intent = new Intent(this, checkout.class);
             intent.putExtra("quantity", quantity.getText().toString().trim());
-            intent.putExtra("name", name2);
+            intent.putExtra("name", name);
             intent.putExtra("price", price);
             intent.putExtra("image", image);
-            cartItem newItem = new cartItem(image, quantity.getText().toString().trim(), name2, new Date(),cartItemId,price);
+            cartItem newItem = new cartItem(image, quantity.getText().toString().trim(), name, new Date(),cartItemId,price);
             temp.getCartItemArrayList().add(newItem);
             intent.putExtra(temp.getLoggedin(),cartItemId);
 
@@ -143,5 +148,15 @@ public class order_Details extends AppCompatActivity {
         });
         back.setOnClickListener(view4 -> finish());
     }
-
+    @Override
+    public void onResume() {
+        super.onResume();
+        SharedPreferences sharedPreferences = getSharedPreferences("selected", MODE_PRIVATE);
+        String name = sharedPreferences.getString("name", null);
+        temp.setLoggedin(myAuth.getCurrentUser().getUid());
+        executor.execute(() -> temp.loadAllData(() -> temp.loadAllUserData(() -> {
+        })));
+        addOn = new addOns(temp.searchItem(name).getAddOns(), this);
+        addOnsRecycler.setAdapter(addOn);
+    }
 }

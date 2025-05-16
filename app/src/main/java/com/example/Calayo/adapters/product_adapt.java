@@ -93,6 +93,7 @@ public class product_adapt extends RecyclerView.Adapter<product_adapt.ViewHolder
                 SharedPreferences preferences = fragmentActivity.getSharedPreferences("selected", fragmentActivity.MODE_PRIVATE);
                 SharedPreferences.Editor editor = preferences.edit();
                 editor.putString("name", item.getName()).apply();
+                Toast.makeText(fragmentActivity, item.getName(), Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(fragmentActivity, order_Details.class);
                 intent.putExtra("image", item.getImage());
                 intent.putExtra("description",item.getDescription());

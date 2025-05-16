@@ -49,12 +49,6 @@ public class UserDashboardAct extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.user_d_board);
         temp = tempStorage.getInstance();
-//        appointmentsView.setLayoutManager(new LinearLayoutManager(this));
-//        appointmentsView.setAdapter(Adapt);
-//        btn2.setOnClickListener(v ->filter("Pending"));
-//        btn1.setOnClickListener(v ->filter("Confirmed"));
-//        filter("Pending");
-//        appointments();
         ImageView home = findViewById(R.id.home);
         ImageView address = findViewById(R.id.address);
 
@@ -111,10 +105,9 @@ public class UserDashboardAct extends AppCompatActivity {
     @Override
     public void onResume(){
         super.onResume();
-        executor.execute(() -> temp.loadAllUserData(()->runOnUiThread(() -> {})));
-        executor.execute(() -> temp.loadAllData(()-> runOnUiThread(() -> {
+        executor.execute(() -> temp.loadAllData(()-> temp.loadAllUserData(()-> runOnUiThread(() -> {
             Adapt = new product_adapt(temp.getItemArrayList(),this);
             products.setAdapter(Adapt);
-        })));
+        }))));
     }
 }

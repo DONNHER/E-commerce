@@ -56,10 +56,11 @@ public class myAddress extends AppCompatActivity {
     @Override
     public void onResume(){
         super.onResume();
-        executor.execute(() -> temp.loadAllUserData(() -> runOnUiThread(() -> {
-            adapter = new address_adapter(tempStorage.getInstance().getAddressList(),this);
-            addsRecyclerView.setAdapter(adapter);
-        })));
-
+        if(temp.getLoggedin() != null) {
+            executor.execute(() -> temp.loadAllUserData(() -> runOnUiThread(() -> {
+                adapter = new address_adapter(tempStorage.getInstance().getAddressList(), this);
+                addsRecyclerView.setAdapter(adapter);
+            })));
+        }
     }
 }

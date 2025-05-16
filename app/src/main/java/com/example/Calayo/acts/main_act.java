@@ -122,7 +122,7 @@ public class main_act extends AppCompatActivity {
     @Override
     public void onResume(){
         super.onResume();
-        executor.execute(() -> temp.loadAllUserData(() -> runOnUiThread(() -> {
+        executor.execute(() -> temp.loadAllData(() -> runOnUiThread(() -> {
             Adapt = new product_adapt(temp.getItemArrayList(),this);
             products.setAdapter(Adapt);
         })));
