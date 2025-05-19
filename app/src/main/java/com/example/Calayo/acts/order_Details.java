@@ -4,9 +4,12 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -41,6 +44,9 @@ public class order_Details extends AppCompatActivity {
 
     private String image, price, desc, itemName;
     private int quantityCount = 1;
+    private ProgressBar progressBar;
+    private Runnable timeoutRunnable;
+    private Handler handler = new Handler();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +61,8 @@ public class order_Details extends AppCompatActivity {
     private void setupUI() {
         // Find views by ID
         Button btnCheckout = findViewById(R.id.checkout);
+        progressBar = findViewById(R.id.progressBar);
+
         Button back = findViewById(R.id.back);
         ImageView minus = findViewById(R.id.minus);
         ImageView add = findViewById(R.id.add);
@@ -107,48 +115,66 @@ public class order_Details extends AppCompatActivity {
 
         // Handle checkout process when checkout button clicked
         btnCheckout.setOnClickListener(view -> {
-            btnCheckout.setEnabled(false); // Disable to prevent multiple clicks
+            btnCheckout.setEnabled(false); // Prevent multiple clicks
+            progressBar.setVisibility(View.VISIBLE); // Show spinner
 
-            // Create new cart item with a unique ID
+            // Create a new cart item with a unique ID
             String cartItemId = UUID.randomUUID().toString();
             cartItem newItem = new cartItem(image, String.valueOf(quantityCount), itemName, new Date(), cartItemId, price);
 
-            // Add item to local cart list
+            // Add item to local temp storage
             temp.getCartItemArrayList().add(newItem);
 
-            // Save cart item to Firestore in background thread
-            executor.execute(() -> {
-                HashMap<String, Object> itemMap = new HashMap<>();
-                itemMap.put("image", newItem.getImage());
-                itemMap.put("quantity", newItem.getQuantity());
-                itemMap.put("name", newItem.getName());
-                itemMap.put("date", newItem.getDate());
-                itemMap.put("id", cartItemId);
+            // Prepare Firestore data
+            HashMap<String, Object> itemMap = new HashMap<>();
+            itemMap.put("image", newItem.getImage());
+            itemMap.put("quantity", newItem.getQuantity());
+            itemMap.put("name", newItem.getName());
+            itemMap.put("date", newItem.getDate());
+            itemMap.put("id", cartItemId);
 
-                db.collection("users")
-                        .document(temp.getLoggedin())
-                        .collection("Food Cart Items")
-                        .document(cartItemId)
-                        .set(itemMap)
-                        .addOnSuccessListener(unused -> runOnUiThread(() -> {
-                            Log.d("Cart", "Item saved to Firestore");
-                            // Move to checkout screen with item details
-                            Intent checkoutIntent = new Intent(this, checkout.class);
-                            checkoutIntent.putExtra("quantity", newItem.getQuantity());
-                            checkoutIntent.putExtra("name", newItem.getName());
-                            checkoutIntent.putExtra("price", newItem.getPrice());
-                            checkoutIntent.putExtra("image", newItem.getImage());
-                            checkoutIntent.putExtra("id", cartItemId);
-                            startActivity(checkoutIntent);
-                            finish(); // Finish this activity after moving to checkout
-                            btnCheckout.setEnabled(true); // Re-enable button
-                        }))
-                        .addOnFailureListener(e -> runOnUiThread(() -> {
-                            Log.e("Cart", "Failed to save item", e);
-                            Toast.makeText(this, "Failed to add to cart", Toast.LENGTH_SHORT).show();
-                            btnCheckout.setEnabled(true); // Re-enable button on failure
-                        }));
-            });
+            // Setup 30 seconds timeout
+            timeoutRunnable = () -> {
+                if (progressBar.getVisibility() == View.VISIBLE) {
+                    Toast.makeText(order_Details.this,
+                            "Loading is taking longer than usual. Please check your connection.",
+                            Toast.LENGTH_LONG).show();
+                    progressBar.setVisibility(View.GONE);
+                    btnCheckout.setEnabled(true);
+                }
+            };
+            handler.postDelayed(timeoutRunnable, 30000); // Run timeout after 30s
+
+            // Save to Firestore in background thread
+            executor.execute(() -> db.collection("users")
+                    .document(temp.getLoggedin())
+                    .collection("Food Cart Items")
+                    .document(cartItemId)
+                    .set(itemMap)
+                    .addOnSuccessListener(unused -> runOnUiThread(() -> {
+                        handler.removeCallbacks(timeoutRunnable); // Cancel timeout
+                        progressBar.setVisibility(View.GONE);
+                        Log.d("Cart", "Item saved to Firestore");
+
+                        // Proceed to checkout screen
+                        Intent checkoutIntent = new Intent(this, checkout.class);
+                        checkoutIntent.putExtra("quantity", newItem.getQuantity());
+                        checkoutIntent.putExtra("name", newItem.getName());
+                        checkoutIntent.putExtra("price", newItem.getPrice());
+                        checkoutIntent.putExtra("image", newItem.getImage());
+                        checkoutIntent.putExtra("id", cartItemId);
+                        startActivity(checkoutIntent);
+                        finish();
+                        btnCheckout.setEnabled(true);
+                    }))
+                    .addOnFailureListener(e -> runOnUiThread(() -> {
+                        handler.removeCallbacks(timeoutRunnable); // Cancel timeout
+                        progressBar.setVisibility(View.GONE);
+                        Log.e("Cart", "Failed to save item", e);
+                        Toast.makeText(this, "Failed to add to cart", Toast.LENGTH_SHORT).show();
+                        btnCheckout.setEnabled(true);
+                    }))
+            );
         });
 
         // Close the activity on back button click

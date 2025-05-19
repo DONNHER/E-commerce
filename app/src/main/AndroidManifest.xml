@@ -56,6 +56,11 @@
             android:theme="@style/Theme.AppCompat.DayNight.NoActionBar">
         </activity>
         <activity
+            android:name=".acts.search"
+            android:exported="true"
+            android:theme="@style/Theme.AppCompat.DayNight.NoActionBar">
+        </activity>
+        <activity
             android:name=".acts.checkout"
             android:exported="true"
             android:theme="@style/Theme.AppCompat.DayNight.NoActionBar">

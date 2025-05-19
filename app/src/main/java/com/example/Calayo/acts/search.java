@@ -8,41 +8,30 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.SearchView;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.LinearSnapHelper;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.recyclerview.widget.SnapHelper;
 
 import com.example.Calayo.R;
-import com.example.Calayo.adapters.AddsADaptor;
 import com.example.Calayo.adapters.product_adapt;
 import com.example.Calayo.entities.Item;
-import com.example.Calayo.entities.adds;
 import com.example.Calayo.helper.tempStorage;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.Collections;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-/**
- * UserDashboardAct displays the main dashboard with products and ads.
- * Handles navigation and refreshes data upon resume.
- */
-public class UserDashboardAct extends AppCompatActivity {
+public class search extends AppCompatActivity {
 
-    private static final String TAG = "UserDashboardAct";
+    private static final String TAG = "SearchActivity";
 
     private RecyclerView products;
     private product_adapt productAdapter;
-
-    private RecyclerView addsRecyclerView;
-    private AddsADaptor addsAdapter;
-
+    private ArrayList<Item> items = new ArrayList<>();
     private tempStorage temp;
     private final ExecutorService executor = Executors.newSingleThreadExecutor();
 
@@ -50,30 +39,59 @@ public class UserDashboardAct extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.user_d_board);
+        setContentView(R.layout.search);
 
         try {
             temp = tempStorage.getInstance();
         } catch (Exception e) {
             Log.e(TAG, "Failed to initialize tempStorage: " + e.getMessage());
-            return; // Cannot proceed if temp is not initialized
+            return;
         }
 
-        initNavigationButtons();
-        setupProductsRecycler();
-        setupAddsRecycler();
+        // Initialize views
+        products = findViewById(R.id.Products_Recycler);
         EditText searchEdit = findViewById(R.id.search);
         Button submit = findViewById(R.id.submit);
+
+        String res = getIntent().getStringExtra("result");
+        if (res != null && !res.isEmpty()) {
+            searchAndDisplay(res);
+        }
 
         submit.setOnClickListener(v -> {
             // Handle passed intent search result
             String search_res = searchEdit.getText().toString();
             if (!search_res.isEmpty()) {
-                Intent intent = new Intent(UserDashboardAct.this , search.class);
-                intent.putExtra("search", search_res);
-                startActivity(intent);
+                searchAndDisplay(search_res);
             }
         });
+
+        initNavigationButtons();
+
+    }
+
+    /**
+     * Searches for an item by name and displays it if found.
+     */
+    private void searchAndDisplay(String query) {
+        Item res = temp.searchItem(query);
+        items.clear();
+        if (res != null) {
+            items.add(res);
+            updateProductList(items);
+        } else {
+            Log.d(TAG, "No item found for query: " + query);
+        }
+    }
+
+    /**
+     * Updates the RecyclerView with a new product list.
+     */
+    private void updateProductList(ArrayList<Item> newItems) {
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
+        products.setLayoutManager(layoutManager);
+        productAdapter = new product_adapt(newItems, this);
+        products.setAdapter(productAdapter);
     }
 
     /**
@@ -112,50 +130,7 @@ public class UserDashboardAct extends AppCompatActivity {
     }
 
     /**
-     * Sets up the products RecyclerView with items.
-     */
-    private void setupProductsRecycler() {
-        try {
-            products = findViewById(R.id.Products_Recycler);
-            if (products != null) {
-                products.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
-
-                ArrayList<Item> items = temp.getItemArrayList();
-                if (items == null) items = new ArrayList<>();
-                productAdapter = new product_adapt(items, this);
-                products.setAdapter(productAdapter);
-            } else {
-                Log.w(TAG, "Products RecyclerView not found.");
-            }
-        } catch (Exception e) {
-            Log.e(TAG, "Failed to set up products RecyclerView: " + e.getMessage());
-        }
-    }
-
-    /**
-     * Sets up the horizontal ads carousel.
-     */
-    private void setupAddsRecycler() {
-        try {
-            addsRecyclerView = findViewById(R.id.Adds_Recycler);
-            if (addsRecyclerView != null) {
-                addsRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
-
-                SnapHelper snapHelper = new LinearSnapHelper();
-                snapHelper.attachToRecyclerView(addsRecyclerView);
-
-                addsAdapter = new AddsADaptor(temp.getAddsArrayList(), this);
-                addsRecyclerView.setAdapter(addsAdapter);
-            } else {
-                Log.w(TAG, "Adds RecyclerView not found.");
-            }
-        } catch (Exception e) {
-            Log.e(TAG, "Failed to set up ads RecyclerView: " + e.getMessage());
-        }
-    }
-
-    /**
-     * Refreshes data on resume.
+     * Refreshes data when returning to this activity.
      */
     @Override
     protected void onResume() {
@@ -164,10 +139,9 @@ public class UserDashboardAct extends AppCompatActivity {
             executor.execute(() -> temp.loadAllData(() ->
                     temp.loadAllUserData(() -> runOnUiThread(() -> {
                         if (products != null) {
-                            ArrayList<Item> items = temp.getItemArrayList();
-                            if (items == null) items = new ArrayList<>();
-                            productAdapter = new product_adapt(items, this);
-                            products.setAdapter(productAdapter);
+                            ArrayList<Item> loadedItems = temp.getItemArrayList();
+                            if (loadedItems == null) loadedItems = new ArrayList<>();
+                            updateProductList(loadedItems);
                             Log.d(TAG, "Product list updated.");
                         }
                     }))

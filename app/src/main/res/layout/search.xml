@@ -70,9 +70,9 @@
 
         <!-- Avatar -->
     </LinearLayout>
-<!--    Header -->
+    <!--    Header -->
 
-    <ScrollView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintBottom_toTopOf="@+id/footer"
@@ -87,7 +87,6 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="start"
                 android:layout_marginBottom="20dp">
 
                 <EditText
@@ -108,165 +107,21 @@
                     android:background="@drawable/green"
                     android:drawableStart="@android:drawable/ic_menu_search"
                     android:text="Submit">
+
                 </Button>
+
             </LinearLayout>
 
-            <!-- Social Buttons -->
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/Adds_Recycler"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:scrollbars="vertical"
-                />
-            <GridLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
-                android:columnCount="4">
-
-                <ImageView
-                    android:id="@+id/button2"
-                    android:layout_width="78dp"
-                    android:layout_height="76dp"
-                    android:layout_columnWeight="0"
-                    android:layout_gravity="start"
-                    android:layout_marginEnd="5dp"
-                    android:background="@drawable/yellow"
-                    android:src="@drawable/burger3"
-                    android:textColor="@android:color/holo_green_dark"
-                    android:textSize="16sp"
-
-                    android:textStyle="bold">
-
-                </ImageView>
-
-                <ImageView
-                    android:id="@+id/button3"
-                    android:layout_width="78dp"
-                    android:layout_height="76dp"
-                    android:layout_row="0"
-                    android:layout_column="1"
-                    android:layout_columnWeight="0"
-                    android:layout_gravity="start"
-                    android:layout_marginStart="5dp"
-                    android:background="@drawable/yellow"
-                    android:src="@drawable/pizza2"
-                    android:textColor="@android:color/holo_green_dark"
-                    android:textSize="16sp"
-                    android:textStyle="bold">
-
-                </ImageView>
-
-                <ImageView
-                    android:layout_width="75dp"
-                    android:layout_height="76dp"
-                    android:layout_row="0"
-                    android:layout_column="2"
-                    android:layout_columnWeight="0"
-                    android:layout_marginStart="10dp"
-                    android:background="@drawable/black"
-                    android:src="@drawable/salad"
-                    android:textColor="@android:color/holo_green_dark"
-                    android:textSize="16sp"
-                    android:textStyle="bold">
-
-                </ImageView>
-
-                <ImageView
-                    android:id="@+id/button"
-                    android:layout_width="76dp"
-                    android:layout_height="76dp"
-                    android:layout_gravity="center"
-                    android:background="@drawable/black"
-                    android:src="@drawable/suzi"
-                    android:textColor="@drawable/black"
-                    android:textSize="16sp"
-                    android:textStyle="bold">
-
-                </ImageView>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_row="1"
-                    android:layout_column="0"
-                    android:layout_columnWeight="0"
-                    android:layout_marginStart="15dp"
-                    android:text="Burger"
-                    android:textAlignment="center"
-                    android:textColor="@android:color/holo_green_dark"
-                    android:textSize="16sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/textView2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_row="1"
-                    android:layout_column="1"
-                    android:layout_gravity="center"
-                    android:text="Pizza"
-                    android:textColor="@android:color/holo_green_dark"
-                    android:textSize="16sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:text="Salad"
-                    android:textColor="@color/black"
-                    android:textSize="16sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Sushi"
-                    android:textColor="@color/black"
-                    android:textSize="16sp"
-                    android:textStyle="bold"
-                    android:layout_gravity="center"
-                    />
-
-            </GridLayout>
-
-            <GridLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingLeft="20dp"
-                android:paddingRight="20dp"
-                android:paddingTop="20dp"
-                android:paddingBottom= "0dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="start"
-                    android:text="Popular Food"
-                    android:textColor="@color/black"
-                    android:textSize="20dp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="end"
-                    android:text="See All"
-                    android:textColor="@color/black" />
-            </GridLayout>
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/Products_Recycler"
                 android:layout_width="match_parent"
-                android:layout_height="750dp"
-                android:padding="10dp"
-                />
+                android:layout_height="505dp"
+                android:padding="10dp" />
         </LinearLayout>
-    </ScrollView>
+    </LinearLayout>
 
-<!--Footer-->
+    <!--Footer-->
     <GridLayout
         android:id="@+id/footer"
         android:layout_width="0dp"

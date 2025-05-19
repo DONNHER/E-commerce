@@ -67,11 +67,11 @@ public class settingAct extends AppCompatActivity {
             Intent menupage = new Intent(this,productsAct.class);
             startActivity(menupage);
         });
-//        ImageView history = findViewById(R.id.history);
-//        menu.setOnClickListener(view -> {
-//            Intent menupage = new Intent(this,productsAct.class);
-//            startActivity(menupage);
-//        });
+        ImageView history = findViewById(R.id.history);
+        history.setOnClickListener(view -> {
+            Intent menupage = new Intent(this,transactions.class);
+            startActivity(menupage);
+        });
         ImageView profile = findViewById(R.id.profile);
         profile.setOnClickListener(view -> {
             Intent profilepage = new Intent(this, settingAct.class);

@@ -51,48 +51,48 @@
 
         </GridLayout>
 
-        <GridLayout
-            android:layout_width="match_parent"
+    <GridLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_column="0"
+        android:layout_gravity="bottom"
+        android:layout_margin="0dp"
+        android:background="@drawable/transparent"
+        android:padding="0dp">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_column="0"
-            android:layout_gravity="bottom"
-            android:background="@drawable/edit_background">
+            android:layout_gravity="center"
+            android:layout_marginStart="10dp">
 
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:background="@drawable/edit_background"
-                android:padding="0dp">
-
-
-                <TextView
-                    android:id="@+id/name"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="end"
-                    android:background="@drawable/edit_background"
-                    android:text="Pizza"
-                    android:textStyle="bold"
-                    android:textColor="@color/black"
-                    android:paddingEnd="5dp"
-                    android:paddingTop="0dp"
-                    android:paddingStart="10dp"
-                    android:textSize="18dp"
-                    android:paddingBottom="0dp"/>
-            </LinearLayout>
 
             <TextView
+                android:id="@+id/name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="end"
-                android:background="@drawable/green"
-                android:text="Add to Cart"
+                android:paddingStart="10dp"
+                android:paddingTop="0dp"
+                android:paddingEnd="5dp"
+                android:paddingBottom="0dp"
+                android:text="Pizza"
                 android:textColor="@color/black"
-                android:src="@drawable/fa"
-                android:padding= "6dp"
-                />
+                android:textSize="18dp"
+                android:textStyle="bold" />
+        </LinearLayout>
 
-        </GridLayout>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center|end"
+            android:background="@drawable/green"
+            android:padding="6dp"
+            android:layout_marginEnd="20dp"
+            android:src="@drawable/fa"
+            android:text="Add to Cart"
+            android:textColor="@color/black" />
+
+    </GridLayout>
 
 </GridLayout>
