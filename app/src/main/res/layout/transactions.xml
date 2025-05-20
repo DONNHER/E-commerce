@@ -35,7 +35,7 @@
                     android:layout_height="wrap_content"
                     android:layout_row="0"
                     android:layout_column="2"
-                    android:text="Notifications"
+                    android:text="Order History"
                     android:textSize="18sp"
                     android:textColor="@android:color/black"
                     android:layout_gravity="center"/>

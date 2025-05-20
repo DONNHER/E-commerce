@@ -68,6 +68,8 @@ public class productsAct extends AppCompatActivity {
      * Set up the bottom navigation bar.
      */
     private void setupNavigation() {
+
+        Button back = findViewById(R.id.back);
         ImageView home = findViewById(R.id.home);
         ImageView cart = findViewById(R.id.cart);
         ImageView menu = findViewById(R.id.foodMenu);
@@ -107,6 +109,7 @@ public class productsAct extends AppCompatActivity {
                 startActivity(new Intent(this, settingAct.class));
             });
         }
+        back.setOnClickListener(view -> finish());
     }
 
     /**

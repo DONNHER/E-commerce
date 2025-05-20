@@ -22,47 +22,64 @@
         android:paddingTop="5dp"
         android:paddingBottom= "0dp">
 
-        <!-- Avatar -->
         <GridLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="start">
+            android:columnCount="1">
 
-            <LinearLayout
+            <Button
+                android:id="@+id/back"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:background="@drawable/undo" />
+
+            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_row="0"
+                android:layout_column="0"
                 android:layout_gravity="center"
-                android:layout_marginBottom="20dp">
+                android:text="Food Menu"
+                android:textColor="@android:color/black"
+                android:textSize="18sp" />
 
-                <EditText
-                    android:id="@+id/search"
-                    android:layout_width="222dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="start"
-                    android:layout_marginEnd="20dp"
-                    android:background="@drawable/edit_background"
-                    android:drawableStart="@android:drawable/ic_menu_search"
-                    android:singleLine="true" />
-
-                <Button
-                    android:id="@+id/submit"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="end"
-                    android:background="@drawable/green"
-                    android:drawableStart="@android:drawable/ic_menu_search"
-                    android:text="Submit">
-                </Button>
-            </LinearLayout>
             <ImageView
                 android:id="@+id/cart"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
-                android:contentDescription="TODO"
-                android:src="@drawable/turnover"
+                android:layout_row="0"
+                android:layout_column="0"
+                android:layout_gravity="end"
                 android:background="@drawable/yellow"
-                android:layout_gravity="end"/>
+                android:contentDescription="TODO"
+                android:src="@drawable/turnover" />
         </GridLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginBottom="20dp">
+
+            <EditText
+                android:id="@+id/search"
+                android:layout_width="222dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start"
+                android:layout_marginEnd="20dp"
+                android:background="@drawable/edit_background"
+                android:drawableStart="@android:drawable/ic_menu_search"
+                android:singleLine="true" />
+
+            <Button
+                android:id="@+id/submit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:background="@drawable/green"
+                android:drawableStart="@android:drawable/ic_menu_search"
+                android:text="Submit">
+            </Button>
+        </LinearLayout>
     </LinearLayout>
 
 
