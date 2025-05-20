@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.Calayo.R;
 import com.example.Calayo.adapters.addOns;
 import com.example.Calayo.entities.Order;
+import com.example.Calayo.entities.cartItem;
 import com.example.Calayo.helper.tempStorage;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -81,7 +82,9 @@ public class checkout extends AppCompatActivity {
         addOnsRecycler.setAdapter(addOn);
 
         // Get data from the previous activity using Intent
-        Intent intent = getIntent();
+        ???
+        // DIri boss ilisi tanan gamita ang attribute sa cartItem
+        cartItem cartItem;
         String priceStr = intent.getStringExtra("price");
         String quantityStr = intent.getStringExtra("quantity");
         String name = intent.getStringExtra("name");

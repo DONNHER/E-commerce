@@ -120,7 +120,7 @@ public class order_Details extends AppCompatActivity {
 
             // Create a new cart item with a unique ID
             String cartItemId = UUID.randomUUID().toString();
-            cartItem newItem = new cartItem(image, String.valueOf(quantityCount), itemName, new Date(), cartItemId, String.valueOf(Double.parseDouble(price) + temp.getTotalAddOnPrice()),temp.getAddOnArrayList());
+            cartItem newItem = new cartItem(cartItemId,image, String.valueOf(quantityCount), itemName, new Date(), cartItemId, String.valueOf(Double.parseDouble(price) + temp.getTotalAddOnPrice()),temp.getAddOnArrayList());
 
             // Add item to local temp storage
             temp.getCartItemArrayList().add(newItem);
@@ -131,7 +131,7 @@ public class order_Details extends AppCompatActivity {
             itemMap.put("quantity", newItem.getQuantity());
             itemMap.put("name", newItem.getName());
             itemMap.put("date", newItem.getDate());
-            itemMap.put("id", cartItemId);
+            itemMap.put("id", newItem.getId());
             itemMap.put("price",newItem.getPrice());
             itemMap.put("addOns", newItem.getAddOns());
 
@@ -160,11 +160,7 @@ public class order_Details extends AppCompatActivity {
 
                         // Proceed to checkout screen
                         Intent checkoutIntent = new Intent(this, checkout.class);
-                        checkoutIntent.putExtra("quantity", newItem.getQuantity());
-                        checkoutIntent.putExtra("name", newItem.getName());
-                        checkoutIntent.putExtra("price", newItem.getPrice());
-                        checkoutIntent.putExtra("image", newItem.getImage());
-                        checkoutIntent.putExtra("id", cartItemId);
+                        temp.setSelectedCartItem(newItem);
                         startActivity(checkoutIntent);
                         finish();
                         btnCheckout.setEnabled(true);
