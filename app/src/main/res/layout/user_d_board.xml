@@ -25,11 +25,14 @@
             android:layout_height="wrap_content">
 
             <ImageView
+                android:onClick="location"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:layout_gravity="bottom"
                 android:src="@drawable/mark" />
             <TextView
+                android:id="@+id/location"
+                android:onClick="location"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="8720 Musuan"
@@ -39,11 +42,12 @@
                 />
 
             <ImageView
+                android:onClick="location"
                 android:layout_margin="5dp"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
                 android:layout_gravity="bottom"
-                android:src="@drawable/head_arrowdown" />
+                android:src="@android:drawable/arrow_down_float" />
 
             <ImageView
                 android:id="@+id/address"

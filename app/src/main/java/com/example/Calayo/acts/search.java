@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.SearchView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -34,6 +35,7 @@ public class search extends AppCompatActivity {
     private ArrayList<Item> items = new ArrayList<>();
     private tempStorage temp;
     private final ExecutorService executor = Executors.newSingleThreadExecutor();
+    private boolean isLoggedIn = false;
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -41,21 +43,16 @@ public class search extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.search);
 
-        try {
-            temp = tempStorage.getInstance();
-        } catch (Exception e) {
-            Log.e(TAG, "Failed to initialize tempStorage: " + e.getMessage());
-            return;
-        }
-
         // Initialize views
         products = findViewById(R.id.Products_Recycler);
         EditText searchEdit = findViewById(R.id.search);
         Button submit = findViewById(R.id.submit);
+        temp = tempStorage.getInstance();
 
-        String res = getIntent().getStringExtra("result");
-        if (res != null && !res.isEmpty()) {
-            searchAndDisplay(res);
+        if ( temp.getSearchResult() != null) {
+            items.clear();
+            items.add(temp.getSearchResult());
+            updateProductList(items);
         }
 
         submit.setOnClickListener(v -> {
@@ -65,6 +62,13 @@ public class search extends AppCompatActivity {
                 searchAndDisplay(search_res);
             }
         });
+
+        try {
+            temp = tempStorage.getInstance();
+        } catch (Exception e) {
+            Log.e(TAG, "Failed to initialize tempStorage: " + e.getMessage());
+            return;
+        }
 
         initNavigationButtons();
 
@@ -122,32 +126,13 @@ public class search extends AppCompatActivity {
             }
 
             if (profile != null) {
-                profile.setOnClickListener(v -> startActivity(new Intent(this, settingAct.class)));
-            }
+                profile.setOnClickListener(view -> {
+                    Intent intent = isLoggedIn ? new Intent(search.this, settingAct.class) : new Intent(search.this, userLoginAct.class);
+                    startActivity(intent);
+            });
+        }
         } catch (Exception e) {
             Log.e(TAG, "Navigation setup failed: " + e.getMessage());
-        }
-    }
-
-    /**
-     * Refreshes data when returning to this activity.
-     */
-    @Override
-    protected void onResume() {
-        super.onResume();
-        try {
-            executor.execute(() -> temp.loadAllData(() ->
-                    temp.loadAllUserData(() -> runOnUiThread(() -> {
-                        if (products != null) {
-                            ArrayList<Item> loadedItems = temp.getItemArrayList();
-                            if (loadedItems == null) loadedItems = new ArrayList<>();
-                            updateProductList(loadedItems);
-                            Log.d(TAG, "Product list updated.");
-                        }
-                    }))
-            ));
-        } catch (Exception e) {
-            Log.e(TAG, "Error during resume data load: " + e.getMessage());
         }
     }
 
@@ -156,7 +141,7 @@ public class search extends AppCompatActivity {
      */
     private void restartActivity() {
         try {
-            Intent intent = new Intent(this, UserDashboardAct.class);
+            Intent intent = isLoggedIn ? new Intent(search.this, UserDashboardAct.class) : new Intent(search.this, main_act.class);
             startActivity(intent);
             finish();
         } catch (Exception e) {

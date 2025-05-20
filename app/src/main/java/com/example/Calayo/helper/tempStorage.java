@@ -60,7 +60,7 @@ public class tempStorage {
     private final FirebaseFirestore db;
     private boolean isloggedIn;
 
-
+    private Item searchResult;
     /**
      * Private constructor initializes all internal lists and Firestore reference.
      */
@@ -107,6 +107,14 @@ public class tempStorage {
 
     public void setIsloggedIn(boolean isloggedIn) {
         this.isloggedIn = isloggedIn;
+    }
+
+    public Item getSearchResult() {
+        return searchResult;
+    }
+
+    public void setSearchResult(Item searchResult) {
+        this.searchResult = searchResult;
     }
 
     /**

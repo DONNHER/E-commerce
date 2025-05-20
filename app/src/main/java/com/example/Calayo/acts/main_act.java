@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -84,18 +85,17 @@ public class main_act extends AppCompatActivity {
         ImageView history = findViewById(R.id.history);
         ImageView profile = findViewById(R.id.profile);
         EditText searchEdit = findViewById(R.id.search);
-        String search = searchEdit.getText().toString().trim();
-        if(!search.isEmpty() ){
-            Item res = temp.searchItem(search);
-            if(res != null){
-                items.clear();
-                items.add(res);
-                LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
-                products.setLayoutManager(layoutManager);
-                productAdapter = new product_adapt(items, this);
-                products.setAdapter(productAdapter);
+        Button submit = findViewById(R.id.submit);
+
+        submit.setOnClickListener(v -> {
+            // Handle passed intent search result
+            String search_res = searchEdit.getText().toString();
+            if (!search_res.isEmpty()) {
+                Intent intent = new Intent(main_act.this , search.class);
+                temp.setSearchResult(temp.searchItem(search_res));
+                startActivity(intent);
             }
-        }
+        });
 
 
         if (seeAll != null) {

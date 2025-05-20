@@ -2,12 +2,15 @@ package com.example.Calayo.acts;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -46,7 +49,7 @@ public class UserDashboardAct extends AppCompatActivity {
     private tempStorage temp;
     private final ExecutorService executor = Executors.newSingleThreadExecutor();
 
-    @SuppressLint("MissingInflatedId")
+    @SuppressLint({"MissingInflatedId", "SetTextI18n"})
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,13 +67,25 @@ public class UserDashboardAct extends AppCompatActivity {
         setupAddsRecycler();
         EditText searchEdit = findViewById(R.id.search);
         Button submit = findViewById(R.id.submit);
+        TextView locate = findViewById(R.id.location);
+
+        SharedPreferences preferences1 = getSharedPreferences("SelectedAddress", MODE_PRIVATE);
+        String addressStr = preferences1.getString("SelectedAddress", "");
+
+        // If no address is selected, display not set
+        if (addressStr.isEmpty()) {
+            locate.setText("Not set");
+        }else {
+            locate.setText(addressStr);
+        }
+
 
         submit.setOnClickListener(v -> {
             // Handle passed intent search result
-            String search_res = searchEdit.getText().toString();
+            String search_res = searchEdit.getText().toString().trim();
             if (!search_res.isEmpty()) {
                 Intent intent = new Intent(UserDashboardAct.this , search.class);
-                intent.putExtra("search", search_res);
+                temp.setSearchResult(temp.searchItem(search_res));
                 startActivity(intent);
             }
         });
@@ -188,5 +203,12 @@ public class UserDashboardAct extends AppCompatActivity {
         } catch (Exception e) {
             Log.e(TAG, "Failed to restart activity: " + e.getMessage());
         }
+    }
+    /**
+     * Redirect to address dashboard
+     */
+    public void location(View view){
+        Intent intent = new Intent(this, myAddress.class);
+        startActivity(intent);
     }
 }

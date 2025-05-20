@@ -4,6 +4,8 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -47,6 +49,19 @@ public class productsAct extends AppCompatActivity {
         setupNavigation();
         setupRecyclerView();
         loadProducts();
+
+        EditText searchEdit = findViewById(R.id.search);
+        Button submit = findViewById(R.id.submit);
+
+        submit.setOnClickListener(v -> {
+            // Handle passed intent search result
+            String search_res = searchEdit.getText().toString();
+            if (!search_res.isEmpty()) {
+                Intent intent = new Intent(productsAct.this , search.class);
+                temp.setSearchResult(temp.searchItem(search_res));
+                startActivity(intent);
+            }
+        });
     }
 
     /**
