@@ -59,7 +59,7 @@ public class tempStorage {
     // Firebase Firestore instance for remote sync
     private final FirebaseFirestore db;
     private boolean isloggedIn;
-
+    private cartItem selectedCartItem;
     private Item searchResult;
     /**
      * Private constructor initializes all internal lists and Firestore reference.
@@ -115,6 +115,14 @@ public class tempStorage {
 
     public void setSearchResult(Item searchResult) {
         this.searchResult = searchResult;
+    }
+
+    public cartItem getSelectedCartItem() {
+        return selectedCartItem;
+    }
+
+    public void setSelectedCartItem(cartItem selectedCartItem) {
+        this.selectedCartItem = selectedCartItem;
     }
 
     /**

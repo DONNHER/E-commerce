@@ -47,6 +47,8 @@ public class addOns extends RecyclerView.Adapter<addOns.PageViewHolder> {
         holder.checkBox.setChecked(item.isChecked()); // Set checkbox to current state
         if(fragmentAct.getClass().getSimpleName().equals("checkout")){
             holder.checkBox.setVisibility(View.GONE);
+        }else if(fragmentAct.getClass().getSimpleName().equals("AddToCart")){
+            holder.checkBox.setVisibility(View.GONE);
         }
         holder.checkBox.setOnCheckedChangeListener((buttonView, isChecked) -> {
             item.setChecked(isChecked); // update state
@@ -61,8 +63,9 @@ public class addOns extends RecyclerView.Adapter<addOns.PageViewHolder> {
 
     @Override
     public int getItemCount() {
-        return items.size();
+        return (items != null) ? items.size() : 0;
     }
+
 
     static class PageViewHolder extends RecyclerView.ViewHolder {
         CheckBox checkBox;

@@ -53,6 +53,8 @@ public class search extends AppCompatActivity {
             items.clear();
             items.add(temp.getSearchResult());
             updateProductList(items);
+        }else {
+            searchEdit.setError("Not Found");
         }
 
         submit.setOnClickListener(v -> {
@@ -60,6 +62,8 @@ public class search extends AppCompatActivity {
             String search_res = searchEdit.getText().toString();
             if (!search_res.isEmpty()) {
                 searchAndDisplay(search_res);
+            }else {
+                searchEdit.setError("Required");
             }
         });
 

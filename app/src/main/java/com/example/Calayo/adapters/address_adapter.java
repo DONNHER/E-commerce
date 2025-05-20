@@ -46,11 +46,15 @@ public class address_adapter  extends RecyclerView.Adapter<address_adapter.PageV
         address item = items.get(position);
         holder.address.setText(item.getFullAddress());
         holder.header.setText(item.getName());
+        if (item.getName().equals("Work")){
+            holder.pic.setImageResource(R.drawable.work);
+        }
         holder.itemView.setOnClickListener(v -> {
             SharedPreferences preferences = fragmentAct.getSharedPreferences("SelectedAddress",MODE_PRIVATE);
             SharedPreferences preferences2 = fragmentAct.getSharedPreferences("typeAddress",MODE_PRIVATE);
             preferences2.edit().putString("typeAddress",item.getName()).apply();
             preferences.edit().putString("SelectedAddress",item.getFullAddress()).apply();
+            preferences.edit().putString("Code",item.getCode()+", "+item.getBaranggay()).apply();
             Toast.makeText(fragmentAct,item.getFullAddress()+ " is selected.",Toast.LENGTH_SHORT).show();
         });
     }

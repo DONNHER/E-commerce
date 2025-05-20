@@ -49,7 +49,7 @@ public class AddToCart extends AppCompatActivity {
         setContentView(R.layout.add_to_cart);
 
         Button backBtn = findViewById(R.id.btnBack);
-//        Button checkoutBtn = findViewById(R.id.checkout);
+        Button checkoutBtn = findViewById(R.id.checkout);
 //        TextView unitsTextView = findViewById(R.id.units);
 //        CheckBox selectAllCheckbox = findViewById(R.id.checkboxAll);
         cartRecyclerView = findViewById(R.id.CartItems_Recycler3);
@@ -69,18 +69,20 @@ public class AddToCart extends AppCompatActivity {
 //            unitsTextView.setText(String.valueOf(cartItems.size()));
         }
 
-//        // Checkout button
-//        checkoutBtn.setOnClickListener(view -> {
-//            if (cartItems == null || cartItems.isEmpty()) {
-//                Toast.makeText(this, "Your cart is empty", Toast.LENGTH_SHORT).show();
-//                return;
-//            }
-//
-//            Intent intent = new Intent(this, checkout.class);
-//            executor.execute(() -> temp.loadAllData(() ->
-//                    runOnUiThread(() -> startActivity(intent)))
-//            );
-//        });
+        // Checkout button
+        checkoutBtn.setOnClickListener(view -> {
+            if (temp.getSelectedCartItem() == null) {
+                Toast.makeText(this, "Please select an item to checkout", Toast.LENGTH_SHORT).show();
+                return;
+            }else if (cartItems.isEmpty()) {
+                Toast.makeText(this, "Your cart is empty", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            Intent intent = new Intent(this, checkout.class);
+            executor.execute(() -> temp.loadAllData(() ->
+                    runOnUiThread(() -> startActivity(intent)))
+            );
+        });
 
 //        // Select All checkbox logic
 //        selectAllCheckbox.setOnCheckedChangeListener((buttonView, isChecked) -> {

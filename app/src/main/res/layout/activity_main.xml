@@ -79,10 +79,9 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:padding="10dp">
-            <LinearLayout
+            <GridLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="start">
+                android:layout_height="wrap_content">
 
 
                 <EditText
@@ -91,19 +90,21 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="start"
                     android:layout_marginEnd="20dp"
+                    android:autofillHints=""
                     android:background="@drawable/edit_background"
                     android:drawableStart="@android:drawable/ic_menu_search"
-                    android:singleLine="true" />
+                    android:singleLine="true"
+                    android:inputType="text"/>
 
                 <Button
                     android:id="@+id/submit"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="end"
                     android:background="@drawable/green"
-                    android:text="Submit">
+                    android:text="Search"
+                    android:layout_gravity="end">
                 </Button>
-            </LinearLayout>
+            </GridLayout>
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/Adds_Recycler"
@@ -294,7 +295,7 @@
             android:layout_column="3"
             android:layout_marginStart="30dp"
             android:src="@drawable/searchfood"
-            android:layout_gravity="bottom">
+            android:layout_gravity="center">
 
         </ImageView>
 

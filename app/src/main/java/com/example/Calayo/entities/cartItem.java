@@ -4,6 +4,8 @@ import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.Date;
 
 public class cartItem  {
@@ -14,14 +16,16 @@ public class cartItem  {
     private String id;
     private boolean isSelected;
     private String price;
+    private ArrayList<Item.addOn> addOns;
     public cartItem(){}
-    public cartItem(String image, String quantity, String name, Date date, String id, String price){
+    public cartItem(String image, String quantity, String name, Date date, String id, String price, ArrayList<Item.addOn> addOns){
         this.image = image;
         this.quantity = quantity;
         this.name = name;
         this.date = date;
         this.id = id;
         this.price = price;
+        this.addOns = addOns;
     }
 
     public String getName() {
@@ -78,5 +82,13 @@ public class cartItem  {
 
     public void setPrice(String price) {
         this.price = price;
+    }
+
+    public ArrayList<Item.addOn> getAddOns() {
+        return addOns;
+    }
+
+    public void setAddOns(ArrayList<Item.addOn> addOns) {
+        this.addOns = addOns;
     }
 }

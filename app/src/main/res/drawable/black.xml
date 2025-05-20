@@ -4,11 +4,11 @@
 
     <solid android:color="@color/black"/> <!-- Background color -->
 
-    <corners android:radius="50dp"/> <!-- Rounded corners -->
+    <corners android:radius="10dp"/> <!-- Rounded corners -->
 
     <padding
-        android:left="12dp"
-        android:top="8dp"
-        android:right="12dp"
-        android:bottom="8dp" />
+        android:left="10dp"
+        android:top="10dp"
+        android:right="10dp"
+        android:bottom="10dp" />
 </shape>

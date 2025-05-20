@@ -48,6 +48,7 @@
                 android:layout_column="0"
                 android:text="Welcome"
                 android:textStyle="bold"
+                android:textSize="18sp"
                 android:textColor="@android:color/black"
                 android:layout_gravity="center"/>
         </GridLayout>
@@ -108,16 +109,9 @@
                 android:textStyle="bold"
                 android:textSize="16dp"
                 android:textColor="@color/black"/>
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="37dp"
-                android:text="Edit profile"
-                android:textColor="@color/black"
-                android:drawableEnd="@android:drawable/arrow_down_float"
-                android:background="@drawable/green"
-                android:layout_marginBottom="5dp"/>
 
             <TextView
+                android:id="@+id/changePass"
                 android:layout_width="match_parent"
                 android:layout_height="37dp"
                 android:background="@drawable/green"
@@ -127,46 +121,31 @@
                 android:layout_marginBottom="5dp">
 
             </TextView>
-
             <TextView
-                android:layout_width="match_parent"
-                android:layout_height="37dp"
-                android:background="@drawable/green"
-                android:drawableEnd="@android:drawable/arrow_down_float"
-                android:text="Security and privacy"
-                android:textColor="@color/black"
-                android:layout_marginBottom="5dp">
 
-            </TextView>
-
-            <TextView
+                android:id="@+id/changeEmail"
                 android:layout_width="match_parent"
                 android:layout_height="37dp"
                 android:background="@drawable/green"
                 android:drawableEnd="@android:drawable/arrow_down_float"
                 android:text="Change Email"
                 android:textColor="@color/black"
-                android:layout_marginBottom="15dp">
+                android:layout_marginBottom="5dp">
 
             </TextView>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Notifications"
-                android:textStyle="bold"
-                android:textSize="16dp"
-                android:textColor="@color/black"/>
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="37dp"
+                android:layout_marginBottom="15dp"
                 android:background="@drawable/green"
-                android:drawableEnd="@android:drawable/arrow_down_float"
-                android:text="Push notifications "
-                android:textColor="@color/black"
-                android:layout_margin="5dp">
+                android:text="Security and privacy"
+                android:textColor="@color/black">
+
             </TextView>
+
+
             <Button
                 android:id="@+id/btn_logout"
                 android:layout_width="match_parent"

@@ -94,6 +94,8 @@ public class main_act extends AppCompatActivity {
                 Intent intent = new Intent(main_act.this , search.class);
                 temp.setSearchResult(temp.searchItem(search_res));
                 startActivity(intent);
+            }else {
+                searchEdit.setError("Required");
             }
         });
 

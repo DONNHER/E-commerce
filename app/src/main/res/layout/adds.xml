@@ -1,15 +1,12 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="200dp"
-    android:orientation="horizontal"
-    android:layout_margin="15dp">
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
 
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginBottom="10dp"
+        android:layout_height="match_parent"
         android:background="@drawable/adds"
         android:orientation="vertical"
         android:scrollbars="horizontal">
@@ -25,6 +22,7 @@
                 android:layout_height="wrap_content"
                 android:text="User Code "
                 android:textStyle="bold">
+
             </TextView>
 
             <TextView
@@ -85,28 +83,30 @@
             </TextView>
 
 
-
         </GridLayout>
 
-        <Button
-            android:id="@+id/image_order"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="end|bottom"
-            android:background="@drawable/black"
-            android:text="ORDER NOW"
-            android:textColor="@android:color/holo_green_dark">
 
-        </Button>
     </LinearLayout>
+
     <ImageView
-        android:layout_width="145dp"
-        android:layout_height="156dp"
-        android:layout_row="0"
-        android:layout_column="1"
+        android:id="@+id/pic"
+        android:layout_width="129dp"
+        android:layout_height="118dp"
         android:layout_gravity="end"
+        android:layout_margin="5dp"
         android:src="@drawable/burger">
 
     </ImageView>
 
-</RelativeLayout>
+    <Button
+        android:id="@+id/image_order"
+        android:layout_width="wrap_content"
+        android:layout_height="38dp"
+        android:layout_gravity="end|bottom"
+        android:layout_margin="13dp"
+        android:background="@drawable/black"
+        android:text="ORDER NOW"
+        android:textColor="@android:color/holo_green_dark">
+
+    </Button>
+</FrameLayout>

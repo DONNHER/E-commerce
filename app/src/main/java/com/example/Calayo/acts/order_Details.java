@@ -120,7 +120,7 @@ public class order_Details extends AppCompatActivity {
 
             // Create a new cart item with a unique ID
             String cartItemId = UUID.randomUUID().toString();
-            cartItem newItem = new cartItem(image, String.valueOf(quantityCount), itemName, new Date(), cartItemId, price);
+            cartItem newItem = new cartItem(image, String.valueOf(quantityCount), itemName, new Date(), cartItemId, String.valueOf(Double.parseDouble(price) + temp.getTotalAddOnPrice()),temp.getAddOnArrayList());
 
             // Add item to local temp storage
             temp.getCartItemArrayList().add(newItem);
@@ -132,6 +132,8 @@ public class order_Details extends AppCompatActivity {
             itemMap.put("name", newItem.getName());
             itemMap.put("date", newItem.getDate());
             itemMap.put("id", cartItemId);
+            itemMap.put("price",newItem.getPrice());
+            itemMap.put("addOns", newItem.getAddOns());
 
             // Setup 30 seconds timeout
             timeoutRunnable = () -> {

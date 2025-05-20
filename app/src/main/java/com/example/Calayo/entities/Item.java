@@ -21,6 +21,7 @@ public class Item {
             this.addOnName = add;
             this.addOnPrice = addOnPrice;
             this.ItemName = item;
+            this.isChecked = false;
         }
 
         public String getAddOnName() {
@@ -77,6 +78,7 @@ public class Item {
         name = Name;
         this.quantity = quantity;
         this.description = description;
+
     }
 
     public  String getName() {

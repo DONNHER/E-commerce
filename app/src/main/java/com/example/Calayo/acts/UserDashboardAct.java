@@ -76,7 +76,7 @@ public class UserDashboardAct extends AppCompatActivity {
         if (addressStr.isEmpty()) {
             locate.setText("Not set");
         }else {
-            locate.setText(addressStr);
+            locate.setText(preferences1.getString("Code","Not set"));
         }
 
 
