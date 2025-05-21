@@ -18,8 +18,7 @@ public class cartItem  {
     private String price;
     private ArrayList<Item.addOn> addOns;
     public cartItem(){}
-    public cartItem(String id ,String image, String quantity, String name, Date date, String id, String price, ArrayList<Item.addOn> addOns){
-        this.id = id;
+    public cartItem(String image, String quantity, String name, Date date, String id, String price, ArrayList<Item.addOn> addOns){
         this.image = image;
         this.quantity = quantity;
         this.name = name;

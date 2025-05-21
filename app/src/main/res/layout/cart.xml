@@ -24,10 +24,9 @@
         android:scaleType="centerCrop" />
 
     <!-- Main Details Container -->
-    <LinearLayout
-        android:layout_width="0dp"
+    <GridLayout
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="1"
         android:orientation="vertical"
         android:paddingEnd="0dp"
         android:paddingRight="0dp"
@@ -70,9 +69,9 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/OrderDetails"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingTop="4dp"
-            android:nestedScrollingEnabled="false" />
+            android:layout_height="45dp"
+            android:nestedScrollingEnabled="false"
+            android:paddingTop="4dp" />
 
         <!-- Price Section -->
         <LinearLayout
@@ -104,5 +103,5 @@
                 android:textSize="18sp"
                 android:textColor="@color/black" />
         </LinearLayout>
-    </LinearLayout>
+    </GridLayout>
 </LinearLayout>

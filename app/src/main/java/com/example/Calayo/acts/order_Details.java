@@ -120,7 +120,7 @@ public class order_Details extends AppCompatActivity {
 
             // Create a new cart item with a unique ID
             String cartItemId = UUID.randomUUID().toString();
-            cartItem newItem = new cartItem(cartItemId,image, String.valueOf(quantityCount), itemName, new Date(), cartItemId, String.valueOf(Double.parseDouble(price) + temp.getTotalAddOnPrice()),temp.getAddOnArrayList());
+            cartItem newItem = new cartItem(image, String.valueOf(quantityCount), itemName, new Date(), cartItemId, String.valueOf(Double.parseDouble(price) + temp.getTotalAddOnPrice()),temp.getAddOnArrayList());
 
             // Add item to local temp storage
             temp.getCartItemArrayList().add(newItem);

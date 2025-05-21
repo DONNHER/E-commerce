@@ -82,14 +82,13 @@ public class checkout extends AppCompatActivity {
         addOnsRecycler.setAdapter(addOn);
 
         // Get data from the previous activity using Intent
-        ???
-        // DIri boss ilisi tanan gamita ang attribute sa cartItem
-        cartItem cartItem;
-        String priceStr = intent.getStringExtra("price");
-        String quantityStr = intent.getStringExtra("quantity");
-        String name = intent.getStringExtra("name");
-        String id = intent.getStringExtra("id");
-        String image = intent.getStringExtra("image");
+
+        cartItem newItem   =  temp.getSelectedCartItem();
+        String priceStr = newItem.getPrice();
+        String quantityStr = newItem.getQuantity();
+        String name = newItem.getName();
+        String id = newItem.getId();
+        String image = newItem.getImage();
 
         // If any data is missing, return to previous screen
         if (priceStr == null || quantityStr == null || name == null || id == null || image == null) {
