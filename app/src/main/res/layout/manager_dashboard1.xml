@@ -26,12 +26,14 @@
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/signal_icon"/>
+            android:src="@drawable/signal"
+            android:contentDescription="Signal strength"/>
 
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/battery_icon"/>
+            android:src="@drawable/battery"
+            android:contentDescription="Battery level"/>
     </LinearLayout>
 
     <!-- Header with Menu and Title -->
@@ -48,7 +50,8 @@
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:background="@null"
-            android:src="@drawable/"/>
+            android:src="@drawable/menu"
+            android:contentDescription="Menu"/>
 
         <TextView
             android:layout_width="0dp"
@@ -180,7 +183,8 @@
                         android:layout_height="50dp"
                         android:background="@drawable/circle_black"
                         android:padding="10dp"
-                        android:src="@drawable/"/>
+                        android:src="@drawable/coffee_icon"
+                        android:contentDescription="Coffee icon"/>
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -234,9 +238,10 @@
                     <ImageView
                         android:layout_width="50dp"
                         android:layout_height="50dp"
-                        android:background="@drawable/circle_black"
+                        android:background="@drawable/"
                         android:padding="10dp"
-                        android:src="@drawable/milktea_icon"/>
+                        android:src="@drawable/milktea"
+                        android:contentDescription="Milktea icon"/>
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -290,9 +295,10 @@
                     <ImageView
                         android:layout_width="50dp"
                         android:layout_height="50dp"
-                        android:background="@drawable/circle_pink"
+                        android:background="@drawable/"
                         android:padding="10dp"
-                        android:src="@drawable/cake_icon"/>
+                        android:src="@drawable/"
+                        android:contentDescription="Cake icon"/>
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -336,23 +342,23 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="40dp"
-        android:layout_marginBottom="50dp"
+        android:padding="10dp"
+        android:layout_marginBottom="10dp"
         app:layout_constraintBottom_toTopOf="@id/bottomNavigation">
-
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:gravity="center_vertical">
+            android:layout_marginBottom="25dp"
+            android:gravity="center">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="SELECT ORDER"
                 android:textColor="#000000"
-                android:layout_marginRight="10dp"
+                android:layout_marginEnd="10dp"
                 android:textSize="12sp"
                 android:background="@drawable/green"
                 android:padding="5dp"/>
@@ -398,7 +404,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="&gt;&gt;"
+                android:text="»"
                 android:textColor="#000000"
                 android:textSize="16sp"
                 android:padding="5dp"/>
@@ -416,25 +422,26 @@
         app:layout_constraintBottom_toBottomOf="parent">
 
         <ImageView
-            android:id="@+id/navOrders"
+            android:id="@+id/navHome"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:layout_weight="1"
-            android:src="@drawable/home_green" />
+            android:src="@drawable/history"
+            android:layout_column="0"
+            android:layout_row="0"
+            android:layout_marginLeft="35dp"
+            android:layout_gravity="center"
+            android:layout_columnWeight="1"
+            />
 
-        <ImageView
-            android:id="@+id/navCenter"
-            android:layout_width="0dp"
-            android:layout_height="24dp"
-            android:layout_weight="1"
-            android:src="@drawable/profile_icon"/>
 
         <ImageView
             android:id="@+id/navProfile"
-            android:layout_width="50dp"
+            android:layout_width="0dp"
             android:layout_height="50dp"
             android:layout_weight="1"
-            android:src="@drawable/profile"/>
+            android:layout_marginLeft="230dp"
+            android:src="@drawable/profile"
+            android:contentDescription="Profile"/>
     </LinearLayout>
 
     <!-- Center Button -->
@@ -445,11 +452,12 @@
         android:layout_marginBottom="30dp">
 
         <ImageView
-            android:layout_width="56dp"
-            android:layout_height="54dp"
+            android:layout_width="52dp"
+            android:layout_height="49dp"
             android:layout_gravity="center"
             android:layout_marginBottom="4dp"
-            android:src="@drawable/yellow"></ImageView>
+            android:src="@drawable/yellow"
+            android:contentDescription="Center yellow button"/>
     </FrameLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
