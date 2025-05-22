@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -59,10 +60,12 @@ public class AddsADaptor extends RecyclerView.Adapter<AddsADaptor.PageViewHolder
     static class PageViewHolder extends RecyclerView.ViewHolder {
         Button button;
         TextView des;
+        ImageView pic;
         PageViewHolder(View itemView) {
             super(itemView);
             button = itemView.findViewById(R.id.image_order);
             des = itemView.findViewById(R.id.Start5);
+            pic = itemView.findViewById(R.id.pic);
         }
     }
 }

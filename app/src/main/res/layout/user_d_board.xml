@@ -123,12 +123,13 @@
                 android:scrollbars="vertical"
                 />
             <GridLayout
+
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
-                android:columnCount="4"
                 android:layout_gravity="center"
-                >
+
+                android:layout_marginTop="12dp"
+                android:columnCount="4">
 
                 <ImageView
                     android:id="@+id/button2"
@@ -136,7 +137,7 @@
                     android:layout_height="76dp"
                     android:layout_columnWeight="0"
                     android:layout_gravity="start"
-                    android:layout_marginEnd="5dp"
+                    android:layout_marginEnd="15dp"
                     android:background="@drawable/yell"
                     android:src="@drawable/burger3"
                     android:textColor="@android:color/holo_green_dark"
@@ -154,8 +155,7 @@
                     android:layout_column="1"
                     android:layout_columnWeight="0"
                     android:layout_gravity="start"
-                    android:layout_marginEnd="5dp"
-                    android:layout_marginStart="5dp"
+                    android:layout_marginStart="15dp"
                     android:background="@drawable/yell"
                     android:src="@drawable/pizza2"
                     android:textColor="@android:color/holo_green_dark"
@@ -170,26 +170,10 @@
                     android:layout_row="0"
                     android:layout_column="2"
                     android:layout_columnWeight="0"
-                    android:layout_marginEnd="5dp"
-                    android:layout_marginStart="5dp"
+                    android:layout_marginStart="30dp"
                     android:background="@drawable/black"
                     android:src="@drawable/salad"
                     android:textColor="@android:color/holo_green_dark"
-                    android:textSize="16sp"
-                    android:textStyle="bold">
-
-                </ImageView>
-
-                <ImageView
-                    android:id="@+id/button"
-                    android:layout_width="76dp"
-                    android:layout_height="76dp"
-                    android:layout_row="0"
-                    android:layout_column="3"
-                    android:layout_marginStart="5dp"
-                    android:background="@drawable/black"
-                    android:src="@drawable/suzi"
-                    android:textColor="@drawable/black"
                     android:textSize="16sp"
                     android:textStyle="bold">
 
@@ -211,7 +195,7 @@
                 <TextView
                     android:id="@+id/textView2"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="19dp"
                     android:layout_row="1"
                     android:layout_column="1"
                     android:layout_gravity="center"
@@ -227,19 +211,12 @@
                     android:text="Salad"
                     android:textColor="@color/black"
                     android:textSize="16sp"
+                    android:paddingStart="15dp"
                     android:textStyle="bold" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Sushi"
-                    android:textColor="@color/black"
-                    android:textSize="16sp"
-                    android:layout_row="1"
-                    android:layout_column="3"
-                    android:textStyle="bold"
-                    android:layout_gravity="center"
-                    />
+
+
+
 
             </GridLayout>
 

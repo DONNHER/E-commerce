@@ -85,9 +85,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center|end"
+            android:layout_marginEnd="20dp"
             android:background="@drawable/green"
             android:padding="6dp"
-            android:layout_marginEnd="20dp"
             android:src="@drawable/fa"
             android:text="Add to Cart"
             android:textColor="@color/black" />
