@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#E8F5E9">
+    android:background="#dff4eb">
 
     <!-- Status Bar (Time, Signal, Battery) -->
     <LinearLayout
@@ -152,6 +152,7 @@
         android:id="@+id/ordersScrollView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:background="#dff4eb"
         app:layout_constraintTop_toBottomOf="@id/subTabs"
         app:layout_constraintBottom_toTopOf="@id/paginationLayout">
 
@@ -174,7 +175,7 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
                     android:padding="12dp"
-                    android:background="#808080">
+                    android:background="#c7d5cf">
 
                     <TextView
                         android:layout_width="match_parent"
@@ -246,7 +247,7 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
                     android:padding="12dp"
-                    android:background="#808080">
+                    android:background="#c7d5cf">
 
                     <TextView
                         android:layout_width="match_parent"
@@ -314,6 +315,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:padding="10dp"
+        android:background="#dff4eb"
         app:layout_constraintBottom_toTopOf="@id/bottomNavigation">
 
         <LinearLayout

@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFFFFF">
+    android:background="#dff4eb">
 
     <!-- Status Bar (Time, Signal, Battery) -->
     <LinearLayout
@@ -153,6 +153,7 @@
     <ScrollView
         android:id="@+id/ordersScrollView"
         android:layout_width="match_parent"
+        android:background="#dff4eb"
         android:layout_height="0dp"
         app:layout_constraintTop_toBottomOf="@id/subTabs"
         app:layout_constraintBottom_toTopOf="@id/paginationLayout">
@@ -176,7 +177,7 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:padding="10dp"
-                    android:background="#5EF38C">
+                    android:background="#38b87c">
 
                     <ImageView
                         android:layout_width="50dp"
@@ -233,7 +234,7 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:padding="10dp"
-                    android:background="#5EF38C">
+                    android:background="#38b87c">
 
                     <ImageView
                         android:layout_width="50dp"
@@ -290,7 +291,7 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:padding="10dp"
-                    android:background="#5EF38C">
+                    android:background="#38b87c">
 
                     <ImageView
                         android:layout_width="50dp"
@@ -343,6 +344,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:padding="10dp"
+        android:background="#dff4eb"
         android:layout_marginBottom="10dp"
         app:layout_constraintBottom_toTopOf="@id/bottomNavigation">
 
