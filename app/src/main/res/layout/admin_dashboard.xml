@@ -57,7 +57,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Orders"
+            android:text=" View Orders"
             android:textAlignment="center"
             android:textColor="#000000"
             android:textSize="18sp"
@@ -179,11 +179,10 @@
                     android:background="#38b87c">
 
                     <ImageView
-                        android:layout_width="55dp"
-                        android:layout_height="55dp"
-                        android:background="@drawable/black"
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
                         android:padding="10dp"
-                        android:src="@drawable/coffee_icon"
+                        android:src="@drawable/lokal_kofi_png"
                         android:contentDescription="Coffee icon"/>
 
                     <LinearLayout
@@ -230,7 +229,7 @@
                             android:layout_width="100dp"
                             android:layout_height="35dp"
                             android:layout_marginTop="10dp"
-                            android:text="delete"
+                            android:text="CANCEL"
                             android:textSize="13.5dp"
                             android:background="@drawable/yellow"/>
 
@@ -254,11 +253,10 @@
                     android:background="#38b87c">
 
                     <ImageView
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
-                        android:background="@drawable/black"
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
                         android:padding="10dp"
-                        android:src="@drawable/milktea"
+                        android:src="@drawable/sukool_royal_png"
                         android:contentDescription="Milktea icon"/>
 
                     <LinearLayout
@@ -303,7 +301,7 @@
                             android:layout_width="100dp"
                             android:layout_height="35dp"
                             android:layout_marginTop="10dp"
-                            android:text="delete"
+                            android:text="cancel"
                             android:textSize="13.5dp"
                             android:background="@drawable/yellow"/>
                     </LinearLayout>
@@ -326,11 +324,10 @@
                     android:background="#38b87c">
 
                     <ImageView
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
-                        android:background="@drawable/black"
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
                         android:padding="10dp"
-                        android:src="@drawable/"
+                        android:src="@drawable/cafe_luiza_png"
                         android:contentDescription="Cake icon"/>
 
                     <LinearLayout
@@ -375,7 +372,7 @@
                             android:layout_width="100dp"
                             android:layout_height="35dp"
                             android:layout_marginTop="10dp"
-                            android:text="delete"
+                            android:text="CANCEL"
                             android:textSize="13.5dp"
                             android:background="@drawable/yellow"/>
                     </LinearLayout>
