@@ -87,10 +87,11 @@
             android:orientation="vertical"
             android:padding="10dp">
 
-            <LinearLayout
-                android:layout_width="wrap_content"
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/CartItems_Recycler3"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"/>
+                android:scrollbars="vertical" />
 
         </LinearLayout>
         <LinearLayout
@@ -105,23 +106,18 @@
 
         </LinearLayout>
 
-        <GridLayout
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="549dp"
             android:orientation="vertical">
 
-            <GridLayout
-                android:layout_width="match_parent"
+            <LinearLayout
+               android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/CartItems_Recycler3"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:scrollbars="vertical" />
 
 
-        </GridLayout>
+        </LinearLayout>
 
     </LinearLayout>
 
