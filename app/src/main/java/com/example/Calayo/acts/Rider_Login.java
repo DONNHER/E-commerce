@@ -22,11 +22,7 @@ import com.example.Calayo.helper.tempStorage;
 import com.google.firebase.FirebaseNetworkException;
 import com.google.firebase.auth.FirebaseAuth;
 
-/**
- * This activity handles user login using Firebase Authentication.
- * It checks user input, verifies credentials, and starts the splash screen on success.
- */
-public class AdminLogin extends AppCompatActivity {
+public class Rider_Login extends AppCompatActivity {
 
     private FirebaseAuth myAuth = FirebaseAuth.getInstance(); // Firebase authentication instance
     private ProgressBar progressBar; // Spinner for loading effect
@@ -38,7 +34,7 @@ public class AdminLogin extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.user_login_act); // Load the login screen layout
+        setContentView(R.layout.rider_login); // Load the login screen layout
 
         // Connect UI elements to variables
         progressBar = findViewById(R.id.progressBar);
@@ -81,7 +77,7 @@ public class AdminLogin extends AppCompatActivity {
             progressBar.setVisibility(View.VISIBLE);
             networkTimeoutRunnable = () -> {
                 if (progressBar.getVisibility() == View.VISIBLE) {
-                    Toast.makeText(AdminLogin.this,
+                    Toast.makeText(Rider_Login.this,
                             "Network seems slow or weak. Please check your connection.",
                             Toast.LENGTH_LONG).show();
                 }

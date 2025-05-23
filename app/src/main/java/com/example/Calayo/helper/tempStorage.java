@@ -44,9 +44,11 @@ public class tempStorage {
     private final ArrayList<Item.addOn> addOnArrayList;
     private final ArrayList<Item> itemArrayList;
     private final ArrayList<cartItem> cartItemArrayList;
-    private final ArrayList<Order> checkOutArrayList;
+    private  ArrayList<Order> pendingArrayList;
+    private  ArrayList<Order> approvedArrayList;
+    private  ArrayList<Order> deliveryArrayList;
+    private  ArrayList<Order> receivedArrayList;
     private final ArrayList<address> addressList;
-
     private final FirebaseAuth myAuth= FirebaseAuth.getInstance();
     ArrayList<Item.addOn> addOnsItems;
     ArrayList<adds> adds ;
@@ -69,9 +71,12 @@ public class tempStorage {
         db = FirebaseFirestore.getInstance();
         addOnArrayList = new ArrayList<>();
         cartItemArrayList = new ArrayList<>();
-        checkOutArrayList = new ArrayList<>();
         itemArrayList = new ArrayList<>();
         adds = new ArrayList<>();
+        pendingArrayList = new ArrayList<>();
+        approvedArrayList = new ArrayList<>();
+        deliveryArrayList = new ArrayList<>();
+        receivedArrayList = new ArrayList<>();
         addressList = new ArrayList<>();
         cartLiveData = new MutableLiveData<>();
         addOnsItems =  new ArrayList<>();
@@ -87,13 +92,25 @@ public class tempStorage {
     public void setLoggedin(String s){
         loggedIn = s;
     }
-    public ArrayList<Order> getCheckOutArrayList() {
-        return checkOutArrayList;
-    }
+
 
     public ArrayList<address> getAddressList() {
         return addressList;
     }
+
+    public ArrayList<Order> getPendingArrayList() {
+        return pendingArrayList;
+    }
+    public ArrayList<Order> getApprovedArrayList() {
+        return approvedArrayList;
+    }
+    public ArrayList<Order> getDeliveryArrayList() {
+        return deliveryArrayList;
+    }
+    public ArrayList<Order> getReceivedArrayList() {
+        return receivedArrayList;
+    }
+
 
     public ArrayList<Item> getItemArrayList() {
         return itemArrayList;
@@ -101,9 +118,6 @@ public class tempStorage {
     public ArrayList<adds> getAddsArrayList() {
         return adds;
     }
-
-
-
 
     public void setIsloggedIn(boolean isloggedIn) {
         this.isloggedIn = isloggedIn;
@@ -389,10 +403,23 @@ public class tempStorage {
         db.collection("users").document(loggedIn).collection("Orders")
                 .get()
                 .addOnSuccessListener(snapshots -> {
-                    checkOutArrayList.clear();
+                    pendingArrayList.clear();
                     for (DocumentSnapshot doc : snapshots) {
                         Order add = doc.toObject(Order.class);
-                        checkOutArrayList.add(add);
+                        switch (add.getStatus()) {
+                            case "Pending":
+                                pendingArrayList.add(add);
+                                break;
+                            case "Approved":
+                                approvedArrayList.add(add);
+                                break;
+                            case "Deliver":
+                                deliveryArrayList.add(add);
+                                break;
+                            default:
+                                receivedArrayList.add(add);
+                                break;
+                        }
                     }
                     checkDone.run();
                 });

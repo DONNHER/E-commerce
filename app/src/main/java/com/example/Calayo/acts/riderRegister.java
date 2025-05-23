@@ -17,14 +17,14 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.Calayo.R;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
-import com.google.firebase.firestore.FieldValue;
 
 import java.util.HashMap;
 import java.util.Map;
 
-public class ManagerRegister extends AppCompatActivity {
+public class riderRegister  extends AppCompatActivity {
 
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private FirebaseAuth myAuth = FirebaseAuth.getInstance();
@@ -80,12 +80,12 @@ public class ManagerRegister extends AppCompatActivity {
                             } else {
                                 // Clean name for next step
                                 String name = input.replaceAll("\\W", "");
-                                Toast.makeText(ManagerRegister.this, name, Toast.LENGTH_LONG).show();
+                                Toast.makeText(riderRegister.this, name, Toast.LENGTH_LONG).show();
 
                                 logEvent("REGISTER_STEP_SUCCESS", "Proceeding to password setup for email: " + email, null, "userRegisterAct");
 
                                 // Go to password setup activity
-                                Intent intent = new Intent(ManagerRegister.this, manager_setPassword.class);
+                                Intent intent = new Intent(riderRegister.this, rider_setupPassword.class);
                                 intent.putExtra("email", email);
                                 intent.putExtra("name", name);
                                 startActivity(intent);
@@ -95,13 +95,13 @@ public class ManagerRegister extends AppCompatActivity {
                             if (e instanceof FirebaseFirestoreException) {
                                 FirebaseFirestoreException firestoreException = (FirebaseFirestoreException) e;
                                 if (firestoreException.getCode() == FirebaseFirestoreException.Code.UNAVAILABLE) {
-                                    Toast.makeText(ManagerRegister.this, "No internet connection", Toast.LENGTH_LONG).show();
+                                    Toast.makeText(riderRegister.this, "No internet connection", Toast.LENGTH_LONG).show();
                                     logEvent("FIRESTORE_UNAVAILABLE", "No internet connection", null, "userRegisterAct");
                                     return;
                                 }
                             }
                             Log.e("Firestore", "Error getting document", e);
-                            Toast.makeText(ManagerRegister.this, "Error checking email. Please try again.", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(riderRegister.this, "Error checking email. Please try again.", Toast.LENGTH_SHORT).show();
                             logEvent("FIRESTORE_ERROR", "Error checking email: " + e.getMessage(), null, "userRegisterAct");
                         }
                     });

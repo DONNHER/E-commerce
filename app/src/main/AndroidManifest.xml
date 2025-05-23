@@ -71,7 +71,62 @@
         android:theme="@style/Theme.AppCompat.DayNight.NoActionBar">
     </activity>
         <activity
+        android:name=".acts.order_info"
+        android:exported="true"
+        android:theme="@style/Theme.AppCompat.DayNight.NoActionBar">
+    </activity>
+        <activity
+            android:name=".acts.setUpPassword_Admin"
+            android:exported="true"
+            android:theme="@style/Theme.AppCompat.DayNight.NoActionBar">
+        </activity>
+        <activity
+            android:name=".acts.admin_splash"
+            android:exported="true"
+            android:theme="@style/Theme.AppCompat.DayNight.NoActionBar">
+            <intent-filter>
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <action android:name="android.intent.action.VIEW"/>
+                <data android:scheme="admin.portal"
+                    android:host="login" />
+            </intent-filter>
+        </activity>
+        <activity
+        android:name=".acts.Manager_login"
+        android:exported="true"
+        android:theme="@style/Theme.AppCompat.DayNight.NoActionBar">
+        <intent-filter>
+            <category android:name="android.intent.category.DEFAULT" />
+            <category android:name="android.intent.category.BROWSABLE" />
+            <action android:name="android.intent.action.VIEW"/>
+            <data android:scheme="manager.portal"
+                android:host="login" />
+        </intent-filter>
+    </activity>
+
+        <activity
+            android:name=".acts.manager_setPassword"
+            android:exported="true"
+            android:theme="@style/Theme.AppCompat.DayNight.NoActionBar">
+        </activity>
+        <activity
             android:name=".acts.transactions"
+            android:exported="true"
+            android:theme="@style/Theme.AppCompat.DayNight.NoActionBar">
+        </activity>
+        <activity
+            android:name=".acts.Rider_Login"
+            android:exported="true"
+            android:theme="@style/Theme.AppCompat.DayNight.NoActionBar">
+        </activity>
+        <activity
+            android:name=".acts.rider_setupPassword"
+            android:exported="true"
+            android:theme="@style/Theme.AppCompat.DayNight.NoActionBar">
+        </activity>
+        <activity
+            android:name=".acts.riderRegister"
             android:exported="true"
             android:theme="@style/Theme.AppCompat.DayNight.NoActionBar">
         </activity>

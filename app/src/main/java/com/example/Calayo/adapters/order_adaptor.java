@@ -2,6 +2,7 @@ package com.example.Calayo.adapters;
 
 import static android.content.Context.MODE_PRIVATE;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,6 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.Calayo.R;
+import com.example.Calayo.acts.order_info;
 import com.example.Calayo.entities.Order;
 import com.example.Calayo.entities.address;
 import com.example.Calayo.entities.cartItem;
@@ -51,6 +53,10 @@ public class order_adaptor  extends RecyclerView.Adapter<order_adaptor.PageViewH
                 .into(holder.pic);
         holder.units.setText(item.getUnits()+"x");
         holder.name.setText(item.getProductName());
+        holder.itemView.setOnClickListener(v -> {
+            Intent intent = new Intent(fragmentAct , order_info.class);
+            fragmentAct.startActivity(intent);
+        });
     }
 
     @Override
