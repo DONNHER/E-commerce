@@ -38,7 +38,7 @@ public class AdminLogin extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.user_login_act); // Load the login screen layout
+        setContentView(R.layout.adminlogin); // Load the login screen layout
 
         // Connect UI elements to variables
         progressBar = findViewById(R.id.progressBar);
@@ -125,7 +125,7 @@ public class AdminLogin extends AppCompatActivity {
                 preferences.edit().putString("email", myAuth.getCurrentUser().getEmail()).apply();
 
                 // Go to splash screen
-                Intent intent = new Intent(this, splash.class);
+                Intent intent = new Intent(this, admin_splash.class);
                 startActivity(intent);
                 finish(); // Close the login screen
             } else {
@@ -144,7 +144,7 @@ public class AdminLogin extends AppCompatActivity {
      * Called when "Register" button is clicked
      */
     public void register(View view) {
-        Intent log = new Intent(this, userRegisterAct.class);
+        Intent log = new Intent(this, AdminRegister.class);
         startActivity(log);
     }
 
@@ -152,7 +152,7 @@ public class AdminLogin extends AppCompatActivity {
      * Called when "Back" button is clicked
      */
     public void onBackClick(View view) {
-        Intent intent = new Intent(view.getContext(), main_act.class);
+        Intent intent = new Intent(view.getContext(), admin_splash.class);
         view.getContext().startActivity(intent);
     }
 }

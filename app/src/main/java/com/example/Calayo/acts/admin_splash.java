@@ -35,11 +35,6 @@ public class admin_splash extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.splash);
 
-        Uri data = getIntent().getData();
-        if (data != null &&
-                "admin.portal".equals(data.getScheme()) &&
-                "login".equals(data.getHost())) {
-
             progressBar = findViewById(R.id.progressBar);
             progressBar.setVisibility(View.VISIBLE); // Show spinner immediately
 
@@ -109,7 +104,6 @@ public class admin_splash extends AppCompatActivity {
                         });
                     }
                 });
-            }
         }
     }
 

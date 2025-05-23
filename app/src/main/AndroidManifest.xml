@@ -84,29 +84,21 @@
             android:name=".acts.admin_splash"
             android:exported="true"
             android:theme="@style/Theme.AppCompat.DayNight.NoActionBar">
-            <intent-filter android:autoVerify="true">
-                <action android:name="android.intent.action.VIEW" />
-                <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="android.intent.category.BROWSABLE" />
-                <data
-                    android:scheme="https"
-                    android:host="admin.portal"
-                    android:path="/login" />
-            </intent-filter>
+<!--           <intent-filter>-->
+<!--            <action android:name="android.intent.action.MAIN" />-->
+<!--            <category android:name="android.intent.category.LAUNCHER" />-->
+<!--        </intent-filter>-->
         </activity>
-
         <activity
         android:name=".acts.Manager_login"
         android:exported="true"
         android:theme="@style/Theme.AppCompat.DayNight.NoActionBar">
-        <intent-filter android:autoVerify="true">
+        <intent-filter>
             <category android:name="android.intent.category.DEFAULT" />
             <category android:name="android.intent.category.BROWSABLE" />
             <action android:name="android.intent.action.VIEW"/>
-            <data
-                android:scheme="https"
-                android:host="manager.portal"
-                android:path="/login" />
+            <data android:scheme="manager.portal"
+                android:host="login" />
         </intent-filter>
     </activity>
 
@@ -117,6 +109,16 @@
         </activity>
         <activity
             android:name=".acts.transactions"
+            android:exported="true"
+            android:theme="@style/Theme.AppCompat.DayNight.NoActionBar">
+        </activity>
+        <activity
+            android:name=".acts.AdminLogin"
+            android:exported="true"
+            android:theme="@style/Theme.AppCompat.DayNight.NoActionBar">
+        </activity>
+        <activity
+            android:name=".acts.AdminRegister"
             android:exported="true"
             android:theme="@style/Theme.AppCompat.DayNight.NoActionBar">
         </activity>
