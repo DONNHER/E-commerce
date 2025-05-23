@@ -44,21 +44,21 @@ public class settingAct extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        // Load Main UI for the logged-in user
         setContentView(R.layout.setting_act);
-//        Button btnGetStarted = findViewById(R.id.btn_edit_profile);
-
-//         Set the action for the "Get Started" button
-//        btnGetStarted.setOnClickListener(v -> {
-//            // Action to perform when "Get Started" is clicked
-//            // Redirect to Login or next activity, for example
-//            Intent intent = new Intent(settingAct.this, userAct.class);
-//            startActivity(intent);
-//        });
         imageView = findViewById(R.id.image);
         ImageView imageEdit = findViewById(R.id.edit);
         imageEdit.setOnClickListener(v -> openGallery());
+        TextView changePass = findViewById(R.id.changePass);
+        TextView changeEmail = findViewById(R.id.changeEmail);
+
+        changePass.setOnClickListener(v -> {
+            Intent intent = new Intent(this, change_pass.class);
+            startActivity(intent);
+        });
+        changePass.setOnClickListener(v -> {
+            Intent intent = new Intent(this, change_pass.class);
+            startActivity(intent);
+        });
 
 
         ImageView home = findViewById(R.id.home);
@@ -94,17 +94,6 @@ public class settingAct extends AppCompatActivity {
             Intent profilepage = new Intent(this, settingAct.class);
             startActivity(profilepage);
         });
-    }
-
-    private void initializeServices() {
-
-//        com.univet.service.PetService petService = new com.univet.service.PetService(dbHelper);
-//        com.univet.service.OwnerService ownerService = new com.univet.service.OwnerService(dbHelper);
-//        com.univet.service.ServiceService serviceService = new com.univet.service.ServiceService(dbHelper);
-//        com.univet.service.AppointmentService appointmentService = new com.univet.service.AppointmentService(dbHelper);
-//
-//        // Initialize SessionManager
-//        SessionManager.initialize(petService, ownerService, serviceService, appointmentService);
     }
 
 

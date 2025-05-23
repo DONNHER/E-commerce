@@ -34,7 +34,7 @@ public class change_pass extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.password_set);
+        setContentView(R.layout.changepass);
 
         // Initialize Firebase
         db = FirebaseFirestore.getInstance();
