@@ -2,11 +2,8 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="#E6F4F1">
+    android:layout_height="match_parent"
+    android:background="#E6F4F1">
         <!--    Header-->
 
         <LinearLayout
@@ -39,8 +36,8 @@
                     android:textColor="@android:color/black"
                     android:layout_gravity="center"/>
             </GridLayout>
-            <?xml version="1.0" encoding="utf-8"?>
-            <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+            <LinearLayout
                 android:id="@+id/orderStatusLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -113,8 +110,7 @@
                 <LinearLayout
                     android:id="@+id/stepDelivery"
                     style="@style/StepLayout"
-                    android:layout_weight="1"
-                    android:background="">
+                    android:layout_weight="1">
                     <TextView
                         android:id="@+id/num3"
                         style="@style/StepLabel"
@@ -261,12 +257,12 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent">
-
             <ImageView
                 android:layout_width="52dp"
                 android:layout_height="49dp"
                 android:layout_gravity="center"
-                android:src="@drawable/yellow"></ImageView>
+                android:src="@drawable/yellow">
+
+            </ImageView>
         </GridLayout>
-    </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

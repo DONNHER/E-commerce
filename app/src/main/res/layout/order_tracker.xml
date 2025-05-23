@@ -72,8 +72,7 @@
     <LinearLayout
         android:id="@+id/stepDelivery"
         style="@style/StepLayout"
-        android:layout_weight="1"
-        android:background="">
+        android:layout_weight="1">
         <TextView
             android:id="@+id/num3"
             style="@style/StepLabel"

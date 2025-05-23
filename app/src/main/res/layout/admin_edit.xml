@@ -61,7 +61,7 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:text="ADD"
-            android:background="@drawable/cone"
+            android:background="@drawable/cone"/>
 
         <EditText
             android:id="@+id/edit_admin"

@@ -31,6 +31,7 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Singleton class to temporarily hold in-memory data for a food delivery app session.
@@ -399,13 +400,21 @@ public class tempStorage {
                     checkDone.run();
                 });
 
-        //Orders
+        // Orders
         db.collection("users").document(loggedIn).collection("Orders")
                 .get()
                 .addOnSuccessListener(snapshots -> {
+                    // Clear previous data
                     pendingArrayList.clear();
+                    approvedArrayList.clear();
+                    deliveryArrayList.clear();
+                    receivedArrayList.clear();
+
                     for (DocumentSnapshot doc : snapshots) {
                         Order add = doc.toObject(Order.class);
+
+                        if (add == null || add.getStatus() == null) continue;
+
                         switch (add.getStatus()) {
                             case "Pending":
                                 pendingArrayList.add(add);
@@ -416,14 +425,23 @@ public class tempStorage {
                             case "Deliver":
                                 deliveryArrayList.add(add);
                                 break;
-                            default:
+                            case "Received":
                                 receivedArrayList.add(add);
+                                break;
+                            default:
+                                Log.w("Firestore", "Unknown status: " + add.getStatus());
                                 break;
                         }
                     }
+
+                    // Callback when done
                     checkDone.run();
+                })
+                .addOnFailureListener(e -> {
+                    Log.e("Firestore", "Error loading orders", e);
+                    checkDone.run(); // Optionally still run the callback
                 });
     }
 
 
-}
+    }

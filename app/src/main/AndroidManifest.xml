@@ -84,24 +84,29 @@
             android:name=".acts.admin_splash"
             android:exported="true"
             android:theme="@style/Theme.AppCompat.DayNight.NoActionBar">
-            <intent-filter>
+            <intent-filter android:autoVerify="true">
+                <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
-                <action android:name="android.intent.action.VIEW"/>
-                <data android:scheme="admin.portal"
-                    android:host="login" />
+                <data
+                    android:scheme="https"
+                    android:host="admin.portal"
+                    android:path="/login" />
             </intent-filter>
         </activity>
+
         <activity
         android:name=".acts.Manager_login"
         android:exported="true"
         android:theme="@style/Theme.AppCompat.DayNight.NoActionBar">
-        <intent-filter>
+        <intent-filter android:autoVerify="true">
             <category android:name="android.intent.category.DEFAULT" />
             <category android:name="android.intent.category.BROWSABLE" />
             <action android:name="android.intent.action.VIEW"/>
-            <data android:scheme="manager.portal"
-                android:host="login" />
+            <data
+                android:scheme="https"
+                android:host="manager.portal"
+                android:path="login" />
         </intent-filter>
     </activity>
 

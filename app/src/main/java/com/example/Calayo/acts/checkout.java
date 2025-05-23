@@ -173,7 +173,7 @@ public class checkout extends AppCompatActivity {
             });
 
             // Update local temp storage
-            temp.getCheckOutArrayList().add(newOrder);
+            temp.getPendingArrayList().add(newOrder);
             temp.deleteItem(id);
 
             // Go to success screen
