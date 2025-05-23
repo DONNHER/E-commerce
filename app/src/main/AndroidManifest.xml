@@ -106,7 +106,7 @@
             <data
                 android:scheme="https"
                 android:host="manager.portal"
-                android:path="login" />
+                android:path="/login" />
         </intent-filter>
     </activity>
 
