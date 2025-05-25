@@ -12,7 +12,6 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.Glide;
 import com.example.Calayo.R;
 import com.example.Calayo.acts.productsAct;
 import com.example.Calayo.entities.adds;
@@ -41,9 +40,6 @@ public class AddsADaptor extends RecyclerView.Adapter<AddsADaptor.PageViewHolder
     public void onBindViewHolder(@NonNull PageViewHolder holder, int position) {
         adds item = items.get(position);
         holder.des.setText(item.getDescription());
-        Glide.with(holder.pic.getContext())
-                .load(item.getImage())
-                .into(holder.pic);
 
         holder.button.setOnClickListener(view -> {
             if(myAuth.getCurrentUser() == null) {

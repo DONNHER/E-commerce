@@ -24,6 +24,16 @@
             android:background="#dff4eb"
             android:textSize="14sp"
             android:layout_weight="1"/>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/signal_icon"/>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/battery_icon"/>
     </LinearLayout>
 
     <!-- Main Content Card -->
@@ -55,14 +65,14 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:scaleType="fitCenter"
-                    android:src="@drawable/calayo" />
+                    android:src="@drawable/circle_green_border" />
 
                 <ImageView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:padding="30dp"
                     android:scaleType="fitCenter"
-                />
+                    android:src="@drawable/check" />
             </FrameLayout>
 
             <!-- Success Message -->
@@ -70,26 +80,19 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"
-                android:text="Add Your Product in\n           CALAYO! "
+                android:text="Order Accepted!"
                 android:textColor="#000000"
                 android:textSize="24sp"
                 android:textStyle="bold" />
 
-
-
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-
-                android:layout_marginBottom="20dp"
-
+                android:layout_marginBottom="40dp"
                 android:gravity="center"
-                android:text="Want thousands of new customers to discover your delicious food?\nWe make it easy—just list your menu, accept orders, and we’ll handle the rest, from pickup to doorstep delivery.\nReady to grow your business? Let’s partner today!"
-
+                android:text="Order #0001 has been added\nand it's on its way to be delivered!"
                 android:textColor="#666666"
                 android:textSize="16sp" />
-
-
 
             <!-- Action Buttons -->
             <Button
@@ -97,10 +100,15 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"
                 android:background="@drawable/green"
-                android:text="GET STARTED!"
-                android:textStyle="bold"
-                android:textColor="@color/white"
-                android:textSize="20dp"/>
+                android:text="VIEW LOCATION"
+                android:textColor="#000000" />
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/gray_button"
+                android:text="BACK TO HOME"
+                android:textColor="#000000" />
 
             <View
                 android:layout_width="0dp"

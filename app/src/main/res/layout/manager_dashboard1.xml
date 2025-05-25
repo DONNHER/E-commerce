@@ -23,7 +23,17 @@
             android:textSize="14sp"
             android:layout_weight="1"/>
 
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/signal"
+            android:contentDescription="Signal strength"/>
 
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/battery"
+            android:contentDescription="Battery level"/>
     </LinearLayout>
 
     <!-- Header with Menu and Title -->
@@ -35,12 +45,12 @@
         android:padding="10dp"
         app:layout_constraintTop_toBottomOf="@id/statusBar">
 
-        <ImageView
+        <ImageButton
             android:id="@+id/menuButton"
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:background="@null"
-            android:src="@drawable/undo"
+            android:src="@drawable/menu"
             android:contentDescription="Menu"/>
 
         <TextView
@@ -172,8 +182,9 @@
                     <ImageView
                         android:layout_width="50dp"
                         android:layout_height="50dp"
+                        android:background="@drawable/circle_black"
                         android:padding="10dp"
-                        android:src="@drawable/pizza1"
+                        android:src="@drawable/coffee_icon"
                         android:contentDescription="Coffee icon"/>
 
                     <LinearLayout
@@ -228,8 +239,9 @@
                     <ImageView
                         android:layout_width="50dp"
                         android:layout_height="50dp"
+                        android:background="@drawable/"
                         android:padding="10dp"
-                        android:src="@drawable/piza"
+                        android:src="@drawable/milktea"
                         android:contentDescription="Milktea icon"/>
 
                     <LinearLayout
@@ -284,8 +296,9 @@
                     <ImageView
                         android:layout_width="50dp"
                         android:layout_height="50dp"
+                        android:background="@drawable/"
                         android:padding="10dp"
-                        android:src="@drawable/pizza1"
+                        android:src="@drawable/"
                         android:contentDescription="Cake icon"/>
 
                     <LinearLayout

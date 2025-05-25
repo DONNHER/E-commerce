@@ -38,7 +38,7 @@ public class ManagerHome extends AppCompatActivity {
         setContentView(R.layout.seller_product_view);
 
         // 🔧 Initialize UI components
-//        recyclerView = findViewById(R.id.appointmentsView_manage);
+        recyclerView = findViewById(R.id.appointmentsView_manage);
 //        btn1 = findViewById(R.id.btnConfirmed);
 //        btn2 = findViewById(R.id.btnPending);
 
