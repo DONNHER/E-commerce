@@ -112,7 +112,7 @@ public class setUpPassword extends AppCompatActivity {
                         data.put("email", email);
                         data.put("role", "user");
 
-                        db.collection("users").document(user.getUid()).set(data)
+                        db.collection("users").document("user").collection("account").add(data)
                                 .addOnSuccessListener(unused -> {
                                     Toast.makeText(this, "Successfully Registered.", Toast.LENGTH_SHORT).show();
                                     startActivity(new Intent(this, userLoginAct.class));

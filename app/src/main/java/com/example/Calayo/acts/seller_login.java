@@ -26,7 +26,7 @@ import com.google.firebase.auth.FirebaseAuth;
  * This activity handles user login using Firebase Authentication.
  * It checks user input, verifies credentials, and starts the splash screen on success.
  */
-public class Manager_login extends AppCompatActivity {
+public class seller_login extends AppCompatActivity {
 
     private FirebaseAuth myAuth = FirebaseAuth.getInstance(); // Firebase authentication instance
     private ProgressBar progressBar; // Spinner for loading effect
@@ -81,7 +81,7 @@ public class Manager_login extends AppCompatActivity {
             progressBar.setVisibility(View.VISIBLE);
             networkTimeoutRunnable = () -> {
                 if (progressBar.getVisibility() == View.VISIBLE) {
-                    Toast.makeText(Manager_login.this,
+                    Toast.makeText(seller_login.this,
                             "Network seems slow or weak. Please check your connection.",
                             Toast.LENGTH_LONG).show();
                 }

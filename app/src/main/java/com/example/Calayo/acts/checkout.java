@@ -125,14 +125,16 @@ public class checkout extends AppCompatActivity {
             String orderItemId = UUID.randomUUID().toString();
 
             // Create an Order object
-            Order newOrder = new Order(
+            Order newOrder = new Order(temp.getTotalAddOnPrice() + totalCost,
                     image,
                     new Date().toString(),
                     new Date().toString(),
                     temp.getLoggedin(),
                     name,
                     quantityStr,
-                    id
+                    id, newItem.getStoreName(),
+                    newItem,
+                    temp.getAddOnArrayList()
             );
 
             // Create a map to store in Firestore

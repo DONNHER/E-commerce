@@ -18,8 +18,10 @@ import com.example.Calayo.acts.order_Details;
 import com.example.Calayo.adapters.addOns;
 import com.example.Calayo.adapters.address_adapter;
 import com.example.Calayo.adapters.product_adapt;
+import com.example.Calayo.entities.Admin;
 import com.example.Calayo.entities.Item;
 import com.example.Calayo.entities.Order;
+import com.example.Calayo.entities.Seller;
 import com.example.Calayo.entities.address;
 import com.example.Calayo.entities.adds;
 import com.example.Calayo.entities.cartItem;
@@ -44,6 +46,7 @@ public class tempStorage {
     // In-memory storage lists
     private final ArrayList<Item.addOn> addOnArrayList;
     private final ArrayList<Item> itemArrayList;
+    private  ArrayList<Item> pendingItemArrayList;
     private final ArrayList<cartItem> cartItemArrayList;
     private  ArrayList<Order> pendingArrayList;
     private  ArrayList<Order> approvedArrayList;
@@ -53,6 +56,9 @@ public class tempStorage {
     private final FirebaseAuth myAuth= FirebaseAuth.getInstance();
     ArrayList<Item.addOn> addOnsItems;
     ArrayList<adds> adds ;
+    ArrayList<user> users ;
+    private ArrayList<Seller> sellers ;
+    private ArrayList<Admin> admins ;
     SharedPreferences sharedPreferences;
     private String loggedIn;
 
@@ -64,6 +70,7 @@ public class tempStorage {
     private boolean isloggedIn;
     private cartItem selectedCartItem;
     private Item searchResult;
+    private Order selectedOrder;
     /**
      * Private constructor initializes all internal lists and Firestore reference.
      */
@@ -75,6 +82,7 @@ public class tempStorage {
         itemArrayList = new ArrayList<>();
         adds = new ArrayList<>();
         pendingArrayList = new ArrayList<>();
+        pendingItemArrayList = new ArrayList<>();
         approvedArrayList = new ArrayList<>();
         deliveryArrayList = new ArrayList<>();
         receivedArrayList = new ArrayList<>();
@@ -105,18 +113,18 @@ public class tempStorage {
     public ArrayList<Order> getApprovedArrayList() {
         return approvedArrayList;
     }
-    public ArrayList<Order> getDeliveryArrayList() {
+    public synchronized ArrayList<Order> getDeliveryArrayList() {
         return deliveryArrayList;
     }
-    public ArrayList<Order> getReceivedArrayList() {
+    public synchronized ArrayList<Order> getReceivedArrayList() {
         return receivedArrayList;
     }
 
 
-    public ArrayList<Item> getItemArrayList() {
+    public synchronized ArrayList<Item> getItemArrayList() {
         return itemArrayList;
     }
-    public ArrayList<adds> getAddsArrayList() {
+    public synchronized ArrayList<adds> getAddsArrayList() {
         return adds;
     }
 
@@ -124,20 +132,36 @@ public class tempStorage {
         this.isloggedIn = isloggedIn;
     }
 
-    public Item getSearchResult() {
+    public  synchronized Item getSearchResult() {
         return searchResult;
     }
 
-    public void setSearchResult(Item searchResult) {
+    public synchronized void setSearchResult(Item searchResult) {
         this.searchResult = searchResult;
     }
 
-    public cartItem getSelectedCartItem() {
+    public synchronized  cartItem getSelectedCartItem() {
         return selectedCartItem;
     }
 
-    public void setSelectedCartItem(cartItem selectedCartItem) {
+    public synchronized void setSelectedCartItem(cartItem selectedCartItem) {
         this.selectedCartItem = selectedCartItem;
+    }
+
+    public synchronized Order getSelectedOrder() {
+        return selectedOrder;
+    }
+
+    public synchronized void setSelectedOrder(Order selectedOrder) {
+        this.selectedOrder = selectedOrder;
+    }
+
+    public ArrayList<Item> getPendingItemArrayList() {
+        return pendingItemArrayList;
+    }
+
+    public void setPendingItemArrayList(ArrayList<Item> pendingItemArrayList) {
+        this.pendingItemArrayList = pendingItemArrayList;
     }
 
     /**
@@ -150,7 +174,7 @@ public class tempStorage {
     /**
      * Returns the singleton instance of tempStorage
      */
-    public static tempStorage getInstance() {
+    public synchronized static tempStorage getInstance() {
         return InstanceHolder.instance;
     }
 
@@ -253,7 +277,7 @@ public class tempStorage {
      * @param id ID to search
      * @return cartItem object or null if not found
      */
-    public cartItem searchCartItem(String id) {
+    public synchronized cartItem searchCartItem(String id) {
         for (cartItem item : cartItemArrayList) {
             if (item.getId().equals(id)) {
                 return item;
@@ -261,7 +285,7 @@ public class tempStorage {
         }
         return null;
     }
-    public Item searchItem(String name) {
+    public synchronized Item searchItem(String name) {
         for (Item item : itemArrayList) {
             if (item.getName().equalsIgnoreCase(name)) {
                 return item;
@@ -291,7 +315,7 @@ public class tempStorage {
      * Computes total price of all selected add-ons.
      * @return total add-on price
      */
-    public double getTotalAddOnPrice() {
+    public synchronized double getTotalAddOnPrice() {
         double total = 0.0;
         for (Item.addOn addOn : addOnArrayList) {
             total += addOn.getAddOnPrice();
@@ -321,7 +345,7 @@ public class tempStorage {
         void onReady();
     }
     public void loadAllData(OnTempDataReadyListener listener) {
-        final int totalTasks = 2;
+        final int totalTasks = 5;
         final int[] completedTasks = {0};
 
         Runnable checkDone = () -> {
@@ -330,6 +354,36 @@ public class tempStorage {
                 listener.onReady();
             }
         };
+        //users
+        db.collection("users").document("user").collection("account")
+                .get().addOnSuccessListener(snapshots -> {
+            adds.clear();
+            for (DocumentSnapshot doc : snapshots) {
+                user item = doc.toObject(user.class);
+                users.add(item);
+            }
+            checkDone.run();
+        });
+        //sellers
+        db.collection("users").document("seller").collection("account")
+                .get().addOnSuccessListener(snapshots -> {
+                    sellers.clear();
+                    for (DocumentSnapshot doc : snapshots) {
+                        Seller item = doc.toObject(Seller.class);
+                        sellers.add(item);
+                    }
+                    checkDone.run();
+                });
+        //admins
+        db.collection("users").document("admin").collection("account")
+                .get().addOnSuccessListener(snapshots -> {
+                    admins.clear();
+                    for (DocumentSnapshot doc : snapshots) {
+                        Admin item = doc.toObject(Admin.class);
+                        admins.add(item);
+                    }
+                    checkDone.run();
+                });
 
         // Products
         db.collection("items").get().addOnSuccessListener(itemSnapshots -> {
@@ -347,12 +401,17 @@ public class tempStorage {
                                     addOnList.add(addOn);
                                 }
                                 item.setAddOns(addOnList);
-                                itemArrayList.add(item);
-                                if (itemArrayList.size() == itemSnapshots.size()) {
+                                if(item.getStatus().equals("Approved")) {
+                                    itemArrayList.add(item);
+                                } else {
+                                    pendingItemArrayList.add(item);
+                                }
+                                if (itemArrayList.size()+pendingItemArrayList.size() == itemSnapshots.size()) {
                                     checkDone.run();
                                 }
                             });
                 }
+
             }
         });
 

@@ -1,16 +1,20 @@
 package com.example.Calayo.acts;
 
+import static android.graphics.Color.TRANSPARENT;
+import static android.view.View.GONE;
+import static android.view.View.VISIBLE;
+
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Adapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -21,31 +25,25 @@ import androidx.recyclerview.widget.SnapHelper;
 
 import com.example.Calayo.R;
 import com.example.Calayo.adapters.AddsADaptor;
+import com.example.Calayo.adapters.Rider_order_adapt;
 import com.example.Calayo.adapters.product_adapt;
+import com.example.Calayo.adapters.rider_order_delivered;
 import com.example.Calayo.entities.Item;
-import com.example.Calayo.entities.adds;
+import com.example.Calayo.entities.Order;
 import com.example.Calayo.helper.tempStorage;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-/**
- * UserDashboardAct displays the main dashboard with products and ads.
- * Handles navigation and refreshes data upon resume.
- */
-public class AdminDashB extends AppCompatActivity {
+public class Rider_Dashboard  extends AppCompatActivity {
 
-    private static final String TAG = "UserDashboardAct";
+    private static final String TAG = "RiderDashboardAct";
 
-    private RecyclerView products;
-    private product_adapt productAdapter;
-
-    private RecyclerView addsRecyclerView;
-    private AddsADaptor addsAdapter;
-
+    private RecyclerView order;
+    private RecyclerView delivered_order;
+    private rider_order_delivered deliveredAdapt;
+    private Rider_order_adapt Adapter;
     private tempStorage temp;
     private final ExecutorService executor = Executors.newSingleThreadExecutor();
 
@@ -53,35 +51,49 @@ public class AdminDashB extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.admin_dashboard);
+        setContentView(R.layout.user_d_board);
 
         try {
             temp = tempStorage.getInstance();
+
         } catch (Exception e) {
             Log.e(TAG, "Failed to initialize tempStorage: " + e.getMessage());
             return; // Cannot proceed if temp is not initialized
         }
 
         initNavigationButtons();
-        setupProductsRecycler();
-        setupAddsRecycler();
-
+        setupOrderRecycler();
     }
 
     /**
      * Sets up navigation buttons (home, address, profile, etc.)
      */
+    @SuppressLint("ResourceAsColor")
     private void initNavigationButtons() {
         try {
             ImageView home = findViewById(R.id.home);
             ImageView profile = findViewById(R.id.profile);
+            TextView otw = findViewById(R.id.tabStandard2);
+            TextView delivered = findViewById(R.id.tabStandard);
+            otw.setOnClickListener(v->{
+                order.setVisibility(VISIBLE);
+                delivered_order.setVisibility(GONE);
+                otw.setBackgroundColor(R.color.white);
+                delivered.setBackgroundColor(TRANSPARENT);
+            });
+            delivered.setOnClickListener(v->{
+                order.setVisibility(GONE);
+                delivered_order.setVisibility(VISIBLE);
+                otw.setBackgroundColor(TRANSPARENT);
+                delivered.setBackgroundColor(R.color.white);
+            });
 
             if (home != null) {
                 home.setOnClickListener(v -> restartActivity());
             }
 
             if (profile != null) {
-                profile.setOnClickListener(v -> startActivity(new Intent(this, admin_profile.class)));
+                profile.setOnClickListener(v -> startActivity(new Intent(this, settingAct.class)));
             }
         } catch (Exception e) {
             Log.e(TAG, "Navigation setup failed: " + e.getMessage());
@@ -89,40 +101,20 @@ public class AdminDashB extends AppCompatActivity {
     }
 
     /**
-     * Sets up the products RecyclerView with items.
+     * Sets up the orders
      */
-    private void setupProductsRecycler() {
+    private void setupOrderRecycler() {
         try {
-            products = findViewById(R.id.Products_Recycler);
-            if (products != null) {
-                products.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+            order = findViewById(R.id.Products_Recycler);
+            delivered_order = findViewById(R.id.stepDelivery);
 
-                ArrayList<Item> items = temp.getItemArrayList();
-                if (items == null) items = new ArrayList<>();
-                productAdapter = new product_adapt(items, this);
-                products.setAdapter(productAdapter);
-            } else {
-                Log.w(TAG, "Products RecyclerView not found.");
-            }
-        } catch (Exception e) {
-            Log.e(TAG, "Failed to set up products RecyclerView: " + e.getMessage());
-        }
-    }
-
-    /**
-     * Sets up the horizontal ads carousel.
-     */
-    private void setupAddsRecycler() {
-        try {
-            addsRecyclerView = findViewById(R.id.Adds_Recycler);
-            if (addsRecyclerView != null) {
-                addsRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
-
-                SnapHelper snapHelper = new LinearSnapHelper();
-                snapHelper.attachToRecyclerView(addsRecyclerView);
-
-                addsAdapter = new AddsADaptor(temp.getAddsArrayList(), this);
-                addsRecyclerView.setAdapter(addsAdapter);
+            if (order != null) {
+                order.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+                Adapter = new Rider_order_adapt(temp.getPendingArrayList(), this);
+                order.setAdapter(Adapter);
+                delivered_order.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+                deliveredAdapt = new rider_order_delivered(temp.getReceivedArrayList(), this);
+                order.setAdapter(deliveredAdapt);
             } else {
                 Log.w(TAG, "Adds RecyclerView not found.");
             }
@@ -140,12 +132,18 @@ public class AdminDashB extends AppCompatActivity {
         try {
             executor.execute(() -> temp.loadAllData(() ->
                     temp.loadAllUserData(() -> runOnUiThread(() -> {
-                        if (products != null) {
-                            ArrayList<Item> items = temp.getItemArrayList();
-                            if (items == null) items = new ArrayList<>();
-                            productAdapter = new product_adapt(items, this);
-                            products.setAdapter(productAdapter);
-                            Log.d(TAG, "Product list updated.");
+                                order = findViewById(R.id.Products_Recycler);
+                                delivered_order = findViewById(R.id.stepDelivery);
+
+                                if (order != null) {
+                                    order.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+                                    Adapter = new Rider_order_adapt(temp.getPendingArrayList(), this);
+                                    order.setAdapter(Adapter);
+                                    delivered_order.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+                                    deliveredAdapt = new rider_order_delivered(temp.getPendingArrayList(), this);
+                                    order.setAdapter(deliveredAdapt);
+                                } else {
+                                    Log.w(TAG, "Adds RecyclerView not found.");
                         }
                     }))
             ));
@@ -165,12 +163,5 @@ public class AdminDashB extends AppCompatActivity {
         } catch (Exception e) {
             Log.e(TAG, "Failed to restart activity: " + e.getMessage());
         }
-    }
-    /**
-     * Redirect to address dashboard
-     */
-    public void location(View view){
-        Intent intent = new Intent(this, myAddress.class);
-        startActivity(intent);
     }
 }

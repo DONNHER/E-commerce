@@ -16,6 +16,7 @@ public class Item {
         private Double addOnPrice;
         private String ItemName;
         private boolean isChecked;
+
         public addOn(){}
         public addOn(String add, double addOnPrice, String item){
             this.addOnName = add;
@@ -55,8 +56,10 @@ public class Item {
         public void setChecked(boolean checked) {
             isChecked = checked;
         }
-    }
 
+
+    }
+    private String status;
     private  String id ;
     private  String Image;
     private  double price;
@@ -67,18 +70,20 @@ public class Item {
     private String category;
     private String type;
     private boolean isFavorite;
+    private String storeName = "Calayo Restaurant";
 
     private ArrayList<addOn> addOns;
 
     // Constructor
     public Item(){}
-    public Item(double Price,String image,String Name,int quantity,String description) {
+    public Item(double Price,String image,String Name,int quantity,String description,String storeName) {
         Image = image;
         price = Price;
         name = Name;
         this.quantity = quantity;
         this.description = description;
-
+        this.storeName = storeName;
+        this.status = "Pending";
     }
 
     public  String getName() {
@@ -101,7 +106,20 @@ public class Item {
     public  void setPrice(double Price) {
         price = Price;
     }
+    public String getStoreName() {
+        return  storeName;
+    }
 
+    public void setStoreName(String storeName) {
+        this.storeName = storeName;
+    }
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
 
     @Override
     public String toString() {

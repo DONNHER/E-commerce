@@ -2,28 +2,21 @@ package com.example.Calayo.acts;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.LinearSnapHelper;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.recyclerview.widget.SnapHelper;
 
 import com.example.Calayo.R;
-import com.example.Calayo.adapters.AddsADaptor;
 import com.example.Calayo.adapters.addOns;
 import com.example.Calayo.adapters.order_adaptor;
-import com.example.Calayo.adapters.product_adapt;
-import com.example.Calayo.entities.Item;
 import com.example.Calayo.entities.Order;
 import com.example.Calayo.helper.tempStorage;
 
@@ -31,7 +24,7 @@ import java.util.ArrayList;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-public class order_info  extends AppCompatActivity {
+public class Order_trace  extends AppCompatActivity {
 
     private static final String TAG = "Order Information";
     private RecyclerView addOnsRecyclerView;
@@ -47,7 +40,7 @@ public class order_info  extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.order_info);
+        setContentView(R.layout.order_tracker);
 
         try {
             temp = tempStorage.getInstance();
@@ -56,8 +49,8 @@ public class order_info  extends AppCompatActivity {
             return; // Cannot proceed if temp is not initialized
         }
 
-        initNavigationButtons();
-        setupOrderInfoRecycler();
+//        initNavigationButtons();
+//        setupOrderInfoRecycler();
     }
 
     /**
@@ -73,7 +66,6 @@ public class order_info  extends AppCompatActivity {
             ImageView profile = findViewById(R.id.profile);
             TextView total = findViewById(R.id.totalPrice);
 
-            track.setOnClickListener(v-> startActivity(new Intent(this, Order_trace.class)));
 
             total.setText(String.valueOf(temp.getSelectedOrder().getTotalCost()));
 
@@ -108,12 +100,12 @@ public class order_info  extends AppCompatActivity {
         try {
             OrderRecyclerView = findViewById(R.id.Order_Recycler3);
             if (OrderRecyclerView != null) {
-            OrderRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
-            // Setup RecyclerView to display selected add-ons
-            addOnsRecyclerView = findViewById(R.id.OrderSummary_Recycler3);
-            addOnsRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+                OrderRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+                // Setup RecyclerView to display selected add-ons
+                addOnsRecyclerView = findViewById(R.id.OrderSummary_Recycler3);
+                addOnsRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-            Order order = temp.getSelectedOrder();
+                Order order = temp.getSelectedOrder();
                 if (orderSelected == null ) orderSelected = new ArrayList<>();
                 orderSelected.add(order);
                 orderAdapter = new order_adaptor(orderSelected, this);

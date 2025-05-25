@@ -57,6 +57,7 @@ public class UserDashboardAct extends AppCompatActivity {
 
         try {
             temp = tempStorage.getInstance();
+
         } catch (Exception e) {
             Log.e(TAG, "Failed to initialize tempStorage: " + e.getMessage());
             return; // Cannot proceed if temp is not initialized
@@ -73,8 +74,9 @@ public class UserDashboardAct extends AppCompatActivity {
         String addressStr = preferences1.getString("SelectedAddress", "");
 
         // If no address is selected, display not set
-        if (addressStr.isEmpty()) {
+        if (addressStr == null ||addressStr.isEmpty()) {
             locate.setText("Not set");
+            return;
         }else {
             locate.setText(preferences1.getString("Code","Not set"));
         }

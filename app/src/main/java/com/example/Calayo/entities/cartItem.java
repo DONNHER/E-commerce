@@ -17,8 +17,9 @@ public class cartItem  {
     private boolean isSelected;
     private String price;
     private ArrayList<Item.addOn> addOns;
+    private String storeName = "Calayo Restaurant";
     public cartItem(){}
-    public cartItem(String image, String quantity, String name, Date date, String id, String price, ArrayList<Item.addOn> addOns){
+    public cartItem(String image, String quantity, String name, Date date, String id, String price, ArrayList<Item.addOn> addOns,String sName){
         this.image = image;
         this.quantity = quantity;
         this.name = name;
@@ -26,6 +27,7 @@ public class cartItem  {
         this.id = id;
         this.price = price;
         this.addOns = addOns;
+        this.storeName= sName;
     }
 
     public String getName() {
@@ -90,5 +92,13 @@ public class cartItem  {
 
     public void setAddOns(ArrayList<Item.addOn> addOns) {
         this.addOns = addOns;
+    }
+
+    public String getStoreName() {
+        return storeName;
+    }
+
+    public void setStoreName(String storeName) {
+        this.storeName = storeName;
     }
 }

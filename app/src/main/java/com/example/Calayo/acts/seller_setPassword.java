@@ -23,7 +23,7 @@ import java.util.Map;
  * Activity for setting up a password during user registration.
  * Performs validation and registers user with Firebase Authentication.
  */
-public class manager_setPassword extends AppCompatActivity {
+public class seller_setPassword extends AppCompatActivity {
 
     private static final String TAG = "SetUpPasswordActivity";
 
@@ -112,7 +112,7 @@ public class manager_setPassword extends AppCompatActivity {
                         data.put("email", email);
                         data.put("role", "admin");
 
-                        db.collection("users").document(user.getUid()).set(data)
+                        db.collection("users").document("seller").collection("seller").document(user.getUid()).set(data)
                                 .addOnSuccessListener(unused -> {
                                     Toast.makeText(this, "Successfully Registered.", Toast.LENGTH_SHORT).show();
                                     startActivity(new Intent(this, userLoginAct.class));

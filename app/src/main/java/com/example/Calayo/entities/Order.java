@@ -1,5 +1,7 @@
 package com.example.Calayo.entities;
 
+import java.util.ArrayList;
+
 public class Order {
     private  String productName;
     private String Date;
@@ -14,10 +16,15 @@ public class Order {
     private String serviceID;
     private String userName;
     private String units;
+    private String storeName;
+    private cartItem item;
+    private ArrayList<Item.addOn> addOn;
 
     // Constructor
     public Order(){}
-    public Order(String image, String Date, String Time, String name,String productName,String units,String id) {
+
+    public Order(Double totalCost,String image, String Date, String Time, String name, String productName, String units, String id, String storeName, cartItem item, ArrayList<Item.addOn> addOn) {
+        this.totalCost = totalCost;
         this.productName = productName;
         this.Date = Date;
         this.Time = Time;
@@ -25,6 +32,9 @@ public class Order {
         this.image = image;
         this.units = units;
         this.id = id;
+        this.storeName = storeName;
+        this.item = item;
+        this.addOn = addOn;
         status = "Pending";
     }
 
@@ -95,5 +105,29 @@ public class Order {
 
     public void setUnits(String units) {
         this.units = units;
+    }
+
+    public ArrayList<Item.addOn> getAddOn() {
+        return addOn;
+    }
+
+    public void setAddOn(ArrayList<Item.addOn> addOn) {
+        this.addOn = addOn;
+    }
+
+    public cartItem getItem() {
+        return item;
+    }
+
+    public void setItem(cartItem item) {
+        this.item = item;
+    }
+
+    public String getStoreName() {
+        return storeName;
+    }
+
+    public void setStoreName(String storeName) {
+        this.storeName = storeName;
     }
 }

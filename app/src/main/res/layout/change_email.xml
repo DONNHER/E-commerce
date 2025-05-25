@@ -61,13 +61,7 @@
 
 
         <!-- Social Buttons -->
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginTop="12dp">
 
-        </LinearLayout>
 
         <TextView
             android:layout_width="wrap_content"
@@ -90,6 +84,7 @@
             android:singleLine="true"
 
             />
+
 
         <!-- Sign Up Button -->
         <Button

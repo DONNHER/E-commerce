@@ -90,7 +90,7 @@
 <!--        </intent-filter>-->
         </activity>
         <activity
-        android:name=".acts.Manager_login"
+        android:name=".acts.seller_login"
         android:exported="true"
         android:theme="@style/Theme.AppCompat.DayNight.NoActionBar">
         <intent-filter>
@@ -103,12 +103,17 @@
     </activity>
 
         <activity
-            android:name=".acts.manager_setPassword"
+            android:name=".acts.seller_setPassword"
             android:exported="true"
             android:theme="@style/Theme.AppCompat.DayNight.NoActionBar">
         </activity>
         <activity
             android:name=".acts.transactions"
+            android:exported="true"
+            android:theme="@style/Theme.AppCompat.DayNight.NoActionBar">
+        </activity>
+        <activity
+            android:name=".acts.Order_trace"
             android:exported="true"
             android:theme="@style/Theme.AppCompat.DayNight.NoActionBar">
         </activity>

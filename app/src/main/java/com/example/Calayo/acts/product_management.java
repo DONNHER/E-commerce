@@ -5,9 +5,6 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -15,11 +12,12 @@ import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.DialogFragment;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.Calayo.R;
 import com.example.Calayo.entities.Item;
+
+import com.example.Calayo.entities.Seller;
 import com.example.Calayo.helper.Firebase;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -27,26 +25,27 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
-public class product_management extends DialogFragment {
+public class product_management extends AppCompatActivity {
 
     private ActivityResultLauncher<Intent> galleryLauncher;
 
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private Uri selectedImageUri;
     private ImageView imageView;
+    private Seller s;
 
-    @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.product_management, container, false);
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.product_management);
 
-        EditText nameEditText = view.findViewById(R.id.TextName3);
-        EditText desciption = view.findViewById(R.id.description);
-        EditText priceEdit = view.findViewById(R.id.editTextPrice3);
-        EditText slots = view.findViewById(R.id.slot_number);
-        imageView = view.findViewById(R.id.imageViewSelected_pm);
-        Button cancelButton = view.findViewById(R.id.cancel_pm);
-        Button submitButton = view.findViewById(R.id.confirm_pm);
+        EditText nameEditText = findViewById(R.id.TextName3);
+        EditText desciption = findViewById(R.id.description);
+        EditText priceEdit = findViewById(R.id.editTextPrice3);
+        EditText slots = findViewById(R.id.slot_number);
+        imageView = findViewById(R.id.imageViewSelected_pm);
+        Button cancelButton = findViewById(R.id.cancel_pm);
+        Button submitButton = findViewById(R.id.confirm_pm);
 
         // Register for result from gallery selection
         galleryLauncher = registerForActivityResult(
@@ -68,22 +67,22 @@ public class product_management extends DialogFragment {
             String des = desciption.getText().toString().trim();
 
             if (name.isEmpty() ||des.isEmpty() || price.isEmpty() || selectedImageUri == null) {
-                Toast.makeText(getContext(), "Please fill all fields and select an image.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Please fill all fields and select an image.", Toast.LENGTH_SHORT).show();
             } else {
                 if(des.length()>100){
-                    Toast.makeText(getContext(), "Description must be less than 100 characters", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, "Description must be less than 100 characters", Toast.LENGTH_SHORT).show();
                     return;
                 }
                 // Generate a unique filename for the image (e.g., using the current timestamp)
                 String fileName = "service_" + System.currentTimeMillis() + ".jpg";
 
                 // Call the Firebase.upload method
-                Firebase.upload(getContext(), selectedImageUri, fileName, new Firebase.UploadCallback() {
+                Firebase.upload(this, selectedImageUri, fileName, new Firebase.UploadCallback() {
                     @Override
                     public void onSuccess(String imageUrl) {
                         // Create a ServiceType object
                         String docId = UUID.randomUUID().toString();
-                        Item item = new Item(Double.parseDouble(price), imageUrl, name,Integer.parseInt(units),des);
+                        Item item = new Item(Double.parseDouble(price), imageUrl, name,Integer.parseInt(units),des,s.getStoreName());
                         item.setId(docId);
                         // Prepare data to be stored in Firestore
                         Map<String, Object> data = new HashMap<>();
@@ -93,29 +92,26 @@ public class product_management extends DialogFragment {
                         data.put("Slots", item.getQuantity());
                         data.put("image", item.getImage());
                         data.put("description", item.getDescription());
+                        data.put("Status", item.getStatus());
 
                         // Upload data to Firestore
                         db.collection("products").document(docId).set(data)
                                 .addOnSuccessListener(aVoid -> {
-                                    Toast.makeText(getContext(), "Food added: " + item.getName(), Toast.LENGTH_SHORT).show();
-                                    dismiss();
-                                    requireActivity().recreate();
+                                    Toast.makeText(product_management.this, "Food added: " + item.getName(), Toast.LENGTH_SHORT).show();
+                                    recreate();
                                       // Close the dialog
                                 })
-                                .addOnFailureListener(e -> {
-                                    Toast.makeText(getContext(), "Error: " + e.getMessage(), Toast.LENGTH_SHORT).show();
-                                });
+                                .addOnFailureListener(e -> Toast.makeText(product_management.this, "Error: " + e.getMessage(), Toast.LENGTH_SHORT).show());
                     }
 
                     @Override
                     public void onFailure(String errorMessage) {
-                        Toast.makeText(getContext(), errorMessage, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(product_management.this, errorMessage, Toast.LENGTH_SHORT).show();
                     }
                 });
             }
         });
-        cancelButton.setOnClickListener(v -> dismiss());
-        return view;
+        cancelButton.setOnClickListener(v -> finish());
     }
 
 

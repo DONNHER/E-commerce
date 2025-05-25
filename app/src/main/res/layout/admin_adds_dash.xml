@@ -44,7 +44,6 @@
             android:layout_weight="1"
             android:padding="10dp"
             android:text="Users"
-            android:background="@color/white"
             android:textAlignment="center"
             android:textColor="#000000"/>
 
@@ -58,7 +57,7 @@
             android:textAlignment="center"
             android:textColor="#000000"/>
 
-<!--        android:background="#E8E8E8"-->
+        <!--        android:background="#E8E8E8"-->
 
         <TextView
             android:id="@+id/tabScheduled"
@@ -74,16 +73,21 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:background="@color/white"
             android:padding="10dp"
             android:text="Adds"
             android:textAlignment="center"
             android:textColor="#000000"/>
     </LinearLayout>
+
+    <!-- Sub Tabs (NEW, ACCEPTED, UPCOMING) -->
     <LinearLayout
-        android:id="@+id/subTabs"
+        android:id="@+id/subTabsUsers"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
+        android:visibility="gone"
+        android:background="#E8E8E8"
         app:layout_constraintTop_toBottomOf="@id/mainTabs">
 
         <TextView
@@ -91,20 +95,29 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:padding="10dp"
+            android:padding="8dp"
             android:text="User"
             android:textAlignment="center"
-            android:textColor="#000000"/>
-
-        <!--        android:background="#E8E8E8"-->
+            android:textColor="#000000"
+            android:background="#FFFFFF"/>
 
         <TextView
-            android:id="@+id/tabSeller"
+            android:id="@+id/tabManager"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:padding="10dp"
-            android:text="Seller"
+            android:padding="8dp"
+            android:text="Manager"
+            android:textAlignment="center"
+            android:textColor="#000000"/>
+
+        <TextView
+            android:id="@+id/tabRider"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:padding="8dp"
+            android:text="Rider"
             android:textAlignment="center"
             android:textColor="#000000"/>
         <TextView
@@ -112,12 +125,11 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:padding="10dp"
+            android:padding="8dp"
             android:text="Admin"
             android:textAlignment="center"
             android:textColor="#000000"/>
     </LinearLayout>
-
     <LinearLayout
         android:id="@+id/subOrders"
         android:layout_width="match_parent"
@@ -190,35 +202,23 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:background="#E8E8E8"
-        app:layout_constraintTop_toBottomOf="@id/subTabs">
+        app:layout_constraintTop_toBottomOf="@id/mainTabs">
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/user_Recycler"
+            android:id="@+id/users_Recycler"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:scrollbars="vertical"
             android:padding="10dp"
-            tools:ignore="MissingConstraints"
-            />
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/seller_Recycler"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:scrollbars="vertical"
-            android:padding="10dp"
-            android:visibility="gone"
-            tools:ignore="MissingConstraints"
-            />
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/admin_Recycler"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:scrollbars="vertical"
-            android:visibility="gone"
-            android:padding="10dp"
-            tools:ignore="MissingConstraints"
-            />
+            tools:ignore="MissingConstraints" />
     </LinearLayout>
 
+    <!-- Orders List (ScrollView) -->
+    <ScrollView
+        android:id="@+id/ordersScrollView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toBottomOf="@id/subTabs"
+        tools:ignore="NotSibling" />
 
     <!-- Pagination -->
 

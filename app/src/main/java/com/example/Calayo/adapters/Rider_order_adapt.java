@@ -1,16 +1,12 @@
 package com.example.Calayo.adapters;
 
-import static android.content.Context.MODE_PRIVATE;
-
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CheckBox;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentActivity;
@@ -18,23 +14,20 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.Calayo.R;
-import com.example.Calayo.acts.Rider_Dashboard;
 import com.example.Calayo.acts.order_info;
 import com.example.Calayo.entities.Order;
-import com.example.Calayo.entities.address;
-import com.example.Calayo.entities.cartItem;
 import com.example.Calayo.helper.tempStorage;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.List;
 
-public class order_adaptor  extends RecyclerView.Adapter<order_adaptor.PageViewHolder> {
+public class Rider_order_adapt  extends RecyclerView.Adapter<Rider_order_adapt.PageViewHolder> {
     private List<Order> items;
     FragmentActivity fragmentAct;
     private tempStorage temp = tempStorage.getInstance();
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
 
-    public order_adaptor(List<Order> items, FragmentActivity fragmentActivity) {
+    public Rider_order_adapt(List<Order> items, FragmentActivity fragmentActivity) {
         this.items = items;
         this.fragmentAct = fragmentActivity;
     }
@@ -42,23 +35,17 @@ public class order_adaptor  extends RecyclerView.Adapter<order_adaptor.PageViewH
     @NonNull
     @Override
     public PageViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.order, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.rider_order, parent, false);
         return new PageViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull PageViewHolder holder, int position) {
         Order item = items.get(position);
-        Glide.with(holder.pic.getContext())
-                .load(item.getImage())
-                .into(holder.pic);
-        holder.units.setText(item.getUnits()+"x");
-        holder.itemName.setText(item.getProductName());
-        holder.storeName.setText(item.getStoreName());
-        holder.itemView.setOnClickListener(v -> {
+
+        holder.deliver.setOnClickListener(v -> {
             temp.setSelectedOrder(item);
-            Intent intent = new Intent(fragmentAct , order_info.class);
-            fragmentAct.startActivity(intent);
+            temp.getSelectedOrder().setStatus("Out of Delivery");
         });
     }
 
@@ -68,17 +55,10 @@ public class order_adaptor  extends RecyclerView.Adapter<order_adaptor.PageViewH
     }
 
     static class PageViewHolder extends RecyclerView.ViewHolder {
-        ImageView pic;
-        TextView units;
-        TextView itemName;
-        TextView storeName;
+        Button deliver;
         PageViewHolder(View itemView) {
             super(itemView);
-            pic = itemView.findViewById(R.id.image);
-            itemName = itemView.findViewById(R.id.name);
-            units = itemView.findViewById(R.id.units2);
-            storeName = itemView.findViewById(R.id.restaurant);
-
+            deliver = itemView.findViewById(R.id.iconDelivery);
         }
     }
 }

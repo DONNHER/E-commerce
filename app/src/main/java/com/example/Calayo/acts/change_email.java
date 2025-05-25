@@ -34,12 +34,12 @@ public class change_email extends AppCompatActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.user_register_act);
+        setContentView(R.layout.change_email);
 
         temp = tempStorage.getInstance();
-        EditText Email = findViewById(R.id.editTextEmail);
+        EditText Email = findViewById(R.id.newPass);
         Button btnGetStarted = findViewById(R.id.buttonSignUp);
-        ImageView btn = findViewById(R.id.back);
+        ImageView btn = findViewById(R.id.back2);
 
         // Go back to the previous screen
         btn.setOnClickListener(view -> finish());

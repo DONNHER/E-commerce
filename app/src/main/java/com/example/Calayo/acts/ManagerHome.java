@@ -35,7 +35,7 @@ public class ManagerHome extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState)  {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.manager_home);
+        setContentView(R.layout.seller_product_view);
 
         // 🔧 Initialize UI components
 //        recyclerView = findViewById(R.id.appointmentsView_manage);

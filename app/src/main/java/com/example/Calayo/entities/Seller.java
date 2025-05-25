@@ -1,6 +1,6 @@
 package com.example.Calayo.entities;
 
-public class Manager {
+public class Seller {
         private int id;
         private String name;
         private String email;
@@ -8,18 +8,22 @@ public class Manager {
         private String address;
 
         private String password;
+        private String storeName;
         // Constructor
-        public Manager(String email, String password) {
+        public Seller() {
+        }
+        public Seller(String email, String password) {
             this.email = email;
             this.password = password;
         }
-        public Manager(int id, String name, String email, String phone, String address, String password) {
+        public Seller(int id, String name, String email, String phone, String address, String password) {
             this.id = id;
             this.name = name;
             this.email = email;
             this.phone = phone;
             this.address = address;
             this.password =password;
+            this.storeName = "Calayo Restaurant";
         }
 
         // Getters and Setters
@@ -79,4 +83,12 @@ public class Manager {
                     ", address='" + address + '\'' +
                     '}';
         }
+
+    public String getStoreName() {
+        return storeName;
+    }
+
+    public void setStoreName(String storeName) {
+        this.storeName = storeName;
+    }
 }

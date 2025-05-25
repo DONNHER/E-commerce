@@ -7,31 +7,27 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.View;
-import android.widget.*;
+import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.Calayo.R;
 import com.example.Calayo.helper.Firebase;
 import com.example.Calayo.helper.tempStorage;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.HashMap;
 import java.util.Map;
-//import com.example.uni.management.SessionManager;
 
-public class settingAct extends AppCompatActivity {
+public class rider_settings extends AppCompatActivity {
 
     private final FirebaseAuth myAuth = FirebaseAuth.getInstance();
 
@@ -55,8 +51,8 @@ public class settingAct extends AppCompatActivity {
             Intent intent = new Intent(this, change_pass.class);
             startActivity(intent);
         });
-        changePass.setOnClickListener(v -> {
-            Intent intent = new Intent(this, change_pass.class);
+        changeEmail.setOnClickListener(v -> {
+            Intent intent = new Intent(this, change_email.class);
             startActivity(intent);
         });
 
@@ -68,7 +64,7 @@ public class settingAct extends AppCompatActivity {
                 String uid = user.getUid();
                 db.collection("users").document(uid).get().addOnSuccessListener(documentSnapshot -> {
                     if (documentSnapshot.exists()) {
-                        Intent intent = new Intent(this, UserDashboardAct.class); // Replace with actual target
+                        Intent intent = new Intent(this, Rider_Dashboard.class); // Replace with actual target
                         startActivity(intent);
                         finish();
                     }
@@ -78,21 +74,10 @@ public class settingAct extends AppCompatActivity {
                 startActivity(homepage);
             }
         });
-        ImageView menu = findViewById(R.id.foodMenu);
-        menu.setOnClickListener(view -> {
-            Intent menupage = new Intent(this, productsAct.class);
-            startActivity(menupage);
-        });
-        ImageView history = findViewById(R.id.history);
-        history.setOnClickListener(view -> {
-            Intent intent = new Intent(this, transactions.class);
-            startActivity(intent);
-        });
+
+
         ImageView profile = findViewById(R.id.profile);
-        profile.setOnClickListener(view -> {
-            Intent profilepage = new Intent(this, settingAct.class);
-            startActivity(profilepage);
-        });
+        profile.setOnClickListener(view -> recreate());
         imageEdit.setOnClickListener(v -> {
             openGallery();
             if (selectedImageUri == null) {
@@ -118,13 +103,13 @@ public class settingAct extends AppCompatActivity {
                                     }
                                 });
                             }
-                            Toast.makeText(settingAct.this, "Error", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(rider_settings.this, "Error", Toast.LENGTH_SHORT).show();
                         });
                     }
 
                     @Override
                     public void onFailure(String errorMessage) {
-                        Toast.makeText(settingAct.this, errorMessage, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(rider_settings.this, errorMessage, Toast.LENGTH_SHORT).show();
                     }
                 });
 

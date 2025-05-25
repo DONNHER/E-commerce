@@ -17,11 +17,10 @@ import com.example.Calayo.helper.tempStorage;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-import java.util.Objects;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-public class Manager_splash extends AppCompatActivity {
+public class seller_splash extends AppCompatActivity {
     private tempStorage temp;
     private FirebaseAuth myAuth;
     private boolean isLoggedIn;
@@ -54,7 +53,7 @@ public class Manager_splash extends AppCompatActivity {
             // Setup 30 seconds timeout to handle slow loading or network issues
             timeoutRunnable = () -> {
                 if (progressBar.getVisibility() == View.VISIBLE) {
-                    Toast.makeText(Manager_splash.this,
+                    Toast.makeText(seller_splash.this,
                             "Loading is taking longer than usual. Please check your connection.",
                             Toast.LENGTH_LONG).show();
                     // Optional: Redirect to login after timeout if needed
@@ -74,7 +73,7 @@ public class Manager_splash extends AppCompatActivity {
                             handler.removeCallbacks(timeoutRunnable);
                             progressBar.setVisibility(View.GONE);
 
-                            startActivity(new Intent(Manager_splash.this, ManagerDashB.class));
+                            startActivity(new Intent(seller_splash.this, ManagerDashB.class));
                             finish();
                         })));
                     } catch (Exception e) {
@@ -113,7 +112,7 @@ public class Manager_splash extends AppCompatActivity {
     }
 
     private void redirectToLogin() {
-        startActivity(new Intent(Manager_splash.this, Manager_login.class));
+        startActivity(new Intent(seller_splash.this, seller_login.class));
         finish();
     }
 }

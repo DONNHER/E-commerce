@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFFFFF">
+    android:background="#E6F4F1">
 
     <!-- Header with Menu and Title -->
     <LinearLayout
@@ -21,11 +21,11 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Rider Dashboard"
+            android:text="Seller Dashboard"
             android:textAlignment="center"
             android:textColor="#000000"
             android:textSize="18sp"
-            android:textStyle="bold"/>
+            android:textStyle="bold" />
 
     </LinearLayout>
 
@@ -35,6 +35,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
+
+        android:background="#E8E8E8"
         app:layout_constraintTop_toBottomOf="@id/header">
 
         <TextView
@@ -44,6 +46,16 @@
             android:layout_weight="1"
             android:padding="10dp"
             android:text="Order"
+            android:background="#FFFFFF"
+            android:textAlignment="center"
+            android:textColor="#000000"/>
+        <TextView
+            android:id="@+id/tabRider"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:padding="10dp"
+            android:text="Product"
             android:textAlignment="center"
             android:textColor="#000000"/>
 
@@ -53,13 +65,82 @@
 
 
     <LinearLayout
+        android:id="@+id/subOrders"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="#E8E8E8"
+        app:layout_constraintTop_toBottomOf="@id/mainTabs">
+
+        <TextView
+            android:id="@+id/tabAll"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:padding="8dp"
+            android:text="All"
+            android:textAlignment="center"
+            android:textColor="#000000"/>
+
+        <TextView
+            android:id="@+id/tabPending"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:padding="8dp"
+            android:text="Pending"
+            android:textAlignment="center"
+            android:textColor="#000000" />
+
+        <TextView
+            android:id="@+id/tabAccepted"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:padding="8dp"
+            android:text="Approved"
+            android:textAlignment="center"
+            android:textColor="#000000" />
+
+        <TextView
+            android:id="@+id/tabOutDelivery"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:padding="8dp"
+            android:text="Out of Delivery"
+            android:textAlignment="center"
+            android:textColor="#000000"/>
+    </LinearLayout>
+    <LinearLayout
         android:id="@+id/subTabsAdds"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintTop_toBottomOf="@id/mainTabs">
+        app:layout_constraintTop_toBottomOf="@id/subOrders">
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/Order_Recycler"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:scrollbars="vertical"
+            android:padding="10dp"
+            tools:ignore="MissingConstraints" />
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/Order_P_Recycler"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:scrollbars="vertical"
+            android:padding="10dp"
+            tools:ignore="MissingConstraints" />
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/Order_A_Recycler"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:scrollbars="vertical"
+            android:padding="10dp"
+            tools:ignore="MissingConstraints" />
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/Order_OTW_Recycler"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:scrollbars="vertical"

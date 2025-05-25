@@ -68,7 +68,7 @@ public class AdminRegister extends AppCompatActivity {
             }
 
             // Check if email is already registered in Firestore
-            db.collection("users").whereEqualTo("email", email).get()
+            db.collection("users").document("admin").collection("account").whereEqualTo("email", email).get()
                     .addOnCompleteListener(task -> {
                         if (task.isSuccessful()) {
                             if (!task.getResult().isEmpty()) {

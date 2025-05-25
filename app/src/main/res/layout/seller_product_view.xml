@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFFFFF">
+    android:background="#E6F4F1">
 
     <!-- Header with Menu and Title -->
     <LinearLayout
@@ -21,11 +21,11 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Manager Dashboard"
+            android:text="Seller Dashboard"
             android:textAlignment="center"
             android:textColor="#000000"
             android:textSize="18sp"
-            android:textStyle="bold"/>
+            android:textStyle="bold" />
 
     </LinearLayout>
 
@@ -35,6 +35,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
+
+        android:background="#E8E8E8"
         app:layout_constraintTop_toBottomOf="@id/header">
 
         <TextView
@@ -52,7 +54,8 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:padding="10dp"
-            android:text="Rider"
+            android:text="Product"
+            android:background="@color/white"
             android:textAlignment="center"
             android:textColor="#000000"/>
 
@@ -67,49 +70,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:background="#E8E8E8"
-        app:layout_constraintTop_toBottomOf="@id/mainTabs">
-
-        <TextView
-            android:id="@+id/tabAll"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="#FFFFFF"
-            android:padding="8dp"
-            android:text="All"
-            android:textAlignment="center"
-            android:textColor="#000000"/>
-
-        <TextView
-            android:id="@+id/tabPending"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:padding="8dp"
-            android:text="Pending"
-            android:textAlignment="center"
-            android:textColor="#000000" />
-
-        <TextView
-            android:id="@+id/tabAccepted"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:padding="8dp"
-            android:text="Approved"
-            android:textAlignment="center"
-            android:textColor="#000000" />
-
-        <TextView
-            android:id="@+id/tabOutDelivery"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:padding="8dp"
-            android:text="Out of Delivery"
-            android:textAlignment="center"
-            android:textColor="#000000"/>
-    </LinearLayout>
+        app:layout_constraintTop_toBottomOf="@id/mainTabs"/>
     <LinearLayout
         android:id="@+id/subTabsAdds"
         android:layout_width="match_parent"
@@ -166,11 +127,13 @@
         android:layout_marginBottom="30dp">
 
         <ImageView
+            android:id="@+id/add"
             android:layout_width="52dp"
             android:layout_height="49dp"
             android:layout_gravity="center"
             android:layout_marginBottom="4dp"
-            android:src="@drawable/yellow"
+            android:src="@drawable/add"
+            android:background="@drawable/yellow"
             android:contentDescription="Center yellow button"/>
     </FrameLayout>
 

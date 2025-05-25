@@ -8,7 +8,7 @@
     <EditText
         android:id="@+id/TextName3"
         android:hint="Item Name:"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 
     <EditText
@@ -32,13 +32,12 @@
         android:hint="Description:"
         android:inputType="text" />
 
-
     <ImageView
         android:id="@+id/imageViewSelected_pm"
         android:layout_width="80dp"
         android:layout_height="80dp"
         android:layout_gravity="center"
-        android:scaleType="centerCrop"
+        android:src="@drawable/add"
         android:contentDescription="Selected image"
         android:layout_marginTop="12dp" />
     <GridLayout

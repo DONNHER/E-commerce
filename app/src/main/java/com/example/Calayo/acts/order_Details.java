@@ -42,7 +42,7 @@ public class order_Details extends AppCompatActivity {
     private RecyclerView addOnsRecycler;
     private addOns addOnAdapter;
 
-    private String image, price, desc, itemName;
+    private String image, price, desc, itemName,store;
     private int quantityCount = 1;
     private ProgressBar progressBar;
     private Runnable timeoutRunnable;
@@ -70,6 +70,7 @@ public class order_Details extends AppCompatActivity {
         ImageView pic = findViewById(R.id.image_order);
         TextView quantityText = findViewById(R.id.units);
         TextView nameText = findViewById(R.id.name);
+        TextView storeNameText = findViewById(R.id.storeName);
         TextView descriptionText = findViewById(R.id.description);
         TextView totalCostText = findViewById(R.id.priceOrder);
         addOnsRecycler = findViewById(R.id.OrderDetails);
@@ -82,12 +83,14 @@ public class order_Details extends AppCompatActivity {
         image = getIntent().getStringExtra("image");
         price = getIntent().getStringExtra("price");
         desc = getIntent().getStringExtra("description");
+        store = getIntent().getStringExtra("storeName");
         SharedPreferences prefs = getSharedPreferences("selected", MODE_PRIVATE);
         itemName = prefs.getString("name", "Item");
 
         // Display item details in the UI
         nameText.setText(itemName);
         descriptionText.setText(desc);
+        storeNameText.setText(store);
         totalCostText.setText(price);
         Glide.with(this).load(image).into(pic);
         quantityText.setText(String.valueOf(quantityCount));
@@ -120,7 +123,7 @@ public class order_Details extends AppCompatActivity {
 
             // Create a new cart item with a unique ID
             String cartItemId = UUID.randomUUID().toString();
-            cartItem newItem = new cartItem(image, String.valueOf(quantityCount), itemName, new Date(), cartItemId, String.valueOf(Double.parseDouble(price) + temp.getTotalAddOnPrice()),temp.getAddOnArrayList());
+            cartItem newItem = new cartItem(image, String.valueOf(quantityCount), itemName, new Date(), cartItemId, String.valueOf(Double.parseDouble(price) + temp.getTotalAddOnPrice()),temp.getAddOnArrayList(),store);
 
             // Add item to local temp storage
             temp.getCartItemArrayList().add(newItem);
