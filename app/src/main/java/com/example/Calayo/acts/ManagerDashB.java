@@ -2,213 +2,137 @@ package com.example.Calayo.acts;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.LinearSnapHelper;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.recyclerview.widget.SnapHelper;
 
 import com.example.Calayo.R;
-import com.example.Calayo.adapters.AddsADaptor;
-import com.example.Calayo.adapters.product_adapt;
-import com.example.Calayo.entities.Item;
-import com.example.Calayo.entities.adds;
-import com.example.Calayo.helper.tempStorage;
+import com.example.Calayo.adapters.order_adaptor;
+import com.example.Calayo.entities.Order;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
+import java.util.Map;
 
 /**
- * UserDashboardAct displays the main dashboard with products and ads.
- * Handles navigation and refreshes data upon resume.
+ * Manager Dashboard Activity:
+ * This screen allows the admin/manager to view all customer appointments and filter them by status.
  */
 public class ManagerDashB extends AppCompatActivity {
 
-    private static final String TAG = "UserDashboardAct";
+    private RecyclerView recyclerView; // Scrollable list of appointments
+    private order_adaptor Adapt; // Adapter that shows each appointment
+    private Button btn1, btn2; // Filter buttons (Confirmed / Pending)
+    private ArrayList<Order> orders = new ArrayList<>(); // All orders from Firebase
 
-    private RecyclerView products;
-    private product_adapt productAdapter;
+    private FirebaseFirestore db = FirebaseFirestore.getInstance(); // Database instance
+    private final FirebaseAuth myAuth = FirebaseAuth.getInstance(); // Auth to get logged-in manager
 
-    private RecyclerView addsRecyclerView;
-    private AddsADaptor addsAdapter;
-
-    private tempStorage temp;
-    private final ExecutorService executor = Executors.newSingleThreadExecutor();
-
-    @SuppressLint({"MissingInflatedId", "SetTextI18n"})
+    @SuppressLint("SetTextI18n")
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.admin_dashboard);
+        setContentView(R.layout.manager_dash); // Load layout for the dashboard
 
-        try {
-            temp = tempStorage.getInstance();
-        } catch (Exception e) {
-            Log.e(TAG, "Failed to initialize tempStorage: " + e.getMessage());
-            return; // Cannot proceed if temp is not initialized
-        }
+        recyclerView = findViewById(R.id.appointmentsView4); // Find RecyclerView in layout
+        recyclerView.setLayoutManager(new LinearLayoutManager(this)); // Arrange list vertically
+        recyclerView.setAdapter(Adapt); // Attach adapter (will update this later)
 
-        initNavigationButtons();
-        setupProductsRecycler();
-        setupAddsRecycler();
-        EditText searchEdit = findViewById(R.id.search);
-        Button submit = findViewById(R.id.submit);
-        TextView locate = findViewById(R.id.location);
+        // Display the manager's name
+        TextView name = findViewById(R.id.name);
+        name.setText("Hi, " + myAuth.getCurrentUser().getDisplayName());
 
-        SharedPreferences preferences1 = getSharedPreferences("SelectedAddress", MODE_PRIVATE);
-        String addressStr = preferences1.getString("SelectedAddress", "");
+        // TODO: Make sure btn1 and btn2 are initialized from layout!
+        // Example:
+        // btn1 = findViewById(R.id.btnConfirmed);
+        // btn2 = findViewById(R.id.btnPending);
 
-        // If no address is selected, display not set
-        if (addressStr.isEmpty()) {
-            locate.setText("Not set");
-        }else {
-            locate.setText(preferences1.getString("Code","Not set"));
-        }
+        // Load appointments and display only the "Confirmed" ones by default
+        filter("Confirmed");
 
+        // Set button actions to filter the list based on status
+        btn2.setOnClickListener(v -> filter("Pending"));
+        btn1.setOnClickListener(v -> filter("Confirmed"));
 
-        submit.setOnClickListener(v -> {
-            // Handle passed intent search result
-            String search_res = searchEdit.getText().toString().trim();
-            if (!search_res.isEmpty()) {
-                Intent intent = new Intent(ManagerDashB.this , search.class);
-                temp.setSearchResult(temp.searchItem(search_res));
-                startActivity(intent);
+        // Load appointment data from Firebase
+        services();
+    }
+
+    // Load all appointments from Firebase
+    private void services() {
+        db.collection("Appointments").get().addOnSuccessListener(queryDocumentSnapshots -> {
+            orders.clear(); // Remove old data
+            for (DocumentSnapshot documentSnapshot : queryDocumentSnapshots) {
+                Order appt = documentSnapshot.toObject(Order.class); // Convert to Order object
+                appt.setId(documentSnapshot.getId()); // Store Firestore document ID
+                orders.add(appt); // Add to order list
             }
+            filter("Confirmed"); // Show confirmed orders by default
         });
     }
 
-    /**
-     * Sets up navigation buttons (home, address, profile, etc.)
-     */
-    private void initNavigationButtons() {
-        try {
-            ImageView home = findViewById(R.id.home);
-            ImageView address = findViewById(R.id.address);
-            ImageView menu = findViewById(R.id.foodMenu);
-            ImageView history = findViewById(R.id.history);
-            ImageView profile = findViewById(R.id.profile);
+    // Filters the appointments list by status and groups by date
+    private void filter(String status) {
+        ArrayList<Order> filtered = new ArrayList<>();
 
-            if (home != null) {
-                home.setOnClickListener(v -> restartActivity());
+        // Only add orders with the selected status
+        for (Order order : orders) {
+            if (order.getStatus().equals(status)) {
+                filtered.add(order);
             }
-
-            if (address != null) {
-                address.setOnClickListener(v -> startActivity(new Intent(this, myAddress.class)));
-            }
-
-            if (menu != null) {
-                menu.setOnClickListener(v -> startActivity(new Intent(this, productsAct.class)));
-            }
-
-            if (history != null) {
-                history.setOnClickListener(v -> startActivity(new Intent(this, transactions.class)));
-            }
-
-            if (profile != null) {
-                profile.setOnClickListener(v -> startActivity(new Intent(this, settingAct.class)));
-            }
-        } catch (Exception e) {
-            Log.e(TAG, "Navigation setup failed: " + e.getMessage());
         }
+
+        // Group filtered orders by date
+        Map<String, List<Order>> grouped = groupByDate(filtered);
+
+        // Update the adapter with grouped data
+        // Note: Adapt must be initialized first!
+        // Adapt.setAppointments(grouped, getSupportFragmentManager());
     }
 
-    /**
-     * Sets up the products RecyclerView with items.
-     */
-    private void setupProductsRecycler() {
-        try {
-            products = findViewById(R.id.Products_Recycler);
-            if (products != null) {
-                products.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
-
-                ArrayList<Item> items = temp.getItemArrayList();
-                if (items == null) items = new ArrayList<>();
-                productAdapter = new product_adapt(items, this);
-                products.setAdapter(productAdapter);
-            } else {
-                Log.w(TAG, "Products RecyclerView not found.");
+    // Group orders by date for easier viewing
+    private Map<String, List<Order>> groupByDate(List<Order> orders) {
+        Map<String, List<Order>> grouped = new LinkedHashMap<>();
+        for (Order order : orders) {
+            String date = order.getDate(); // Use appointment date
+            if (!grouped.containsKey(date)) {
+                grouped.put(date, new ArrayList<>());
             }
-        } catch (Exception e) {
-            Log.e(TAG, "Failed to set up products RecyclerView: " + e.getMessage());
+            grouped.get(date).add(order);
         }
+        return grouped;
     }
 
-    /**
-     * Sets up the horizontal ads carousel.
-     */
-    private void setupAddsRecycler() {
-        try {
-            addsRecyclerView = findViewById(R.id.Adds_Recycler);
-            if (addsRecyclerView != null) {
-                addsRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
-
-                SnapHelper snapHelper = new LinearSnapHelper();
-                snapHelper.attachToRecyclerView(addsRecyclerView);
-
-                addsAdapter = new AddsADaptor(temp.getAddsArrayList(), this);
-                addsRecyclerView.setAdapter(addsAdapter);
-            } else {
-                Log.w(TAG, "Adds RecyclerView not found.");
-            }
-        } catch (Exception e) {
-            Log.e(TAG, "Failed to set up ads RecyclerView: " + e.getMessage());
-        }
+    // Called when user clicks the side menu button
+    public void onMenuClick(View view) {
+        Menu menu = new Menu();
+        menu.show(getSupportFragmentManager(), "MenuDialog");
     }
 
-    /**
-     * Refreshes data on resume.
-     */
+    // Called when user clicks the inventory button
+    public void onInventoryClick(View view) {
+        Intent intent = new Intent(this, manager_inventory.class);
+        startActivity(intent); // Open inventory management screen
+    }
+
+    // When the user returns to this screen, refresh data
     @Override
-    protected void onResume() {
+    public void onResume() {
         super.onResume();
-        try {
-            executor.execute(() -> temp.loadAllData(() ->
-                    temp.loadAllUserData(() -> runOnUiThread(() -> {
-                        if (products != null) {
-                            ArrayList<Item> items = temp.getItemArrayList();
-                            if (items == null) items = new ArrayList<>();
-                            productAdapter = new product_adapt(items, this);
-                            products.setAdapter(productAdapter);
-                            Log.d(TAG, "Product list updated.");
-                        }
-                    }))
-            ));
-        } catch (Exception e) {
-            Log.e(TAG, "Error during resume data load: " + e.getMessage());
-        }
+        services(); // Reload appointments
     }
 
-    /**
-     * Utility method to restart this activity.
-     */
-    private void restartActivity() {
-        try {
-            Intent intent = new Intent(this, UserDashboardAct.class);
-            startActivity(intent);
-            finish();
-        } catch (Exception e) {
-            Log.e(TAG, "Failed to restart activity: " + e.getMessage());
-        }
-    }
-    /**
-     * Redirect to address dashboard
-     */
-    public void location(View view){
-        Intent intent = new Intent(this, myAddress.class);
-        startActivity(intent);
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
     }
 }

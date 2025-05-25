@@ -31,7 +31,6 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 /**
  * Singleton class to temporarily hold in-memory data for a food delivery app session.
@@ -45,11 +44,9 @@ public class tempStorage {
     private final ArrayList<Item.addOn> addOnArrayList;
     private final ArrayList<Item> itemArrayList;
     private final ArrayList<cartItem> cartItemArrayList;
-    private  ArrayList<Order> pendingArrayList;
-    private  ArrayList<Order> approvedArrayList;
-    private  ArrayList<Order> deliveryArrayList;
-    private  ArrayList<Order> receivedArrayList;
+    private final ArrayList<Order> checkOutArrayList;
     private final ArrayList<address> addressList;
+
     private final FirebaseAuth myAuth= FirebaseAuth.getInstance();
     ArrayList<Item.addOn> addOnsItems;
     ArrayList<adds> adds ;
@@ -72,12 +69,9 @@ public class tempStorage {
         db = FirebaseFirestore.getInstance();
         addOnArrayList = new ArrayList<>();
         cartItemArrayList = new ArrayList<>();
+        checkOutArrayList = new ArrayList<>();
         itemArrayList = new ArrayList<>();
         adds = new ArrayList<>();
-        pendingArrayList = new ArrayList<>();
-        approvedArrayList = new ArrayList<>();
-        deliveryArrayList = new ArrayList<>();
-        receivedArrayList = new ArrayList<>();
         addressList = new ArrayList<>();
         cartLiveData = new MutableLiveData<>();
         addOnsItems =  new ArrayList<>();
@@ -93,25 +87,13 @@ public class tempStorage {
     public void setLoggedin(String s){
         loggedIn = s;
     }
-
+    public ArrayList<Order> getCheckOutArrayList() {
+        return checkOutArrayList;
+    }
 
     public ArrayList<address> getAddressList() {
         return addressList;
     }
-
-    public ArrayList<Order> getPendingArrayList() {
-        return pendingArrayList;
-    }
-    public ArrayList<Order> getApprovedArrayList() {
-        return approvedArrayList;
-    }
-    public ArrayList<Order> getDeliveryArrayList() {
-        return deliveryArrayList;
-    }
-    public ArrayList<Order> getReceivedArrayList() {
-        return receivedArrayList;
-    }
-
 
     public ArrayList<Item> getItemArrayList() {
         return itemArrayList;
@@ -119,6 +101,9 @@ public class tempStorage {
     public ArrayList<adds> getAddsArrayList() {
         return adds;
     }
+
+
+
 
     public void setIsloggedIn(boolean isloggedIn) {
         this.isloggedIn = isloggedIn;
@@ -400,48 +385,18 @@ public class tempStorage {
                     checkDone.run();
                 });
 
-        // Orders
+        //Orders
         db.collection("users").document(loggedIn).collection("Orders")
                 .get()
                 .addOnSuccessListener(snapshots -> {
-                    // Clear previous data
-                    pendingArrayList.clear();
-                    approvedArrayList.clear();
-                    deliveryArrayList.clear();
-                    receivedArrayList.clear();
-
+                    checkOutArrayList.clear();
                     for (DocumentSnapshot doc : snapshots) {
                         Order add = doc.toObject(Order.class);
-
-                        if (add == null || add.getStatus() == null) continue;
-
-                        switch (add.getStatus()) {
-                            case "Pending":
-                                pendingArrayList.add(add);
-                                break;
-                            case "Approved":
-                                approvedArrayList.add(add);
-                                break;
-                            case "Deliver":
-                                deliveryArrayList.add(add);
-                                break;
-                            case "Received":
-                                receivedArrayList.add(add);
-                                break;
-                            default:
-                                Log.w("Firestore", "Unknown status: " + add.getStatus());
-                                break;
-                        }
+                        checkOutArrayList.add(add);
                     }
-
-                    // Callback when done
                     checkDone.run();
-                })
-                .addOnFailureListener(e -> {
-                    Log.e("Firestore", "Error loading orders", e);
-                    checkDone.run(); // Optionally still run the callback
                 });
     }
 
 
-    }
+}

@@ -33,6 +33,14 @@
                 android:onClick="back"
                 />
 
+            <ImageView
+                android:layout_column="0"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:contentDescription="TODO"
+                android:src="@drawable/regis"
+                android:layout_gravity="end"/>
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -45,7 +53,7 @@
                 android:layout_gravity="center"/>
         </GridLayout>
     </LinearLayout>
-    <!--    Header-->
+<!--    Header-->
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -61,26 +69,11 @@
             android:layout_marginBottom="20dp"
             android:orientation="vertical"
             android:padding="20dp">
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_gravity="center">
 
-                <ImageView
-                    android:id="@+id/image"
-                    android:layout_width="120dp"
-                    android:layout_height="120dp"
-                    android:contentDescription="TODO"
-                    android:src="@drawable/regis" />
-                <ImageView
-                    android:id="@+id/edit"
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:layout_gravity="bottom"
-                    android:contentDescription="TODO"
-                    android:src="@drawable/edit" />
-            </LinearLayout>
+            <GridLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="20dp"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -89,8 +82,6 @@
                 android:textStyle="bold"
                 android:textSize="16dp"
                 android:textColor="@color/black"/>
-
-
 
             <TextView
                 android:id="@+id/changePass"
@@ -138,11 +129,10 @@
                 android:layout_margin="5dp"
                 android:onClick="logoutClick">
             </Button>
-
         </LinearLayout>
     </ScrollView>
 
-    <!--    Footer-->
+<!--    Footer-->
     <GridLayout
         android:id="@+id/footer"
         android:layout_width="0dp"

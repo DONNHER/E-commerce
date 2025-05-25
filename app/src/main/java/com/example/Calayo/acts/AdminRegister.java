@@ -1,139 +1,121 @@
 package com.example.Calayo.acts;
 
 import android.annotation.SuppressLint;
-import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
+import android.text.method.*;
 import android.util.Patterns;
-import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.TextView;
-import android.widget.Toast;
+import android.view.*;
+import android.widget.*;
 
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.DialogFragment;
 
 import com.example.Calayo.R;
+import com.example.Calayo.entities.user;
+import com.google.firebase.FirebaseNetworkException;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.FirebaseFirestoreException;
-import com.google.firebase.firestore.FieldValue;
 
 import java.util.HashMap;
 import java.util.Map;
 
-public class AdminRegister extends AppCompatActivity {
+/**
+ * A dialog for admin registration using email and password.
+ */
+public class AdminRegister extends DialogFragment {
 
+    // Firebase Firestore for saving user data
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
-    private FirebaseAuth myAuth = FirebaseAuth.getInstance();
+
+    // Firebase Authentication
+    private final FirebaseAuth myAuth = FirebaseAuth.getInstance();
 
     @SuppressLint({"WrongViewCast", "MissingInflatedId"})
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.user_register_act);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceStat) {
+        // Load the layout for admin registration
+        View view = inflater.inflate(R.layout.admin_register, container, false);
 
-        EditText Email = findViewById(R.id.editTextEmail);
-        EditText Name = findViewById(R.id.editTextName);
-        Button btnGetStarted = findViewById(R.id.buttonSignUp);
-        ImageView btn = findViewById(R.id.back);
+        // Get input fields
+        EditText name = view.findViewById(R.id.username);
+        EditText passwordEditText = view.findViewById(R.id.pass);
+        EditText conpasswordEditText = view.findViewById(R.id.conPass);
+        CheckBox showPasswordCheckBox = view.findViewById(R.id.showPasswordCheckBox);
+        Button btnGetStarted = view.findViewById(R.id.btnSignUp);
 
-        // Go back to the previous screen
-        btn.setOnClickListener(view -> finish());
-
-        // Sign-up button handler
+        // When sign up button is clicked
         btnGetStarted.setOnClickListener(v -> {
-            String email = Email.getText().toString().trim();
-            String input = Name.getText().toString().trim();
+            String username = name.getText().toString().trim();
+            String password = passwordEditText.getText().toString().trim();
+            String confirmation = conpasswordEditText.getText().toString().trim();
 
-            // Reset previous input errors
-            Name.setError(null);
-            Email.setError(null);
-
-            // Basic input validation
-            if (input.isEmpty() || email.isEmpty()) {
-                if (input.isEmpty()) Name.setError("Required");
-                if (email.isEmpty()) Email.setError("Required");
-
-                logEvent("VALIDATION_FAIL", "Missing name or email", null, "userRegisterAct");
-                return;
+            // Check if fields are filled
+            if (username.isEmpty() || password.isEmpty()) {
+                Toast.makeText(getContext(), "Please fill in all required fields.", Toast.LENGTH_SHORT).show();
             }
-
-            if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-                Email.setError("Invalid email format");
-                logEvent("VALIDATION_FAIL", "Invalid email format: " + email, null, "userRegisterAct");
-                return;
+            // Check password length
+            else if (password.length() < 6) {
+                Toast.makeText(getContext(), "Password must be at least 6 characters.", Toast.LENGTH_SHORT).show();
             }
+            // Check if passwords match
+            else if (!password.equals(confirmation)) {
+                Toast.makeText(getContext(), "Passwords do not match.", Toast.LENGTH_SHORT).show();
+            }
+            // Check if email format is valid
+            else if (Patterns.EMAIL_ADDRESS.matcher(username).matches()) {
+                // Register user using Firebase
+                myAuth.createUserWithEmailAndPassword(username, password)
+                        .addOnCompleteListener(requireActivity(), task -> {
+                            if (task.isSuccessful()) {
+                                // Save user data to Firestore
+                                FirebaseUser user = myAuth.getCurrentUser();
+                                Map<String, Object> data = new HashMap<>();
+                                data.put("uid", user.getUid());
+                                data.put("username", user.getEmail());
+                                data.put("role", "admin");
 
-            // Check if email is already registered in Firestore
-            db.collection("users").whereEqualTo("email", email).get()
-                    .addOnCompleteListener(task -> {
-                        if (task.isSuccessful()) {
-                            if (!task.getResult().isEmpty()) {
-                                // Duplicate email
-                                Email.setError("This email is already registered.");
-                                logEvent("DUPLICATE_EMAIL", "Attempted to register with already-used email: " + email, null, "userRegisterAct");
+                                db.collection("users").document(user.getUid()).set(data);
 
+                                Toast.makeText(getContext(), "Successfully Registered.", Toast.LENGTH_SHORT).show();
+                                dismiss();
+
+                                // Optional: switch to login screen after registration
+                                // new userLoginAct().show(getParentFragmentManager(), "LogInDialog");
                             } else {
-                                // Clean name for next step
-                                String name = input.replaceAll("\\W", "");
-                                Toast.makeText(AdminRegister.this, name, Toast.LENGTH_LONG).show();
-
-                                logEvent("REGISTER_STEP_SUCCESS", "Proceeding to password setup for email: " + email, null, "userRegisterAct");
-
-                                // Go to password setup activity
-                                Intent intent = new Intent(AdminRegister.this, setUpPassword_Admin.class);
-                                intent.putExtra("email", email);
-                                intent.putExtra("name", name);
-                                startActivity(intent);
-                            }
-                        } else {
-                            Exception e = task.getException();
-                            if (e instanceof FirebaseFirestoreException) {
-                                FirebaseFirestoreException firestoreException = (FirebaseFirestoreException) e;
-                                if (firestoreException.getCode() == FirebaseFirestoreException.Code.UNAVAILABLE) {
-                                    Toast.makeText(AdminRegister.this, "No internet connection", Toast.LENGTH_LONG).show();
-                                    logEvent("FIRESTORE_UNAVAILABLE", "No internet connection", null, "userRegisterAct");
-                                    return;
+                                // Show error message
+                                Exception e = task.getException();
+                                if (e instanceof FirebaseNetworkException) {
+                                    Toast.makeText(getContext(), "No internet connection", Toast.LENGTH_LONG).show();
+                                } else {
+                                    Toast.makeText(getContext(), "Error: " + e.getMessage(), Toast.LENGTH_LONG).show();
                                 }
                             }
-                            Log.e("Firestore", "Error getting document", e);
-                            Toast.makeText(AdminRegister.this, "Error checking email. Please try again.", Toast.LENGTH_SHORT).show();
-                            logEvent("FIRESTORE_ERROR", "Error checking email: " + e.getMessage(), null, "userRegisterAct");
-                        }
-                    });
+                        });
+            } else {
+                // If email is invalid, still create a user object (not saved in Firebase)
+                user newUser = new user(username, password);
+                Toast.makeText(getContext(), "Successfully Registered.", Toast.LENGTH_SHORT).show();
+                dismiss();
+            }
         });
-    }
 
-    /**
-     * Logs the event to Firestore for backend diagnostics and auditing.
-     *
-     * @param eventType Type of event (e.g., VALIDATION_FAIL, REGISTER_STEP_SUCCESS, FIRESTORE_ERROR)
-     * @param message Detailed message about the event
-     * @param userId Firebase UID or null
-     * @param context Class or activity name (optional)
-     */
-    private void logEvent(String eventType, String message, @Nullable String userId, @Nullable String context) {
-        Map<String, Object> log = new HashMap<>();
-        log.put("timestamp", FieldValue.serverTimestamp());
-        log.put("event_type", eventType);
-        log.put("message", message);
-        if (userId != null) log.put("user_id", userId);
-        if (context != null) log.put("context", context);
+        // Show or hide passwords when checkbox is checked
+        showPasswordCheckBox.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if (isChecked) {
+                // Show password text
+                passwordEditText.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+                conpasswordEditText.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+            } else {
+                // Hide password (show dots)
+                passwordEditText.setTransformationMethod(PasswordTransformationMethod.getInstance());
+                conpasswordEditText.setTransformationMethod(PasswordTransformationMethod.getInstance());
+            }
 
-        db.collection("logs").add(log)
-                .addOnSuccessListener(documentReference -> Log.d("LogEvent", "Log saved: " + eventType))
-                .addOnFailureListener(e -> Log.e("LogEvent", "Failed to save log: " + e.getMessage()));
-    }
+            // Keep cursor at the end after toggling visibility
+            passwordEditText.post(() -> passwordEditText.setSelection(passwordEditText.getText().length()));
+            conpasswordEditText.post(() -> conpasswordEditText.setSelection(conpasswordEditText.getText().length()));
+        });
 
-    /**
-     * Redirects to the login activity.
-     */
-    public void login(View view) {
-        Intent log = new Intent(this, userLoginAct.class);
-        startActivity(log);
-        logEvent("REDIRECT", "Redirected to login screen", null, "userRegisterAct");
+        return view;
     }
 }

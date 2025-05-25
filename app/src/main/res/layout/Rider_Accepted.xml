@@ -25,6 +25,15 @@
             android:textSize="14sp"
             android:layout_weight="1"/>
 
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/signal_icon"/>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/battery_icon"/>
     </LinearLayout>
 
     <!-- Main Content Card -->
@@ -56,14 +65,14 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:scaleType="fitCenter"
-                    android:src="@drawable/calayo" />
+                    android:src="@drawable/circle_green_border" />
 
                 <ImageView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:padding="30dp"
                     android:scaleType="fitCenter"
-                    />
+                    android:src="@drawable/check" />
             </FrameLayout>
 
             <!-- Success Message -->
@@ -71,40 +80,19 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"
-                android:text="You're All Set! "
+                android:text="Order Accepted!"
                 android:textColor="#000000"
                 android:textSize="24sp"
                 android:textStyle="bold" />
 
-
-
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-
-                android:layout_marginBottom="20dp"
-
+                android:layout_marginBottom="40dp"
                 android:gravity="center"
-                android:text="Thank you for choosing CALAYO delivery services. We’re excited to have you on board. And as always,"
-
+                android:text="Order #0001 has been added\nand it's on its way to be delivered!"
                 android:textColor="#666666"
                 android:textSize="16sp" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-
-                android:layout_marginBottom="20dp"
-
-                android:gravity="center"
-                android:text="You Build for Food. We Trust for Delivery."
-                android:textStyle="bold"
-
-
-                android:textColor="#666666"
-                android:textSize="16sp" />
-
-
 
             <!-- Action Buttons -->
             <Button
@@ -112,10 +100,15 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"
                 android:background="@drawable/green"
-                android:text="PROCEED TO MAIN PAGE"
-                android:textStyle="bold"
-                android:textColor="@color/white"
-                android:textSize="20dp"/>
+                android:text="VIEW LOCATION"
+                android:textColor="#000000" />
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/gray_button"
+                android:text="BACK TO HOME"
+                android:textColor="#000000" />
 
             <View
                 android:layout_width="0dp"

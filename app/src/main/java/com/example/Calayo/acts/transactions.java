@@ -5,8 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -33,6 +31,7 @@ public class transactions extends AppCompatActivity {
 
     private RecyclerView transactions_recycler;
     private order_adaptor adaptor;
+
     private final FirebaseFirestore db = FirebaseFirestore.getInstance();
     private final FirebaseAuth myAuth = FirebaseAuth.getInstance();
     private final tempStorage temp = tempStorage.getInstance();
@@ -94,72 +93,24 @@ public class transactions extends AppCompatActivity {
     private void setupRecyclerView() {
         try {
             transactions_recycler = findViewById(R.id.notification_Recycler);
-            LinearLayout pending = findViewById(R.id.stepPending);
-            TextView pendingText = findViewById(R.id.num);
-            LinearLayout approve = findViewById(R.id.stepApproved);
-            TextView approveText = findViewById(R.id.num2);
-            LinearLayout deliver = findViewById(R.id.stepDelivery);
-            TextView deliverText = findViewById(R.id.num3);
-            LinearLayout received = findViewById(R.id.stepReceived);
-            TextView receivedText = findViewById(R.id.num4);
 
             if (transactions_recycler == null) {
                 Log.e(TAG, "RecyclerView not found in layout (R.id.notification_Recycler)");
                 return;
             }
-            pendingText.setText(String.valueOf(temp.getPendingArrayList().size()));
-            approveText.setText(String.valueOf(temp.getApprovedArrayList().size()));
-            deliverText.setText(String.valueOf(temp.getDeliveryArrayList().size()));
-            receivedText.setText(String.valueOf(temp.getReceivedArrayList().size()));
 
-            pending.setOnClickListener( v -> {
-                LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
-                transactions_recycler.setLayoutManager(layoutManager);
+            LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
+            transactions_recycler.setLayoutManager(layoutManager);
 
-                ArrayList<Order> pendingList = temp.getPendingArrayList();
-                if (pendingList == null) {
-                    Log.w(TAG, "Checkout list is null. Using empty list.");
-                }
+            ArrayList<Order> checkoutList = temp.getCheckOutArrayList();
+            if (checkoutList == null) {
+                checkoutList = new ArrayList<>();
+                Log.w(TAG, "Checkout list is null. Using empty list.");
+            }
 
-                adaptor = new order_adaptor(pendingList, this);
-                transactions_recycler.setAdapter(adaptor);
-            });
-            approve.setOnClickListener( v -> {
-                LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
-                transactions_recycler.setLayoutManager(layoutManager);
+            adaptor = new order_adaptor(checkoutList, this);
+            transactions_recycler.setAdapter(adaptor);
 
-                ArrayList<Order> approvedArrayList = temp.getApprovedArrayList();
-                if (approvedArrayList == null) {
-                    Log.w(TAG, "Checkout list is null. Using empty list.");
-                }
-
-                adaptor = new order_adaptor(approvedArrayList, this);
-                transactions_recycler.setAdapter(adaptor);
-            });
-            deliver.setOnClickListener( v -> {
-                LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
-                transactions_recycler.setLayoutManager(layoutManager);
-
-                ArrayList<Order> deliveryArrayList = temp.getDeliveryArrayList();
-                if (deliveryArrayList == null) {
-                    Log.w(TAG, "Checkout list is null. Using empty list.");
-                }
-
-                adaptor = new order_adaptor(deliveryArrayList, this);
-                transactions_recycler.setAdapter(adaptor);
-            });
-            received.setOnClickListener( v -> {
-                LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
-                transactions_recycler.setLayoutManager(layoutManager);
-
-                ArrayList<Order> receivedArrayList = temp.getReceivedArrayList();
-                if (receivedArrayList == null) {
-                    Log.w(TAG, "Checkout list is null. Using empty list.");
-                }
-
-                adaptor = new order_adaptor(receivedArrayList, this);
-                transactions_recycler.setAdapter(adaptor);
-            });
         } catch (Exception e) {
             Log.e(TAG, "Error setting up RecyclerView: " + e.getMessage(), e);
         }
@@ -172,73 +123,15 @@ public class transactions extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         try {
-            transactions_recycler = findViewById(R.id.notification_Recycler);
-            LinearLayout pending = findViewById(R.id.stepPending);
-            TextView pendingText = findViewById(R.id.num);
-            LinearLayout approve = findViewById(R.id.stepApproved);
-            TextView approveText = findViewById(R.id.num2);
-            LinearLayout deliver = findViewById(R.id.stepDelivery);
-            TextView deliverText = findViewById(R.id.num3);
-            LinearLayout received = findViewById(R.id.stepReceived);
-            TextView receivedText = findViewById(R.id.num4);
-
-            if (transactions_recycler == null) {
-                Log.e(TAG, "RecyclerView not found in layout (R.id.notification_Recycler)");
-                return;
+            if (transactions_recycler != null) {
+                ArrayList<Order> updatedList = temp.getCheckOutArrayList();
+                if (updatedList == null) {
+                    updatedList = new ArrayList<>();
+                    Log.w(TAG, "Updated checkout list is null onResume. Using empty list.");
+                }
+                adaptor = new order_adaptor(updatedList, this);
+                transactions_recycler.setAdapter(adaptor);
             }
-            pendingText.setText(String.valueOf(temp.getPendingArrayList().size()));
-            approveText.setText(String.valueOf(temp.getApprovedArrayList().size()));
-            deliverText.setText(String.valueOf(temp.getDeliveryArrayList().size()));
-            receivedText.setText(String.valueOf(temp.getReceivedArrayList().size()));
-
-            pending.setOnClickListener( v -> {
-                LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
-                transactions_recycler.setLayoutManager(layoutManager);
-
-                ArrayList<Order> pendingList = temp.getPendingArrayList();
-                if (pendingList == null) {
-                    Log.w(TAG, "Checkout list is null. Using empty list.");
-                }
-
-                adaptor = new order_adaptor(pendingList, this);
-                transactions_recycler.setAdapter(adaptor);
-            });
-            approve.setOnClickListener( v -> {
-                LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
-                transactions_recycler.setLayoutManager(layoutManager);
-
-                ArrayList<Order> approvedArrayList = temp.getApprovedArrayList();
-                if (approvedArrayList == null) {
-                    Log.w(TAG, "Checkout list is null. Using empty list.");
-                }
-
-                adaptor = new order_adaptor(approvedArrayList, this);
-                transactions_recycler.setAdapter(adaptor);
-            });
-            deliver.setOnClickListener( v -> {
-                LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
-                transactions_recycler.setLayoutManager(layoutManager);
-
-                ArrayList<Order> deliveryArrayList = temp.getDeliveryArrayList();
-                if (deliveryArrayList == null) {
-                    Log.w(TAG, "Checkout list is null. Using empty list.");
-                }
-
-                adaptor = new order_adaptor(deliveryArrayList, this);
-                transactions_recycler.setAdapter(adaptor);
-            });
-            received.setOnClickListener( v -> {
-                LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
-                transactions_recycler.setLayoutManager(layoutManager);
-
-                ArrayList<Order> receivedArrayList = temp.getReceivedArrayList();
-                if (receivedArrayList == null) {
-                    Log.w(TAG, "Checkout list is null. Using empty list.");
-                }
-
-                adaptor = new order_adaptor(receivedArrayList, this);
-                transactions_recycler.setAdapter(adaptor);
-            });
         } catch (Exception e) {
             Log.e(TAG, "Error refreshing adapter onResume: " + e.getMessage(), e);
         }
