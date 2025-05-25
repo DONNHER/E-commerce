@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#E6F4F1"> <!-- Green background -->
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:layout_alignParentTop="true"
+        android:layout_centerInParent="true"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="24dp"
+        android:gravity="center_horizontal">
+
+        <!-- Back Arrow -->
+        <ImageView
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/undo"
+            android:layout_gravity="start"
+            android:contentDescription="Back"
+            android:onClick="onBackClick"
+            android:focusable="true"/>
+
+        <!-- Social Login Title -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Log in with"
+            android:textSize="18sp"
+            android:textColor="#000"
+            android:layout_marginTop="32dp"
+            android:layout_marginBottom="16dp" />
+
+        <!-- Social Buttons -->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center">
+
+            <ImageView
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:src="@drawable/fb"
+                android:layout_marginEnd="16dp"
+                android:contentDescription="Login with Facebook" />
+
+            <ImageView
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:src="@drawable/google"
+                android:contentDescription="Login with Google" />
+        </LinearLayout>
+
+        <!-- Log In Title -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Log In"
+            android:textStyle="bold"
+            android:textSize="22sp"
+            android:layout_marginTop="32dp" />
+
+        <!-- Email Input -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Email"
+            android:textSize="16sp"
+            android:layout_gravity="start"
+            android:textColor="@color/black"/>
+
+        <EditText
+            android:id="@+id/email"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:autofillHints=""
+            android:background="@drawable/edit_background"
+            android:inputType="textEmailAddress"
+            android:padding="12dp"
+            android:singleLine="true"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Password"
+            android:textSize="16sp"
+            android:layout_gravity="start"
+            android:textColor="@color/black"
+            android:layout_marginTop="10dp"/>
+
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:layout_marginTop="10dp">
+
+
+            <EditText
+                android:id="@+id/password"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/edit_background"
+                android:padding="16dp"
+                android:inputType="textPassword" />
+
+        </RelativeLayout>
+        <GridLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <CheckBox
+                android:id="@+id/showPasswordCheckBox"
+                android:layout_width="wrap_content"
+                android:layout_height="24dp"
+                android:layout_marginEnd="20dp"
+                android:contentDescription="Toggle Password"
+                android:src="@drawable/eye_open"
+                android:layout_gravity="center"
+                android:text="Show password"
+                android:textSize="14dp"/>
+
+            <!-- Forgot Password -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Forgot Password?"
+                android:textSize="14sp"
+                android:layout_gravity="end"
+                android:layout_marginTop="8dp"
+                android:textColor="#000000" />
+
+        </GridLayout>
+        <!-- Login Button -->
+        <Button
+            android:id="@+id/btnLogin"
+            android:layout_width="147dp"
+            android:layout_height="56dp"
+            android:layout_marginTop="32dp"
+            android:background="@drawable/green"
+            android:text="Log In"
+            android:textColor="#000000" />
+
+        <!-- Sign Up Text -->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Don’t have an account? "
+                android:textSize="14sp"
+                android:layout_marginTop="24dp"
+                android:textColor="#000000"
+                android:gravity="center">
+
+
+            </TextView>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=" Sign Up"
+                android:textStyle="bold"
+                android:textSize="16sp"
+                android:layout_marginTop="24dp"
+                android:textColor="@android:color/black"
+                android:onClick="register"
+                android:clickable="true"
+                android:focusable="true"/>
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+</RelativeLayout>

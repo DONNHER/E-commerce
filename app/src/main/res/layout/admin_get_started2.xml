@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#E6F4F1">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="24dp"
+        android:gravity="center_horizontal">
+
+        <!-- Back Icon -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+            <Button
+                android:id="@+id/back2"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_gravity="start"
+                android:background="@drawable/undo"/>
+
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Product Details"
+                android:textStyle="bold"
+                android:textSize="20dp"
+                android:textColor="@android:color/black"
+                android:layout_marginLeft="70dp">
+
+            </TextView>
+
+        </LinearLayout>
+
+
+        <!-- Avatar -->
+
+
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="12dp">
+
+        </LinearLayout>
+
+        <EditText
+            android:id="@+id/add_res"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:autofillHints=""
+            android:background="@drawable/edit_text"
+            android:inputType="text"
+            android:padding="12dp"
+            android:singleLine="true"
+            android:hint="Serving size (Good for)"
+            />
+
+        <!-- Sign Up Button -->
+        <EditText
+            android:id="@+id/add_res1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:autofillHints=""
+            android:background="@drawable/edit_text"
+            android:hint="Allergy warnings (Peanuts, Seafood, etc.)"
+            android:inputType="text"
+            android:padding="12dp"
+            android:singleLine="true" />
+
+        <EditText
+            android:id="@+id/add_res2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:autofillHints=""
+            android:background="@drawable/edit_text"
+            android:hint="Suitable for (Halal,Vegan,etc.)"
+            android:inputType="text"
+            android:padding="12dp"
+            android:singleLine="true" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/green"
+            android:text="Upload Photos"
+            android:textStyle="bold"
+            android:textColor="@color/white"
+            android:textSize="18dp"/>
+
+
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start"
+            android:paddingTop="10dp">
+
+
+
+        </LinearLayout>
+        <GridLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:columnCount="2">
+
+            <Button
+                android:id="@+id/buttonCancel"
+                android:layout_width="wrap_content"
+                android:layout_height="48dp"
+                android:layout_marginTop="15dp"
+                android:text="Cancel"
+                android:background="@drawable/border"
+                android:layout_column="0"
+                android:layout_marginEnd="50dp"/>
+            <Button
+                android:id="@+id/buttonNext"
+                android:layout_width="wrap_content"
+                android:layout_height="48dp"
+                android:layout_marginTop="15dp"
+                android:text="FINISH"
+                android:background="@drawable/cone"
+                android:layout_column="1"/>
+        </GridLayout>
+
+
+
+    </LinearLayout>
+</ScrollView>

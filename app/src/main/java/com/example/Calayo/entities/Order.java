@@ -4,7 +4,7 @@ public class Order {
     private  String productName;
     private String Date;
     private String Time;
-    private String status = "Pending";
+    private String status;
     private  String paymentMethod = "COD";
     private double totalCost = 0;
     private String createdAt;
@@ -25,6 +25,7 @@ public class Order {
         this.image = image;
         this.units = units;
         this.id = id;
+        status = "Pending";
     }
 
     public String getDate() { return Date; }

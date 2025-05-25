@@ -1,120 +1,185 @@
-<!-- res/layout/activity_signup.xml -->
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="335dp"
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools">
-
+    android:background="#E6F4F1"> <!-- Green background -->
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:layout_alignParentTop="true"
+        android:layout_centerInParent="true"/>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="24dp">
+        android:padding="24dp"
+        android:gravity="center_horizontal">
 
+        <!-- Back Arrow -->
+        <ImageView
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/undo"
+            android:layout_gravity="start"
+            android:contentDescription="Back"
+            android:onClick="onBackClick"
+            android:focusable="true"/>
 
+        <!-- Social Login Title -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Admin Login"
+            android:text="Log in with"
             android:textSize="18sp"
-            android:textStyle="bold"
-            android:layout_gravity="center"
+            android:textColor="#000"
+            android:layout_marginTop="32dp"
             android:layout_marginBottom="16dp" />
 
-        <EditText
-            android:id="@+id/username"
-            android:autofillHints=""
-            android:hint="@string/username"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="12dp"
-            android:background="@drawable/border"
-            android:singleLine="true" />
-
-        <!--            android:drawableStart="@drawable/ic_user" -->
-
-        <EditText
-            android:id="@+id/pass"
-            android:hint="Password"
-            android:inputType="textPassword"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="12dp"
-            android:layout_marginTop="12dp"
-            android:background="@drawable/border"
-            android:singleLine="true" />
-
-        <!--            android:drawableStart="@drawable/ic_lock" -->
-        <!--            android:drawableStart="@drawable/edittext_background" -->
-
-        <CheckBox
-            android:id="@+id/showPasswordCheckBox"
+        <!-- Social Buttons -->
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Show Password"
-            android:padding="5dp"/>
-        <!--            android:drawableStart="@drawable/ic_lock" -->
-        <!--            android:drawableStart="@drawable/edittext_background" -->
+            android:orientation="horizontal"
+            android:gravity="center">
 
-        <CheckBox
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="22dp"
-            android:layout_marginBottom="0dp"
-            android:text="I accept Privacy Policy &amp; Term of Use" />
+            <ImageView
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:src="@drawable/fb"
+                android:layout_marginEnd="16dp"
+                android:contentDescription="Login with Facebook" />
 
-        <Button
-            android:id="@+id/btnLogin"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Login"
-            android:backgroundTint="#2CB57A"
-            android:textColor="@android:color/white"
-            android:layout_marginTop="16dp" />
+            <ImageView
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:src="@drawable/google"
+                android:contentDescription="Login with Google" />
+        </LinearLayout>
 
+        <!-- Log In Title -->
         <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Log In as ADMINISTRATOR"
+            android:textStyle="bold"
+            android:textSize="22sp"
+            android:layout_marginTop="32dp" />
+
+        <!-- Email Input -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Email"
+            android:textSize="16sp"
+            android:layout_gravity="start"
+            android:textColor="@color/black"/>
+
+        <EditText
+            android:id="@+id/email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="- OR -"
-            android:gravity="center"
-            android:layout_marginTop="12dp" />
-
-        <Button
-            android:text="Sign Up with Google"
-            android:layout_width="match_parent"
+            android:layout_marginTop="5dp"
+            android:autofillHints=""
+            android:background="@drawable/edit_background"
+            android:inputType="textEmailAddress"
+            android:padding="12dp"
+            android:singleLine="true"
+            />
+        <TextView
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp" />
-        <!--            android:drawableStart="@drawable/ic_google" -->
+            android:text="Password"
+            android:textSize="16sp"
+            android:layout_gravity="start"
+            android:textColor="@color/black"
+            android:layout_marginTop="10dp"/>
 
 
-        <Button
-            android:text="Sign Up with Facebook"
+
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp" />
-        <!--            android:drawableStart="@drawable/ic_apple" -->
+            android:layout_height="56dp"
+            android:layout_marginTop="10dp">
 
+
+            <EditText
+                android:id="@+id/password"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/edit_background"
+                android:padding="16dp"
+                android:inputType="textPassword" />
+
+        </RelativeLayout>
         <GridLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center">
+            android:layout_height="wrap_content">
 
-            <TextView
-                android:layout_width="191dp"
-                android:layout_height="wrap_content"
-                android:layout_row="0"
-                android:layout_column="0"
+            <CheckBox
+                android:id="@+id/showPasswordCheckBox"
+                android:layout_width="wrap_content"
+                android:layout_height="24dp"
+                android:layout_marginEnd="20dp"
+                android:contentDescription="Toggle Password"
+                android:src="@drawable/eye_open"
                 android:layout_gravity="center"
-                android:layout_marginTop="16dp"
-                android:text="         Already have an account?"/>
+                android:text="Show password"
+                android:textSize="14dp"/>
 
+            <!-- Forgot Password -->
             <TextView
-                android:layout_width="84dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="16dp"
-                android:text=" Sign up"
-                android:onClick="onResClick" />
+                android:text="Forgot Password?"
+                android:textSize="14sp"
+                android:layout_gravity="end"
+                android:layout_marginTop="8dp"
+                android:textColor="#000000" />
 
         </GridLayout>
+        <!-- Login Button -->
+        <Button
+            android:id="@+id/btnLogin"
+            android:layout_width="147dp"
+            android:layout_height="56dp"
+            android:layout_marginTop="32dp"
+            android:background="@drawable/green"
+            android:text="Log In"
+            android:textColor="#000000" />
+
+        <!-- Sign Up Text -->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Don’t have an account? "
+                android:textSize="14sp"
+                android:layout_marginTop="24dp"
+                android:textColor="#000000"
+                android:gravity="center">
+
+
+            </TextView>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=" Sign Up"
+                android:textStyle="bold"
+                android:textSize="16sp"
+                android:layout_marginTop="24dp"
+                android:textColor="@android:color/black"
+                android:onClick="register"
+                android:clickable="true"
+                android:focusable="true"/>
+
+        </LinearLayout>
+
+
     </LinearLayout>
-</ScrollView>
+</RelativeLayout>

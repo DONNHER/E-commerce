@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#E6F4F1">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="24dp"
+        android:gravity="center_horizontal">
+
+        <!-- Back Icon -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+            <Button
+                android:id="@+id/back2"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_gravity="start"
+                android:background="@drawable/undo"/>
+
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="EDIT PROFILE"
+                android:textStyle="bold"
+                android:textSize="20dp"
+                android:textColor="@android:color/black"
+                android:layout_marginLeft="100dp">
+            </TextView>
+
+        </LinearLayout>
+
+
+        <!-- Avatar -->
+
+        <ImageView
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:layout_marginTop="24dp"
+            android:src="@drawable/regis"
+            android:contentDescription="Profile Image" />
+
+        <!-- Title -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Edit Photo"
+            android:textStyle="bold"
+            android:textSize="20sp"
+            android:layout_marginTop="20dp"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="ADD"
+            android:background="@drawable/cone"/>
+
+        <EditText
+            android:id="@+id/edit_admin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:autofillHints=""
+            android:background="@drawable/edit_text"
+            android:inputType="text"
+            android:padding="12dp"
+            android:singleLine="true"
+            android:hint="Username"
+            />
+
+        <!-- Sign Up Button -->
+        <EditText
+            android:id="@+id/edit_admin1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:autofillHints=""
+            android:background="@drawable/edit_text"
+            android:hint="Email address"
+            android:inputType="text"
+            android:padding="12dp"
+            android:singleLine="true" />
+
+        <EditText
+            android:id="@+id/edit_admin2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:autofillHints=""
+            android:background="@drawable/edit_text"
+            android:hint="Phone number"
+            android:inputType="text"
+            android:padding="12dp"
+            android:singleLine="true" />
+        <EditText
+            android:id="@+id/edit_admin3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:autofillHints=""
+            android:background="@drawable/edit_text"
+            android:hint="Edit Bio"
+            android:inputType="text"
+            android:padding="12dp"
+            android:singleLine="true" />
+
+        <EditText
+            android:id="@+id/edit_admin4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:autofillHints=""
+            android:background="@drawable/edit_text"
+            android:hint="Edit link"
+            android:inputType="text"
+            android:padding="12dp"
+            android:singleLine="true" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start"
+            android:paddingTop="10dp">
+
+
+
+        </LinearLayout>
+        <GridLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:columnCount="2">
+
+            <Button
+                android:id="@+id/cancelSignUp"
+                android:layout_width="wrap_content"
+                android:layout_height="48dp"
+                android:layout_marginTop="15dp"
+                android:text="Cancel"
+                android:background="@drawable/border"
+                android:layout_column="0"
+                android:layout_marginEnd="50dp"/>
+            <Button
+                android:id="@+id/buttonSignUp"
+                android:layout_width="wrap_content"
+                android:layout_height="48dp"
+                android:layout_marginTop="15dp"
+                android:text="EDIT CHANGES"
+                android:background="@drawable/cone"
+                android:layout_column="1"/>
+        </GridLayout>
+    </LinearLayout>
+</ScrollView>

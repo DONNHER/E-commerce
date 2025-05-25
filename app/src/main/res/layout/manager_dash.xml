@@ -1,155 +1,177 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/admin"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="#FFFFFF">
 
+    <!-- Header with Menu and Title -->
     <LinearLayout
+        android:id="@+id/header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="16dp">
+        android:orientation="horizontal"
+        android:paddingTop="10dp"
+        tools:ignore="MissingConstraints">
 
-        <!-- Top Greeting Section -->
-        <LinearLayout
-            android:layout_width="match_parent"
+
+        <TextView
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center_vertical"
-            android:layout_marginBottom="16dp">
+            android:layout_weight="1"
+            android:text="Manager Dashboard"
+            android:textAlignment="center"
+            android:textColor="#000000"
+            android:textSize="18sp"
+            android:textStyle="bold"/>
 
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="vertical">
-
-                <GridLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="86dp">
-
-                    <Button
-                        android:layout_marginTop="15dp"
-                        android:layout_width="35dp"
-                        android:layout_height="28dp"
-                        android:layout_row="0"
-                        android:layout_column="0"
-                        android:background="@drawable/sidemenu"
-                        android:onClick="onMenuClick"
-                        android:textStyle="bold" />
-
-
-                    <TextView
-                        android:id="@+id/name"
-                        android:layout_width="39dp"
-                        android:layout_height="wrap_content"
-                        android:layout_row="1"
-                        android:layout_column="0"
-                        android:text="Hi, "
-                        android:textColor="#444444"
-                        android:textSize="20dp"
-                        android:textStyle="bold"
-                        android:layout_marginLeft="20dp"/>
-
-                    <TextView
-                        android:id="@+id/textView"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_row="1"
-                        android:layout_column="3"
-                        android:text="December 12, 1923"
-                        android:textColor="#444444"
-                        android:textSize="14sp" />
-
-                </GridLayout>
-
-
-            </LinearLayout>
-        </LinearLayout>
-
-        <!-- Search Bar -->
-
-        <!-- Services Grid -->
-        <GridLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:columnCount="2"
-            android:useDefaultMargins="true"
-            android:layout_marginBottom="24dp">
-
-            <!-- Grooming -->
-            <LinearLayout
-
-                android:layout_width="9dp"
-                android:layout_height="120dp"
-                android:layout_columnWeight="1"
-                android:background="@drawable/border"
-                android:orientation="vertical"
-                android:padding="12dp"
-                android:clickable="true"
-                android:focusable="true"
-                android:onClick="onServiceManageClick">
-
-                <ImageView
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:src="@drawable/user"
-                    android:layout_gravity="left"
-                    android:layout_marginTop="10dp"/>
-
-            </LinearLayout>
-
-            <!-- Boarding -->
-
-            <!-- Dog Walking -->
-
-            <!-- Pet Training -->
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="113dp"
-                android:layout_columnWeight="1"
-                android:background="@drawable/border"
-
-                android:orientation="vertical"
-                android:padding="12dp"
-                android:clickable="true"
-                android:focusable="true"
-                android:onClick="onInventoryClick">
-
-                <ImageView
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:layout_marginTop="10dp"
-                    android:src="@drawable/calendar"/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingTop="8dp"
-                    android:text="Total Products"
-                    android:layout_marginTop="10dp"/>
-            </LinearLayout>
-        </GridLayout>
-
-        <!-- Upcoming Appointments Section Title -->
-        <GridLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-        <GridLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/appointmentsView4"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_row="1"
-                android:layout_column="0"
-                android:padding="16dp"
-                android:scrollbars="vertical" />
-        </GridLayout>
     </LinearLayout>
 
-</FrameLayout>
+    <!-- Main Tabs (Express, Standard, Scheduled) -->
+    <LinearLayout
+        android:id="@+id/mainTabs"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toBottomOf="@id/header">
+
+        <TextView
+            android:id="@+id/tabOrders"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:padding="10dp"
+            android:text="Order"
+            android:textAlignment="center"
+            android:textColor="#000000"/>
+        <TextView
+            android:id="@+id/tabRider"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:padding="10dp"
+            android:text="Rider"
+            android:textAlignment="center"
+            android:textColor="#000000"/>
+
+        <!--        android:background="#E8E8E8"-->
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/subOrders"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="#E8E8E8"
+        app:layout_constraintTop_toBottomOf="@id/mainTabs">
+
+        <TextView
+            android:id="@+id/tabAll"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="#FFFFFF"
+            android:padding="8dp"
+            android:text="All"
+            android:textAlignment="center"
+            android:textColor="#000000"/>
+
+        <TextView
+            android:id="@+id/tabPending"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:padding="8dp"
+            android:text="Pending"
+            android:textAlignment="center"
+            android:textColor="#000000" />
+
+        <TextView
+            android:id="@+id/tabAccepted"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:padding="8dp"
+            android:text="Approved"
+            android:textAlignment="center"
+            android:textColor="#000000" />
+
+        <TextView
+            android:id="@+id/tabOutDelivery"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:padding="8dp"
+            android:text="Out of Delivery"
+            android:textAlignment="center"
+            android:textColor="#000000"/>
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/subTabsAdds"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toBottomOf="@id/subOrders">
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/Order_Recycler"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:scrollbars="vertical"
+            android:padding="10dp"
+            tools:ignore="MissingConstraints" />
+    </LinearLayout>
+
+    <!-- Bottom Navigation -->
+    <LinearLayout
+        android:id="@+id/bottomNavigation"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:orientation="horizontal"
+        android:background="#000000"
+        android:gravity="center"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <ImageView
+            android:id="@+id/navHome"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/home_green"
+            android:layout_column="0"
+            android:layout_row="0"
+            android:layout_marginLeft="35dp"
+            android:layout_gravity="center"
+            android:layout_columnWeight="1"
+            />
+
+
+        <ImageView
+            android:id="@+id/navProfile"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_weight="1"
+            android:layout_marginLeft="230dp"
+            android:src="@drawable/profile"
+            android:contentDescription="Profile"/>
+    </LinearLayout>
+
+    <!-- Center Button -->
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="30dp">
+
+        <ImageView
+            android:layout_width="52dp"
+            android:layout_height="49dp"
+            android:layout_gravity="center"
+            android:layout_marginBottom="4dp"
+            android:src="@drawable/yellow"
+            android:contentDescription="Center yellow button"/>
+    </FrameLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
