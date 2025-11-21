@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <View
+        android:id="@+id/ellipse_7"
+        android:layout_width="248dp"
+        android:layout_height="223dp"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="227dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="773dp"
+        android:background="#A8E6CF"
+        />
+
+</selector>
