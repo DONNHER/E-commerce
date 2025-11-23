@@ -23,7 +23,9 @@ import 'pages/add_to_cart_page.dart';
 import 'pages/checkout_page.dart';
 import 'pages/login_page.dart';
 import 'pages/register_page.dart';
-import 'pages/user_dashboard_page.dart';
+import 'pages/main_page.dart';
+import 'pages/add_address_page.dart';
+import 'pages/add_product_page.dart';
 import 'pages/order_history_page.dart';
 import 'pages/order_tracker_page.dart';
 import 'pages/settings_page.dart';
@@ -118,7 +120,9 @@ class MyApp extends StatelessWidget {
           CheckoutPage.routeName:      (_) => const CheckoutPage(),
           LoginPage.routeName:         (_) => const LoginPage(),
           RegisterPage.routeName:      (_) => const RegisterPage(),
-          UserDashboardPage.routeName: (_) => const UserDashboardPage(),
+          MainPage.routeName:          (_) => const MainPage(),
+          AddAddressPage.routeName:    (_) => const AddAddressPage(),
+          AddProductPage.routeName:    (_) => const AddProductPage(),
           OrderHistoryPage.routeName:  (_) => const OrderHistoryPage(),
           OrderTrackerPage.routeName:  (_) => const OrderTrackerPage(),
           SettingsPage.routeName:      (_) => const SettingsPage(),

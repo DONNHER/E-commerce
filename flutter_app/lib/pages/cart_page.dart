@@ -11,6 +11,8 @@ class CartPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final cart = Provider.of<CartProvider>(context);
+    bool allSelected = cart.items.isNotEmpty && cart.items.every((item) => item.isSelected);
+
     return Scaffold(
       appBar: AppBar(title: const Text('Cart')),
       body: cart.items.isEmpty
@@ -22,22 +24,74 @@ class CartPage extends StatelessWidget {
                     itemCount: cart.items.length,
                     itemBuilder: (context, index) {
                       final CartItem c = cart.items[index];
-                      return ListTile(
-                        leading: c.item.image.isNotEmpty ? Image.network(c.item.image, width: 56, height: 56, fit: BoxFit.cover, errorBuilder: (c,e,s)=>const Icon(Icons.fastfood)) : const Icon(Icons.fastfood),
-                        title: Text(c.item.name),
-                        subtitle: Text('₱${c.item.price.toStringAsFixed(2)} x ${c.quantity}'),
-                        trailing: IconButton(onPressed: () => cart.removeCartItem(c), icon: const Icon(Icons.delete)),
+                      return Dismissible(
+                        key: Key(c.item.id),
+                        direction: DismissDirection.endToStart,
+                        onDismissed: (direction) {
+                          cart.removeCartItem(c);
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(content: Text('Item removed from cart')),
+                          );
+                        },
+                        background: Container(
+                          color: Colors.red,
+                          alignment: Alignment.centerRight,
+                          padding: const EdgeInsets.only(right: 20.0),
+                          child: const Icon(Icons.delete, color: Colors.white),
+                        ),
+                        child: ListTile(
+                          leading: Checkbox(
+                            value: c.isSelected,
+                            onChanged: (bool? value) {
+                              cart.toggleSelection(c);
+                            },
+                          ),
+                          title: Text(c.item.name),
+                          subtitle: Text('₱${c.item.price.toStringAsFixed(2)}'),
+                          trailing: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              IconButton(onPressed: () => cart.decreaseQuantity(c), icon: const Icon(Icons.remove)),
+                              Text('${c.quantity}'),
+                              IconButton(onPressed: () => cart.increaseQuantity(c), icon: const Icon(Icons.add)),
+                            ],
+                          ),
+                        ),
                       );
                     },
                   ),
                 ),
                 Padding(
                   padding: const EdgeInsets.all(12.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  child: Column(
                     children: [
-                      Text('Total: ₱${cart.total.toStringAsFixed(2)}', style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-                      ElevatedButton(onPressed: () => Navigator.pushNamed(context, CheckoutPage.routeName), child: const Text('Checkout'))
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Row(
+                            children: [
+                              Checkbox(
+                                value: allSelected,
+                                onChanged: (bool? value) {
+                                  cart.selectAll(value ?? false);
+                                },
+                              ),
+                              const Text('Select All'),
+                            ],
+                          ),
+                          Text('Total (${cart.totalItems} items): ₱${cart.total.toStringAsFixed(2)}', style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+                        ],
+                      ),
+                      const SizedBox(height: 10),
+                      SizedBox(
+                        width: double.infinity,
+                        child: ElevatedButton(
+                          onPressed: cart.totalItems > 0
+                              ? () => Navigator.pushNamed(context, CheckoutPage.routeName)
+                              : null,
+                          child: const Text('Checkout'),
+                        ),
+                      ),
                     ],
                   ),
                 )

@@ -1,12 +1,17 @@
-import 'item.dart';
+import './item.dart';
 
 class CartItem {
   final Item item;
   int quantity;
-  bool selected;
-  List<AddOn> addOns;
+  final List<AddOn> addOns;
+  bool isSelected; // Tracks if the item is selected for checkout
 
-  CartItem({required this.item, this.quantity = 1, this.selected = false, List<AddOn>? addOns}) : addOns = addOns ?? [];
+  CartItem({
+    required this.item,
+    this.quantity = 1,
+    List<AddOn>? addOns,
+    this.isSelected = true, // Items are selected by default when added
+  }) : addOns = addOns ?? [];
 
-  double get subtotal => item.price * (quantity <= 0 ? 1 : quantity) + addOns.fold(0.0, (p, a) => p + a.price);
+  double get subtotal => item.price * quantity;
 }

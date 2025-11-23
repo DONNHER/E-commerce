@@ -1,8 +1,9 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../services/push_notification_service.dart';
-import 'user_dashboard_page.dart';
+import 'main_page.dart';
 
 class RegisterPage extends StatefulWidget {
   const RegisterPage({Key? key}) : super(key: key);
@@ -26,15 +27,22 @@ class _RegisterPageState extends State<RegisterPage> {
       );
 
       if (userCredential.user != null) {
-        await Provider.of<PushNotificationService>(context, listen: false).saveTokenToDatabase(userCredential.user!.uid);
+        final user = userCredential.user!;
+        await Provider.of<PushNotificationService>(context, listen: false).saveTokenToDatabase(user.uid);
+
+        // Save user data to the 'customers' collection
+        await FirebaseFirestore.instance.collection('customers').doc(user.uid).set({
+          'name': _name.text,
+          'email': user.email,
+          'role': 'customer',
+          'createdAt': FieldValue.serverTimestamp(),
+        });
       }
 
       ScaffoldMessenger.of(context)
-          .showSnackBar(const SnackBar(content: Text('Registered')));
+          .showSnackBar(const SnackBar(content: Text('Registered as a customer')));
 
-      // TODO: Add logic to save the user's role to your database
-
-      Navigator.of(context).pushReplacementNamed(UserDashboardPage.routeName);
+      Navigator.of(context).pushReplacementNamed(MainPage.routeName);
     } on FirebaseAuthException catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text(e.message ?? 'Auth error')),

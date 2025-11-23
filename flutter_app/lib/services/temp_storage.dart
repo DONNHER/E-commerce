@@ -30,7 +30,7 @@ class TempStorage extends ChangeNotifier {
   /// A public getter to access the list of items.
   List<Item> get items => _items;
 
-  /// Initializes a real-time listener to the 'Items' collection in Firestore.
+  /// Initializes a real-time listener to the 'items' collection in Firestore.
   ///
   /// This method sets up a stream that automatically updates the local `_items` list
   /// whenever the data changes in the database. It returns a `Future` that
@@ -39,7 +39,7 @@ class TempStorage extends ChangeNotifier {
     final completer = Completer<void>();
     // Cancel any previously active subscription to avoid memory leaks.
     _itemsSubscription?.cancel();
-    _itemsSubscription = _db.collection('Items').snapshots().listen(
+    _itemsSubscription = _db.collection('items').snapshots().listen(
       (snapshot) {
         // Map the Firestore documents to a list of `Item` objects.
         _items = snapshot.docs.map((d) => Item.fromMap(d.data(), id: d.id)).toList();

@@ -12,7 +12,7 @@ buildscript {
     }
     dependencies {
         // Google services plugin for Firebase (keeps in sync with recommended versions)
-        classpath("com.google.gms:google-services:4.3.15")
+        classpath("com.google.gms:google-services:4.4.1")
     }
 }
 

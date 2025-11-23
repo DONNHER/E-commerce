@@ -8,7 +8,7 @@ plugins {
 
 android {
     namespace = "com.example.flutter_app"
-    compileSdk = 34 // Updated to a specific modern version
+    compileSdk = 36 // Updated to a specific modern version
     ndkVersion = flutter.ndkVersion
 
     compileOptions {
@@ -25,7 +25,7 @@ android {
         applicationId = "com.example.Calayo"
         // **FIX:** Explicitly set minSdk to 21, as required by modern Firebase libraries.
         minSdk = flutter.minSdkVersion
-        targetSdk = 34 // Match compileSdk
+        targetSdk = 36 // Match compileSdk
         versionCode = 1
         versionName = "1.0"
     }
@@ -44,5 +44,10 @@ flutter {
 }
 
 dependencies {
-    // Dependencies are now managed by pubspec.yaml
+    // Import the Firebase BoM
+    implementation(platform("com.google.firebase:firebase-bom:32.3.1"))
+
+    // Add the dependency for the Firebase Authentication library
+    // When using the BoM, you don't specify versions in Firebase library dependencies
+    implementation("com.google.firebase:firebase-auth-ktx")
 }

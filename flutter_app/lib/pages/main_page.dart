@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../models/item.dart';
@@ -5,9 +6,12 @@ import '../services/temp_storage.dart';
 import '../providers/cart_provider.dart';
 import 'products_page.dart';
 import 'cart_page.dart';
+import 'settings_page.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({Key? key}) : super(key: key);
+
+  static const routeName = '/main';
 
   @override
   State<MainPage> createState() => _MainPageState();
@@ -84,74 +88,7 @@ class _MainPageState extends State<MainPage> {
             const SizedBox(height: 18),
 
             // Promo card/banner
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16.0),
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(22),
-                child: Container(
-                  color: const Color(0xFF92E3A9),
-                  height: 128,
-                  width: double.infinity,
-                  child: Stack(
-                    children: [
-                      Positioned(
-                        right: 12, top: 18,
-                        child: Image.asset('assets/images/burger.png',
-                          width: 110, height: 80, fit: BoxFit.cover,
-                          errorBuilder: (c, e, s) => const Icon(Icons.fastfood, size: 72),
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(left: 16, top: 18, right: 130),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Row(
-                              children: [
-                                const Text("Use code ", style: TextStyle(fontSize: 15)),
-                                Container(
-                                  decoration: BoxDecoration(
-                                    border: Border.all(color: Colors.black),
-                                    borderRadius: BorderRadius.circular(8),
-                                    color: Colors.white,
-                                  ),
-                                  padding: const EdgeInsets.symmetric(horizontal: 7, vertical: 1),
-                                  child: const Text("FIRST40",
-                                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
-                                  ),
-                                ),
-                                const Text(" at Checkout", style: TextStyle(fontSize: 15)),
-                              ],
-                            ),
-                            const SizedBox(height: 7),
-                            const Text("Hurry, offer end soon!", style: TextStyle(fontSize: 13)),
-                            const SizedBox(height: 10),
-                            const Text("Get 40% off\nYour First Order!",
-                              style: TextStyle(
-                                  fontSize: 21, fontWeight: FontWeight.bold),
-                            ),
-                            const SizedBox(height: 6),
-                            ElevatedButton(
-                              style: ElevatedButton.styleFrom(
-                                backgroundColor: Colors.black,
-                                minimumSize: const Size(90, 30),
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(16),
-                                ),
-                              ),
-                              onPressed: () {},
-                              child: const Text("ORDER NOW",
-                                style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 14),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ),
+            const PromoCarousel(),
             const SizedBox(height: 4),
 
             // Categories row
@@ -195,8 +132,6 @@ class _MainPageState extends State<MainPage> {
                   itemBuilder: (context, idx) => _productCard(storage.items[idx]),
                 ),
             ),
-            // Footer navigation
-            _footerNav(),
           ],
         ),
       ),
@@ -204,6 +139,22 @@ class _MainPageState extends State<MainPage> {
         backgroundColor: Colors.yellow,
         onPressed: () => Navigator.pushNamed(context, CartPage.routeName),
         child: const Icon(Icons.shopping_cart, color: Colors.black, size: 32),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      bottomNavigationBar: BottomAppBar(
+        color: Colors.black,
+        shape: const CircularNotchedRectangle(),
+        notchMargin: 8.0,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            IconButton(onPressed: () {}, icon: const Icon(Icons.home, color: Color(0xFF2CB57A), size: 34)),
+            IconButton(onPressed: () {}, icon: const Icon(Icons.fastfood, color: Colors.white, size: 34)),
+            const SizedBox(width: 40), // The space for the FAB
+            IconButton(onPressed: () {}, icon: const Icon(Icons.history, color: Colors.white, size: 34)),
+            IconButton(onPressed: () => Navigator.pushNamed(context, SettingsPage.routeName), icon: const Icon(Icons.person, color: Colors.white, size: 34)),
+          ],
+        ),
       ),
     );
   }
@@ -312,20 +263,177 @@ class _MainPageState extends State<MainPage> {
       ),
     );
   }
+}
 
-  Widget _footerNav() {
-    return Container(
-      color: Colors.black,
-      padding: const EdgeInsets.symmetric(vertical: 8.0),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: [
-          IconButton(onPressed: () {}, icon: const Icon(Icons.home, color: Color(0xFF2CB57A), size: 34)),
-          IconButton(onPressed: () {}, icon: const Icon(Icons.search, color: Color(0xFF2CB57A), size: 34)),
-          IconButton(onPressed: () {}, icon: const Icon(Icons.assignment_turned_in_rounded, color: Color(0xFF2CB57A), size: 34)),
-          IconButton(onPressed: () {}, icon: const Icon(Icons.person, color: Color(0xFF2CB57A), size: 34)),
-        ],
-      ),
+class PromoCarousel extends StatefulWidget {
+  const PromoCarousel({Key? key}) : super(key: key);
+
+  @override
+  State<PromoCarousel> createState() => _PromoCarouselState();
+}
+
+class _PromoCarouselState extends State<PromoCarousel> {
+  final List<Map<String, String>> _promoData = [
+    {
+      'image': 'assets/images/burger.png',
+      'title': 'Get 40% off\nYour First Order!',
+      'code': 'FIRST40',
+    },
+    {
+      'image': 'assets/images/pizza.png',
+      'title': 'Free Delivery\non All Pizza!',
+      'code': 'FREEPIZZA',
+    },
+    {
+      'image': 'assets/images/salad.png',
+      'title': 'Healthy Bowls\n20% Discount!',
+      'code': 'HEALTHY20',
+    },
+    {
+      'image': 'assets/images/burger.png',
+      'title': 'Buy One Get One\nOn all Burgers!',
+      'code': 'BOGO',
+    },
+    {
+      'image': 'assets/images/pizza.png', 
+      'title': 'Mega Pizza Deal\nSave up to 50%!',
+      'code': 'MEGADEAL',
+    }
+  ];
+
+  late final PageController _pageController;
+  late final Timer _timer;
+  int _currentPage = 0;
+  static const int _initialPage = 10000; // A large number to start in the middle
+
+  @override
+  void initState() {
+    super.initState();
+    _pageController = PageController(initialPage: _initialPage);
+
+    _timer = Timer.periodic(const Duration(seconds: 3), (timer) {
+      if (_pageController.hasClients) {
+        _pageController.nextPage(
+          duration: const Duration(milliseconds: 400),
+          curve: Curves.easeIn,
+        );
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    _timer.cancel();
+    _pageController.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        SizedBox(
+          height: 128,
+          child: PageView.builder(
+            controller: _pageController,
+            onPageChanged: (int page) {
+              setState(() {
+                _currentPage = page % _promoData.length;
+              });
+            },
+            itemBuilder: (context, index) {
+              final promo = _promoData[index % _promoData.length];
+              return Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(22),
+                  child: Container(
+                    color: const Color(0xFF92E3A9),
+                    child: Row(
+                      children: [
+                        Expanded(
+                          flex: 3,
+                          child: Padding(
+                            padding: const EdgeInsets.only(left: 16, top: 18),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Row(
+                                  children: [
+                                    const Text("Use code ", style: TextStyle(fontSize: 15)),
+                                    Container(
+                                      decoration: BoxDecoration(
+                                        border: Border.all(color: Colors.black),
+                                        borderRadius: BorderRadius.circular(8),
+                                        color: Colors.white,
+                                      ),
+                                      padding: const EdgeInsets.symmetric(horizontal: 7, vertical: 1),
+                                      child: Text(promo['code']!,
+                                        style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                const SizedBox(height: 10),
+                                Text(promo['title']!,
+                                  style: const TextStyle(fontSize: 21, fontWeight: FontWeight.bold),
+                                  softWrap: true, // Allow text to wrap
+                                ),
+                                const SizedBox(height: 6),
+                                ElevatedButton(
+                                  style: ElevatedButton.styleFrom(
+                                    backgroundColor: Colors.black,
+                                    minimumSize: const Size(90, 30),
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(16),
+                                    ),
+                                  ),
+                                  onPressed: () {},
+                                  child: const Text("ORDER NOW",
+                                    style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 14),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                        Expanded(
+                          flex: 2,
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Image.asset(
+                              promo['image']!,
+                              fit: BoxFit.contain,
+                              errorBuilder: (c, e, s) => const Icon(Icons.fastfood, size: 72),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              );
+            },
+          ),
+        ),
+        const SizedBox(height: 8),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: List.generate(_promoData.length, (index) {
+            return Container(
+              width: 8.0,
+              height: 8.0,
+              margin: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 2.0),
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color: _currentPage == index
+                    ? const Color.fromRGBO(0, 0, 0, 0.9)
+                    : const Color.fromRGBO(0, 0, 0, 0.4),
+              ),
+            );
+          }),
+        ),
+      ],
     );
   }
 }

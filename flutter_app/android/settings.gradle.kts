@@ -24,12 +24,3 @@ plugins {
 }
 
 include(":app")
-// --- ADD THIS SECTION FOR FLUTTER ---
-setBinding(android.databinding.tool.Binding(gradle))
-evaluate(
-    File(
-        settingsDir,
-        "flutter_app/.android/include_flutter.groovy"
-    )
-)
-// --- END FLUTTER SECTION ---

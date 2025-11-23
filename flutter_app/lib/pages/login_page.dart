@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -6,7 +7,7 @@ import 'register_page.dart'; // make sure this exists
 import 'admin_dashboard_page.dart';
 import 'seller_dashboard_page.dart';
 import 'rider_dashboard_page.dart';
-import 'user_dashboard_page.dart';
+import 'main_page.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -31,28 +32,33 @@ class _LoginPageState extends State<LoginPage> {
       );
 
       if (userCredential.user != null) {
-        await Provider.of<PushNotificationService>(context, listen: false).saveTokenToDatabase(userCredential.user!.uid);
-      }
+        final user = userCredential.user!;
+        await Provider.of<PushNotificationService>(context, listen: false).saveTokenToDatabase(user.uid);
 
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Logged in')),
-      );
-
-      // TODO: Replace with actual role-checking logic from your database
-      const String userRole = 'admin'; 
-
-      switch (userRole) {
-        case 'admin':
+        // Check user role and redirect
+        final adminDoc = await FirebaseFirestore.instance.collection('admins').doc(user.uid).get();
+        if (adminDoc.exists) {
           Navigator.of(context).pushReplacementNamed(AdminDashboardPage.routeName);
-          break;
-        case 'seller':
+          return;
+        }
+
+        final sellerDoc = await FirebaseFirestore.instance.collection('sellers').doc(user.uid).get();
+        if (sellerDoc.exists) {
           Navigator.of(context).pushReplacementNamed(SellerDashboardPage.routeName);
-          break;
-        case 'rider':
-          Navigator.of(context).pushReplacementNamed(RiderDashboardPage.routeName);
-          break;
-        default:
-          Navigator.of(context).pushReplacementNamed(UserDashboardPage.routeName);
+          return;
+        }
+
+        final customerDoc = await FirebaseFirestore.instance.collection('customers').doc(user.uid).get();
+        if (customerDoc.exists) {
+          Navigator.of(context).pushReplacementNamed(MainPage.routeName);
+          return;
+        }
+
+        // Fallback for any other case (or if user doc not found)
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('User role not found. Please contact support.')),
+        );
+
       }
     } on FirebaseAuthException catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(

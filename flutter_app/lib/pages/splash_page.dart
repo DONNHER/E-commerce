@@ -30,7 +30,7 @@ class _SplashPageState extends State<SplashPage> {
           children: [
             // Your logo asset
             Image.asset(
-              'assets/images/logo.png', // Make sure you have a logo in your assets folder
+              'assets/images/lo.png', // Make sure you have a logo in your assets folder
               width: 150,
             ),
             const SizedBox(height: 20),

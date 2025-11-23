@@ -14,31 +14,16 @@ class CartProvider extends ChangeNotifier {
   /// A public, unmodifiable view of the items in the cart.
   List<CartItem> get items => List.unmodifiable(_items);
 
-  /// Returns the currently selected item in the cart, if any.
-  CartItem? get selectedItem {
-    final idx = _items.indexWhere((c) => c.selected);
-    return idx == -1 ? null : _items[idx];
-  }
-
   /// Adds a product to the cart or updates its quantity if it already exists.
-  ///
-  /// - [item]: The product `Item` to add.
-  /// - [quantity]: The number of items to add.
-  /// - [addOns]: An optional list of add-ons for the item.
   void addItemAsCart(Item item, {int quantity = 1, List<AddOn>? addOns}) {
-    // Check if the item is already in the cart by its ID.
     final idx = _items.indexWhere((c) => c.item.id == item.id);
     if (idx != -1) {
-      // If the item exists, increase its quantity.
       final existing = _items[idx];
       existing.quantity += quantity;
-      // Add any new add-ons.
       if (addOns != null && addOns.isNotEmpty) existing.addOns.addAll(addOns);
     } else {
-      // If the item is not in the cart, add it as a new `CartItem`.
       _items.add(CartItem(item: item, quantity: quantity, addOns: addOns));
     }
-    // Notify listening widgets to rebuild.
     notifyListeners();
   }
 
@@ -68,15 +53,23 @@ class CartProvider extends ChangeNotifier {
     }
   }
 
-  /// Marks a specific `CartItem` as selected and deselects all others.
-  void selectItem(CartItem cartItem) {
-    for (var c in _items) {
-      c.selected = false;
-    }
-    cartItem.selected = true;
+  /// Toggles the selection of a specific `CartItem`.
+  void toggleSelection(CartItem cartItem) {
+    cartItem.isSelected = !cartItem.isSelected;
     notifyListeners();
   }
 
-  /// Calculates and returns the total price of all items in the cart.
-  double get total => _items.fold(0.0, (prev, c) => prev + c.subtotal);
+  /// Selects or deselects all items in the cart.
+  void selectAll(bool isSelected) {
+    for (var c in _items) {
+      c.isSelected = isSelected;
+    }
+    notifyListeners();
+  }
+
+  /// Calculates and returns the total price of all selected items in the cart.
+  double get total => _items.where((c) => c.isSelected).fold(0.0, (prev, c) => prev + c.subtotal);
+
+  /// Calculates and returns the total number of all selected items in the cart.
+  int get totalItems => _items.where((c) => c.isSelected).fold(0, (prev, c) => prev + c.quantity);
 }
